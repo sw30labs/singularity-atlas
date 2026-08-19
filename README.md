@@ -24,8 +24,9 @@ scripts/dev.sh          # neo4j up + archive seed + serve → http://localhost:8
 | Feed freshness tracking | `/api/feeds` health (last fetch, items, errors) |
 | Local AI via Ollama | Same. Zero API keys, zero registration |
 
-Plus what only this atlas has: the **Loop Archive** — all 218 *Innermost Loop* editions
-(`ref/innermost-loop/…`) seeded into the graph and full-text searchable —
+Plus what only this atlas has: the **Loop Archive** — the *Innermost Loop* editions
+(218 shipped in `ref/innermost-loop/…`, kept current from the author's official
+Substack feed) seeded into the graph and full-text searchable —
 and the *Accelerando* epoch dial with rotating Stross quotes.
 
 ## Architecture
@@ -42,13 +43,17 @@ LangGraph StateGraph   fetch → dedupe → classify → persist → score → b
                                     (:Story)-[:LOCATED]->(:Place)
         ▼
 FastAPI  /api/state /api/globe /api/brief /api/si /api/convergence
-         /api/signals /api/graph /api/archive/search /api/feeds
+         /api/signals /api/graph /api/archive/search /api/archive/sync /api/feeds
         ▼
 web/  zero-build dashboard — globe.gl + vanilla JS
 ```
 
 - Ingest runs every 15 min (APScheduler); `POST /api/ingest` for a manual cycle,
   `POST /api/brief/regenerate` to re-synthesize today's edition.
+- The Loop Archive syncs daily from the author's official Substack feed. New
+  editions are written to `data/loop_issues/` and pushed straight into the
+  graph; `POST /api/archive/sync` pulls immediately. `/api/state.loop_sync`
+  reports when the feed was last checked and what arrived.
 - The LLM is optional: everything degrades to heuristics when Ollama is offline.
 
 ## Setup
@@ -57,7 +62,7 @@ web/  zero-build dashboard — globe.gl + vanilla JS
 uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
 ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
-uv run python -m singularity_atlas.seed           # 218 editions → graph (once)
+uv run python -m singularity_atlas.seed           # shipped editions → graph (once)
 scripts/dev.sh                                    # or: uv run uvicorn singularity_atlas.api:app --port 8055
 ```
 
@@ -72,7 +77,7 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 
 ## Notes
 
-- Reference corpora stay in `ref/` (218 newsletter editions; *Accelerando* for the
+- Reference corpora stay in `ref/` (the 218 shipped editions; *Accelerando* for the
   epoch dial + header quotes). Nothing is uploaded anywhere.
 - Feeds are all public: no auth, no registration, no API keys.
 - Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)

@@ -1,5 +1,9 @@
-"""The Loop Archive: the 218 Innermost Loop editions as a searchable,
-graph-seedable corpus. Pure local markdown — no network, no auth.
+"""The Loop Archive: the Innermost Loop editions as a searchable,
+graph-seedable corpus of local markdown.
+
+Two sources, same format: the fixed corpus shipped under ``ref/`` and any
+newer editions ``loop_sync`` has fetched into ``data/loop_issues/``. Reading
+stays offline; only ``loop_sync`` touches the network.
 """
 
 from __future__ import annotations
@@ -42,34 +46,69 @@ def plain_text(body: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
-def load_issues() -> list[dict]:
+def invalidate() -> None:
+    """Drop the in-process cache after loop_sync writes new editions."""
     global _ISSUES
-    if _ISSUES is not None:
-        return _ISSUES
+    _ISSUES = None
+
+
+def _slug(url: str, path) -> str:
+    """Stable identity for an edition: the Substack post slug."""
+    tail = url.rstrip("/").rsplit("/", 1)[-1] if url else ""
+    if tail:
+        return tail
+    # filename shape is NNN--YYYY-MM-DD--slug.md
+    parts = path.stem.split("--", 2)
+    return parts[2] if len(parts) == 3 else path.stem
+
+
+def _read_dir(directory) -> list[dict]:
     issues = []
-    for path in sorted(config.LOOP_ARCHIVE_DIR.glob("*.md")):
+    for path in sorted(directory.glob("*.md")):
         raw = path.read_text(encoding="utf-8")
         fm = _parse_front_matter(raw)
         body = _body(raw)
         text = plain_text(body)
+        url = fm.get("source_url", "")
         issues.append({
             "edition": int(fm.get("edition_number", "0") or 0),
             "date": fm.get("issue_date", ""),
             "title": fm.get("title", path.stem),
-            "url": fm.get("source_url", ""),
+            "url": url,
+            "slug": _slug(url, path),
             "description": fm.get("description", ""),
             "word_count": int(fm.get("word_count", "0") or 0),
             "body": body,
             "text": text,
         })
+    return issues
+
+
+def load_issues() -> list[dict]:
+    """Shipped corpus plus fetched editions, deduped by slug, oldest first."""
+    global _ISSUES
+    if _ISSUES is not None:
+        return _ISSUES
+    issues = _read_dir(config.LOOP_ARCHIVE_DIR)
+    seen = {it["slug"] for it in issues}
+    if config.LOOP_FETCH_DIR.exists():
+        for it in _read_dir(config.LOOP_FETCH_DIR):
+            # the shipped corpus wins if an edition somehow exists in both
+            if it["slug"] not in seen:
+                seen.add(it["slug"])
+                issues.append(it)
+    issues.sort(key=lambda it: (it["edition"], it["date"]))
     _ISSUES = issues
     return issues
 
 
-def as_stories() -> list[dict]:
-    """Convert editions to story dicts for graph seeding (origin=archive)."""
+def as_stories(issues: list[dict] | None = None) -> list[dict]:
+    """Convert editions to story dicts for graph seeding (origin=archive).
+
+    Defaults to the whole archive; pass a subset to persist just new editions.
+    """
     stories = []
-    for it in load_issues():
+    for it in issues if issues is not None else load_issues():
         text = f"{it['title']}\n{it['description']}\n{it['text'][:1200]}"
         scores = taxonomy.classify_text(text)
         entities = taxonomy.extract_entities(text)
