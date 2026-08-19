@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -77,12 +77,33 @@ class TestComputeSI:
         assert si["si"] == pytest.approx(6 * scoring.CONVERGENCE_BONUS, abs=0.05)
 
     def test_delta_vs_history(self, monkeypatch):
+        now = datetime.now(timezone.utc)
         self._patch_store(monkeypatch, stories=[], history=[
-            {"ts": "2026-08-18T00:00:00+00:00", "si": 10.0},
-            {"ts": "2026-08-18T12:00:00+00:00", "si": 20.0},
+            {"ts": (now - timedelta(days=2)).isoformat(), "si": 10.0},
+            {"ts": (now - timedelta(days=1)).isoformat(), "si": 20.0},
         ])
         si = scoring.compute_si()
         assert si["delta"] == pytest.approx(0.0 - 15.0, abs=0.05)
+
+    def test_delta_ignores_snapshots_older_than_baseline_window(self, monkeypatch):
+        """Snapshots outside config.SI_BASELINE_DAYS must not skew the mean."""
+        now = datetime.now(timezone.utc)
+        stale = now - timedelta(days=config.SI_BASELINE_DAYS + 3)
+        self._patch_store(monkeypatch, stories=[], history=[
+            {"ts": stale.isoformat(), "si": 99.0},                      # too old
+            {"ts": (now - timedelta(hours=6)).isoformat(), "si": 20.0},  # in window
+        ])
+        si = scoring.compute_si()
+        # only the 20.0 snapshot counts; the 99.0 outlier is out of window
+        assert si["delta"] == pytest.approx(0.0 - 20.0, abs=0.05)
+
+    def test_delta_zero_when_all_history_is_stale(self, monkeypatch):
+        now = datetime.now(timezone.utc)
+        stale = now - timedelta(days=config.SI_BASELINE_DAYS + 1)
+        self._patch_store(monkeypatch, stories=[],
+                          history=[{"ts": stale.isoformat(), "si": 50.0}])
+        si = scoring.compute_si()
+        assert si["delta"] == 0.0
 
     def test_weights_sum_to_one(self):
         total = sum(m["weight"] for m in config.VECTORS.values())
