@@ -117,6 +117,12 @@ function initGlobe() {
   world.controls().autoRotate = true;
   world.controls().autoRotateSpeed = 0.32;
   world.controls().enableZoom = true;
+  // ?demo=1: slightly faster globe + ticker so a short README gif shows motion
+  // without looking frantic (production rotate is 0.32; ticker is 120s).
+  if (new URLSearchParams(location.search).get("demo") === "1") {
+    document.body.classList.add("demo");
+    world.controls().autoRotateSpeed = 1.1;
+  }
 
   const resize = () => world.width($("#globe").clientWidth).height($("#globe").clientHeight);
   window.addEventListener("resize", resize);

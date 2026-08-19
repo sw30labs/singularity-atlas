@@ -1,21 +1,19 @@
 # The Singularity Atlas
 
-An independent Python application inspired by [worldmonitor](https://github.com/koala73/worldmonitor)'s
-situational-awareness dashboard, re-aimed at a single subject: **the approach of the Singularity**.
-No worldmonitor code is used here — see [NOTICE](NOTICE).
+The news of the AI build-out — models, fabs, capital, robots, launches — does not arrive as one story. **The Singularity Atlas is a local situational-awareness dashboard that fuses those public feeds into a globe, eight live vectors, a composite Singularity Index, and a daily brief, so you can watch the approach in one place instead of fourteen tabs.**
 
-A 3D globe of the AI build-out (datacenters, fabs, labs, launch pads), eight live signal panels,
-a cross-stream convergence radar, a composite **Singularity Index**, and a daily digest
-synthesized by a local LLM in the register of Alex Wissner-Gross's *The Innermost Loop* —
-all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembered by **Neo4j**.
+![The Singularity Atlas dashboard — rotating globe, live ticker, Singularity Index](docs/dashboard.gif)
+
+What you get when it boots: datacenters, fabs, labs and pads on a 3D globe; Capability · Compute · Capital · Embodiment · Agency · Security · Space · Culture as live panels; entities that cross two or more streams in 72 hours; a 0–100 index with a Slow Takeoff → Point of Inflexion → Singularity dial; and *The Daily Loop*, written on-machine (Ollama) or by heuristics if the LLM is down. No API keys, no account, nothing uploaded.
 
 ```
-./setup_and_run.sh      # deps + neo4j + seed + first ingest + tests + serve → http://localhost:8055
+./setup_and_run.sh --sync      # deps + neo4j + seed + Loop feed + first ingest + serve → http://localhost:8055
 ```
 
 Fresh machine from a clone: [QUICKSTART.md](QUICKSTART.md).
 
-## Ideas borrowed from worldmonitor, and what they became here
+<details>
+<summary>Ideas borrowed from worldmonitor, and what they became here</summary>
 
 | worldmonitor | The Singularity Atlas |
 |---|---|
@@ -32,24 +30,11 @@ Plus what only this atlas has: the **Loop Archive** — the *Innermost Loop* edi
 and full-text searchable —
 and the *Accelerando* epoch dial with rotating Stross quotes.
 
+</details>
+
 ## Architecture
 
-```
-feeds (RSS / arXiv / HN / LaunchLibrary / GDELT)
-        │  async, no auth
-        ▼
-LangGraph StateGraph   fetch → dedupe → classify → persist → score → brief
-        │                                   │            │          └ qwen3 via Ollama (heuristic fallback)
-        ▼                                   ▼            ▼
-     seen.json                       Neo4j (:Story)-[:ABOUT]->(:Vector)      SI snapshots (JSONL)
-                                    (:Story)-[:MENTIONS]->(:Entity)
-                                    (:Story)-[:LOCATED]->(:Place)
-        ▼
-FastAPI  /api/state /api/globe /api/brief /api/si /api/convergence
-         /api/signals /api/graph /api/archive/search /api/archive/sync /api/feeds
-        ▼
-web/  zero-build dashboard — globe.gl + vanilla JS
-```
+![Architecture of the Singularity Atlas — public feeds through LangGraph into Neo4j and a FastAPI dashboard](docs/architecture.png)
 
 - Ingest runs every 15 min **inside the dashboard process** (APScheduler, not
   cron — it stops when uvicorn does); `POST /api/ingest` for a manual cycle,
@@ -101,6 +86,11 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 - Feeds are all public: no auth, no registration, no API keys.
 - Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)
   RETURN e, s LIMIT 80`).
+- The README gif is a capture of the live dashboard (`docs/dashboard.gif`).
+  Regenerate with the server up: `uv run --with playwright python scripts/capture_readme_gif.py`
+  (`?demo=1` slightly speeds the globe and ticker so ten seconds of gif still shows motion).
+- Architecture figure source: `docs/architecture.html` (diagram-design). The PNG is a
+  diagram-only export of that file.
 
 ## Licence
 
