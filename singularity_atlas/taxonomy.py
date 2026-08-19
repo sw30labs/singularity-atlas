@@ -8,7 +8,6 @@ The LLM pass (pipeline.classify) refines only ambiguous or high-value items.
 from __future__ import annotations
 
 import re
-from collections import defaultdict
 
 # ---------------------------------------------------------------------------
 # Keyword fields per vector. Multi-word phrases match on substrings;

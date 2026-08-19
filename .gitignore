@@ -6,6 +6,15 @@ dist/
 wheels/
 *.egg-info
 
+# Tooling caches / coverage
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# macOS
+.DS_Store
+
 # Virtual environments
 .venv
 
