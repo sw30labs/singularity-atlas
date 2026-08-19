@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # The Singularity Atlas — one-shot setup + run: dependencies, Neo4j, the Loop
-# Archive seed, then the dashboard.
+# Archive seed, one feed ingest, then the dashboard.
 #
 # Usage:
-#   ./setup_and_run.sh                # sync deps, Neo4j up, seed, test, serve
+#   ./setup_and_run.sh                # sync deps, Neo4j up, seed, ingest, test, serve
 #   ./setup_and_run.sh --setup-only   # everything except serving
 #   ./setup_and_run.sh --no-tests     # skip the suite (faster restarts)
-#   ./setup_and_run.sh --sync         # pull new Loop editions now, then serve
+#   ./setup_and_run.sh --sync         # pull new Loop editions now, then ingest + serve
 #   ./setup_and_run.sh --help
 #
 # Env overrides: ATLAS_HOST, ATLAS_PORT, ATLAS_NEO4J_URI, ATLAS_NEO4J_PASSWORD,
@@ -128,6 +128,11 @@ r = loop_sync.sync_and_persist(store)
 print(f\"    new={r['new']} persisted={r['persisted']} latest={r.get('latest')} error={r['error']}\")
 "
 fi
+
+# One cycle before bind so the first page load is not an empty graph. Later
+# cycles are APScheduler jobs inside uvicorn (every 15 min) — not cron.
+echo "==> First feed ingest (one cycle)"
+uv run python -m singularity_atlas.pipeline
 
 if [ "$SETUP_ONLY" -eq 1 ]; then
   echo "==> Setup complete (--setup-only); not starting the server"
