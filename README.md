@@ -10,8 +10,10 @@ synthesized by a local LLM in the register of Alex Wissner-Gross's *The Innermos
 all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembered by **Neo4j**.
 
 ```
-./setup_and_run.sh      # deps + neo4j + seed + tests + serve → http://localhost:8055
+./setup_and_run.sh      # deps + neo4j + seed + first ingest + tests + serve → http://localhost:8055
 ```
+
+Fresh machine from a clone: [QUICKSTART.md](QUICKSTART.md).
 
 ## Ideas borrowed from worldmonitor, and what they became here
 
@@ -49,7 +51,8 @@ FastAPI  /api/state /api/globe /api/brief /api/si /api/convergence
 web/  zero-build dashboard — globe.gl + vanilla JS
 ```
 
-- Ingest runs every 15 min (APScheduler); `POST /api/ingest` for a manual cycle,
+- Ingest runs every 15 min **inside the dashboard process** (APScheduler, not
+  cron — it stops when uvicorn does); `POST /api/ingest` for a manual cycle,
   `POST /api/brief/regenerate` to re-synthesize today's edition.
 - The Loop Archive syncs daily from the author's official Substack feed. New
   editions are written to `data/loop_issues/` and pushed straight into the
@@ -59,19 +62,24 @@ web/  zero-build dashboard — globe.gl + vanilla JS
 
 ## Setup
 
+Clone-from-scratch, prerequisites, and what a fresh clone does *not* include:
+[QUICKSTART.md](QUICKSTART.md).
+
 ```bash
 uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
 ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
 uv run python -m singularity_atlas.seed           # local archive → graph (once)
-./setup_and_run.sh                                # or all of the above in one step
+./setup_and_run.sh --sync                         # or all of the above in one step, plus Loop feed + first ingest
 ```
 
 Useful CLIs: `uv run python -m singularity_atlas.feeds` (smoke-test all feeds) ·
 `uv run python -m singularity_atlas.pipeline` (one ingest cycle).
 
 `./setup_and_run.sh` is the canonical entry point (`--setup-only`, `--no-tests`,
-`--sync`, `--help`); it clears a stale dashboard holding the port before
+`--sync`, `--help`); it runs one feed ingest before serving so the dashboard
+is not empty on first paint, then uvicorn's scheduler keeps ingesting every
+15 min (not cron). It clears a stale dashboard holding the port before
 starting, since a forgotten instance keeps ingesting in the background.
 `scripts/dev.sh` is a shim that forwards to it.
 
