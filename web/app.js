@@ -306,6 +306,39 @@ function renderTicker() {
 
 $("#drawer-close").addEventListener("click", () => $("#drawer").classList.add("hidden"));
 
+const ACCEL_URL = "https://www.antipope.org/charlie/blog-static/fiction/accelerando/accelerando-intro.html";
+
+$("#lobster").addEventListener("click", () => {
+  openDrawer("THE LOBSTERS", `
+    <p>First uploads in <em>Accelerando</em>: California spiny lobsters, mapped
+    neuron by neuron, then dropped into a human internet they were never built
+    for. They crew the early deep-space factories. They are the ones who hear
+    the extrasolar signal. Manfred figures he will be a lobster too, one day.</p>
+    <h2>SOURCE</h2>
+    <p><a href="${ACCEL_URL}" target="_blank" rel="noopener">Charles Stross — Accelerando</a></p>
+    <p class="dim">CC BY-NC-ND 2.5 · free from the author. The glyph is original
+    to this dashboard, not a reproduction of the book.</p>
+  `);
+});
+
+function setAineko(watching) {
+  const el = $("#aineko");
+  if (!el) return;
+  el.classList.toggle("watching", watching);
+  el.title = watching ? "Aineko · watching the ingest" : "Aineko · idle";
+  const lab = el.querySelector(".aineko-label");
+  if (lab) lab.textContent = watching ? "WATCH" : "IDLE";
+}
+
+async function pollIngest() {
+  try {
+    const r = await fetch("/api/ingest").then((x) => x.json());
+    setAineko(!!r.running);
+  } catch (e) {
+    /* leave the last state; the 30s state poll will catch up */
+  }
+}
+
 function openDrawer(title, html) {
   $("#drawer-title").textContent = title;
   $("#drawer-body").innerHTML = html;
@@ -402,6 +435,7 @@ async function pollState() {
     renderOnThisDate();
     renderTicker();
     rebuildGlobeLayers();
+    setAineko(!!STATE.ingest_running);
   } catch (e) {
     console.warn("state poll failed", e);
   }
@@ -424,5 +458,7 @@ try {
 }
 pollState();
 pollGlobe();
+pollIngest();
 setInterval(pollState, 30000);
 setInterval(pollGlobe, 300000);
+setInterval(pollIngest, 2000);
