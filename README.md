@@ -81,7 +81,8 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
   published. A fresh clone therefore starts with an empty archive — the archive
   panels return nothing until the daily sync (or `POST /api/archive/sync`)
   populates `data/loop_issues/` from the public feed, which exposes the latest
-  20 editions. *Accelerando* stays in `ref/` under its own CC licence.
+  20 editions. *Accelerando* is not in the repo either — read it from the
+  author's free edition (link in [NOTICE](NOTICE)).
 - Nothing is uploaded anywhere.
 - Feeds are all public: no auth, no registration, no API keys.
 - Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)
@@ -97,8 +98,9 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 Apache 2.0 — see [LICENSE](LICENSE). That grant covers the code in this
 repository only.
 
-It does **not** cover `ref/`, which redistributes two third-party published
-works under their own, more restrictive terms: *Accelerando* (Charles Stross,
-CC BY-NC-ND 2.5 — noncommercial, no derivatives) and the *Innermost Loop*
-archive (Dr. Alex Wissner-Gross, all rights reserved). [NOTICE](NOTICE) records
-the full attribution, the acknowledgements, and the scope of each licence.
+It does **not** cover `ref/`, which is gitignored: a local *Accelerando*
+(Charles Stross, CC BY-NC-ND 2.5) and a local *Innermost Loop* archive
+(Dr. Alex Wissner-Gross, all rights reserved) may sit on a developer's
+machine, but this repository does not redistribute either. [NOTICE](NOTICE)
+records the full attribution, the acknowledgements, and the scope of each
+licence.

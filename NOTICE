@@ -28,9 +28,8 @@ The Apache 2.0 licence in LICENSE covers the original work in this repository:
     setup_and_run.sh, docker-compose.yml, pyproject.toml, README.md,
     QUICKSTART.md, docs/
 
-It does NOT cover anything under ref/. That directory holds third-party
-published works redistributed under their own terms, which are more restrictive
-than Apache 2.0 and are not altered by this repository's licence. See
+It does NOT cover anything under ref/. That directory is for local copies of
+third-party published works and is not part of this repository. See
 "Third-party works under ref/" below.
 
 
@@ -69,20 +68,17 @@ THIRD-PARTY WORKS UNDER ref/
 ================================================================================
 
 Other people's published work. None of it is licensed under Apache 2.0, and
-this repository grants no rights in any of it beyond what its own licence
-already allows. One is redistributed here under that licence; the other is
+this repository grants no rights in any of it. Both trees under ref/ are
 gitignored and deliberately not published.
 
-ref/accelerando/
+ref/accelerando/   -- NOT IN VERSION CONTROL
     "Accelerando" by Charles Stross. Copyright (C) Charles Stross, 2005.
     Licensed by its author under Creative Commons Attribution-NonCommercial-
     NoDerivs 2.5 — https://creativecommons.org/licenses/by-nc-nd/2.5/
-    It may be shared noncommercially, with attribution and the licence notice
-    intact. It may not be sold, altered, or made into a derivative work. The
-    licence notice is preserved inside Accelerando.md and the source files.
-
-    NOTE: these terms conflict with Apache 2.0, which permits commercial use and
-    derivative works. The CC BY-NC-ND terms govern this directory.
+    The free edition lives at
+    https://www.antipope.org/charlie/blog-static/fiction/accelerando/accelerando-intro.html
+    A local copy may sit here on a developer's machine; this repository does
+    not redistribute it.
 
 ref/innermost-loop/   -- NOT IN VERSION CONTROL
     "The Innermost Loop" by Dr. Alex Wissner-Gross. Copyright remains with the
