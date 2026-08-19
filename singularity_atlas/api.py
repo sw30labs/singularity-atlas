@@ -46,6 +46,7 @@ def api_state() -> dict:
         "llm": {"available": llm.available(), "preferred": config.OLLAMA_MODEL,
                 "active": llm.current_model()},
         "quotes": config.ACCELERANDO_QUOTES,
+        "si_baseline_days": config.SI_BASELINE_DAYS,
         "on_this_date": loop_archive.on_this_date(),
         "last_ingest": scheduler.last_run(),
     }

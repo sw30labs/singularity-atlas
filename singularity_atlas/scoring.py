@@ -16,7 +16,7 @@ Kurzweil's 2045. Everything here is a heuristic — transparent by design.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from . import config, store
 
@@ -84,13 +84,22 @@ def compute_si() -> dict:
         "n_stories_24h": len(stories),
     }
 
-    # delta vs 7-day mean of prior snapshots (if any)
-    hist = [h for h in store.si_history() if h.get("ts", "") < now.isoformat()]
-    if hist:
-        recent = hist[-56:]  # ~14d at 4/day, whatever's there
-        mean = sum(h["si"] for h in recent) / len(recent)
-        snapshot["delta"] = round(snapshot["si"] - mean, 1)
-    else:
-        snapshot["delta"] = 0.0
+    # delta vs the mean of prior snapshots inside the baseline window.
+    # Selected by timestamp, not row count, so the window stays honest if the
+    # ingest cadence changes or the scheduler was down for a stretch.
+    snapshot["delta"] = _delta_vs_baseline(snapshot["si"], now)
 
     return snapshot
+
+
+def _delta_vs_baseline(si: float, now: datetime) -> float:
+    """SI minus the mean of prior snapshots within config.SI_BASELINE_DAYS."""
+    cutoff = (now - timedelta(days=config.SI_BASELINE_DAYS)).isoformat()
+    # Ask for enough rows to span the window at the current cadence, plus slack.
+    rows = int(config.SI_BASELINE_DAYS * 24 * 60 / config.INGEST_INTERVAL_MIN) + 8
+    recent = [h for h in store.si_history(limit=rows)
+              if cutoff <= h.get("ts", "") < now.isoformat()]
+    if not recent:
+        return 0.0
+    mean = sum(h["si"] for h in recent) / len(recent)
+    return round(si - mean, 1)
