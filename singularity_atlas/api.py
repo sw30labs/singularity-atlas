@@ -11,7 +11,8 @@ from fastapi import FastAPI, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import config, feeds, llm, loop_archive, scheduler, scoring, store
+from . import (config, feeds, llm, loop_archive, loop_sync, scheduler,
+               scoring, store)
 
 
 @asynccontextmanager
@@ -48,6 +49,7 @@ def api_state() -> dict:
         "quotes": config.ACCELERANDO_QUOTES,
         "si_baseline_days": config.SI_BASELINE_DAYS,
         "on_this_date": loop_archive.on_this_date(),
+        "loop_sync": loop_sync.last_sync(),
         "last_ingest": scheduler.last_run(),
     }
 
@@ -124,6 +126,12 @@ def api_archive_search(q: str = Query(..., min_length=2)) -> dict:
 @app.get("/api/archive/entity")
 def api_archive_entity(name: str = Query(...)) -> dict:
     return {"entity": name, "editions": loop_archive.entity_editions(name, limit=10)}
+
+
+@app.post("/api/archive/sync")
+def api_archive_sync() -> dict:
+    """Pull any new editions now, instead of waiting for the daily job."""
+    return scheduler.run_loop_sync_safe()
 
 
 @app.get("/api/feeds")

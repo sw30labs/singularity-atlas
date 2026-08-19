@@ -19,6 +19,8 @@ SEEN_FILE = DATA_DIR / "seen.json"          # dedupe fingerprints
 SI_HISTORY_FILE = DATA_DIR / "si_history.jsonl"
 FEED_HEALTH_FILE = DATA_DIR / "feed_health.json"
 LOOP_ARCHIVE_DIR = ROOT / "ref" / "innermost-loop" / "the-innermost-loop-markdown" / "issues"
+LOOP_FETCH_DIR = DATA_DIR / "loop_issues"   # editions fetched after the shipped corpus
+LOOP_SYNC_STATE_FILE = DATA_DIR / "loop_sync.json"
 WEB_DIR = ROOT / "web"
 
 # ---------------------------------------------------------------------------
@@ -47,6 +49,7 @@ USER_AGENT = "singularity-atlas/0.1 (+https://localhost/singularity-atlas)"
 # Ingest scheduling
 # ---------------------------------------------------------------------------
 INGEST_INTERVAL_MIN = 15
+LOOP_SYNC_INTERVAL_H = 24        # Alex posts ~daily; the feed holds 20 issues
 BRIEF_MIN_NEW_ITEMS = 6          # skip brief if fewer new stories
 BRIEF_TOP_N = 14                 # stories fed to the LLM for the daily loop
 SIGNAL_WINDOW_H = 72             # convergence window
@@ -101,6 +104,11 @@ ACCELERANDO_QUOTES = [
 # Feeds — all verified reachable, none require auth or registration.
 # kind: rss | arxiv | hn | launches | gdelt
 # ---------------------------------------------------------------------------
+# The Innermost Loop — the author's official Substack mirror. Fetched into the
+# Loop Archive (not FEEDS) so editions keep full text for archive search.
+LOOP_FEED_URL = "https://theinnermostloop.substack.com/feed"
+LOOP_FETCH_LIMIT = 20
+
 FEEDS: list[dict] = [
     # -- research pulse -----------------------------------------------------
     {"id": "arxiv-cs-ai", "kind": "arxiv", "label": "arXiv cs.AI",

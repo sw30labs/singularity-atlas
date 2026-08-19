@@ -38,9 +38,14 @@ def requires_neo4j(neo4j_up):
 
 @pytest.fixture(autouse=True)
 def _isolate_files(tmp_path, monkeypatch):
-    """Point on-disk state (seen.json, si_history.jsonl, feed health) at tmp."""
-    from singularity_atlas import config
+    """Point on-disk state at tmp so tests never touch the real data/ dir."""
+    from singularity_atlas import config, loop_archive
     monkeypatch.setattr(config, "SEEN_FILE", tmp_path / "seen.json")
     monkeypatch.setattr(config, "SI_HISTORY_FILE", tmp_path / "si_history.jsonl")
     monkeypatch.setattr(config, "FEED_HEALTH_FILE", tmp_path / "feed_health.json")
+    monkeypatch.setattr(config, "LOOP_FETCH_DIR", tmp_path / "loop_issues")
+    monkeypatch.setattr(config, "LOOP_SYNC_STATE_FILE", tmp_path / "loop_sync.json")
+    # the archive caches parsed editions in-process; keep tests independent
+    loop_archive.invalidate()
     yield
+    loop_archive.invalidate()
