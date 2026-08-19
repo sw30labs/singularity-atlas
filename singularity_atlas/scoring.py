@@ -1,7 +1,8 @@
 """The Singularity Index (SI): a composite 0-100 proximity score.
 
-Port of worldmonitor's Country Instability Index idea, re-aimed: instead of
-country stress, we score how loud each Singularity vector is right now.
+Reimplements the idea behind worldmonitor's Country Instability Index (no code
+in common), re-aimed: instead of country stress, we score how loud each
+Singularity vector is right now.
 
 Per vector v:
     raw_v   = Σ (1 + salience) over stories about v in the last 24h

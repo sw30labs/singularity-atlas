@@ -1,10 +1,12 @@
 [project]
 name = "singularity-atlas"
 version = "0.1.0"
-description = "The Singularity Atlas — a worldmonitor-style situational-awareness dashboard for the approach of the Singularity"
+description = "The Singularity Atlas — a situational-awareness dashboard for the approach of the Singularity"
 authors = [
     { name = "Nicolas Cravino", email = "ncravino@mac.com" }
 ]
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.12"
 dependencies = [
     "apscheduler>=3.11.3",
