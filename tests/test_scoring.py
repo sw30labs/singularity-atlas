@@ -1,0 +1,89 @@
+"""Scoring: epoch mapping, countdown, and the composite SI with a mocked store."""
+
+from __future__ import annotations
+
+from datetime import datetime, timezone
+
+import pytest
+
+from singularity_atlas import config, scoring
+
+
+class TestEpoch:
+    @pytest.mark.parametrize("si,idx", [(0, 0), (33.9, 0), (34, 1), (66.9, 1),
+                                        (67, 2), (100, 2)])
+    def test_boundaries(self, si, idx):
+        assert scoring._epoch(si)["index"] == idx
+        assert scoring._epoch(si)["name"] == config.EPOCHS[idx]["name"]
+
+
+class TestCountdown:
+    def test_target(self):
+        cd = scoring.countdown()
+        assert cd["target"] == f"{config.SINGULARITY_YEAR}-01-01"
+        assert cd["days"] > 0
+        assert cd["years"] == pytest.approx(cd["days"] / 365.25, abs=0.01)
+
+    def test_countdown_decreases(self):
+        # sanity: today is closer to 2045 than the project's epoch start was
+        now = datetime.now(timezone.utc)
+        assert now < datetime(config.SINGULARITY_YEAR, 1, 1, tzinfo=timezone.utc)
+
+
+def _story(vectors: dict, salience: float = 1.0) -> dict:
+    return {"id": "x", "vectors": vectors, "salience": salience}
+
+
+class TestComputeSI:
+    def _patch_store(self, monkeypatch, stories, conv=None, history=None):
+        monkeypatch.setattr(scoring.store, "recent_stories", lambda **k: stories)
+        monkeypatch.setattr(scoring.store, "convergence", lambda **k: conv or [])
+        monkeypatch.setattr(scoring.store, "si_history", lambda *a, **k: history or [])
+
+    def test_empty_world(self, monkeypatch):
+        self._patch_store(monkeypatch, stories=[])
+        si = scoring.compute_si()
+        assert si["si"] == 0.0
+        assert si["epoch"]["index"] == 0
+        assert si["delta"] == 0.0
+        assert set(si["vectors"].keys()) == set(config.VECTOR_NAMES)
+
+    def test_saturated_world(self, monkeypatch):
+        stories = [_story({v: 1.0}, salience=50.0)
+                   for v in config.VECTOR_NAMES for _ in range(100)]
+        self._patch_store(monkeypatch, stories=stories,
+                          conv=[{"name": f"E{i}"} for i in range(20)])
+        si = scoring.compute_si()
+        assert si["si"] == pytest.approx(100.0)
+        assert si["epoch"]["index"] == 2
+        assert len(si["convergent_entities"]) == 20
+
+    def test_weighted_composite(self, monkeypatch):
+        # one story per vector with equal salience → score follows raw formula
+        stories = [_story({v: 1.0}, salience=1.0) for v in config.VECTOR_NAMES]
+        self._patch_store(monkeypatch, stories=stories)
+        si = scoring.compute_si()
+        expected_per = 100.0 * 2.0 / (2.0 + scoring.K_HALF)
+        weighted = sum(expected_per * m["weight"] for m in config.VECTORS.values())
+        assert si["si"] == pytest.approx(min(100.0, weighted), abs=0.1)
+        for v in config.VECTOR_NAMES:
+            assert si["vectors"][v]["score"] == pytest.approx(expected_per, abs=0.05)
+
+    def test_convergence_bonus_capped(self, monkeypatch):
+        self._patch_store(monkeypatch, stories=[],
+                          conv=[{"name": f"E{i}"} for i in range(50)])
+        si = scoring.compute_si()
+        # zero volume + capped bonus (6 * 1.0)
+        assert si["si"] == pytest.approx(6 * scoring.CONVERGENCE_BONUS, abs=0.05)
+
+    def test_delta_vs_history(self, monkeypatch):
+        self._patch_store(monkeypatch, stories=[], history=[
+            {"ts": "2026-08-18T00:00:00+00:00", "si": 10.0},
+            {"ts": "2026-08-18T12:00:00+00:00", "si": 20.0},
+        ])
+        si = scoring.compute_si()
+        assert si["delta"] == pytest.approx(0.0 - 15.0, abs=0.05)
+
+    def test_weights_sum_to_one(self):
+        total = sum(m["weight"] for m in config.VECTORS.values())
+        assert total == pytest.approx(1.0)

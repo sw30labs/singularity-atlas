@@ -1,0 +1,79 @@
+# The Singularity Atlas
+
+A Python port of [worldmonitor](https://github.com/koala73/worldmonitor)'s situational-awareness
+experience, re-aimed at a single subject: **the approach of the Singularity**.
+
+A 3D globe of the AI build-out (datacenters, fabs, labs, launch pads), eight live signal panels,
+a cross-stream convergence radar, a composite **Singularity Index**, and a daily digest
+synthesized by a local LLM in the register of Alex Wissner-Gross's *The Innermost Loop* —
+all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembered by **Neo4j**.
+
+```
+scripts/dev.sh          # neo4j up + archive seed + serve → http://localhost:8055
+```
+
+## What was ported / cannibalized from worldmonitor
+
+| worldmonitor | The Singularity Atlas |
+|---|---|
+| 3D globe (globe.gl) + layer catalog | Same library. Layers: datacenters, fabs, labs, launch pads + upcoming launches, geolocated AI signals, co-mention flow arcs |
+| Panel inventory | 8 vector panels: Capability · Compute · Capital · Embodiment · Agency · Security · Space · Culture |
+| AI-synthesized briefs | **The Daily Loop** — qwen3 (Ollama) writes today's edition from the top signals |
+| Country Instability Index | **Singularity Index** — composite 0–100, 8 sub-indices, sparkline, Stross epoch dial (Slow Takeoff → Point of Inflexion → Singularity) + countdown to 2045 |
+| Cross-stream correlation | **Convergence radar** — entities crossing ≥2 streams in 72h (click for constellation + "Alex wrote about this") |
+| Feed freshness tracking | `/api/feeds` health (last fetch, items, errors) |
+| Local AI via Ollama | Same. Zero API keys, zero registration |
+
+Plus what only this atlas has: the **Loop Archive** — all 218 *Innermost Loop* editions
+(`ref/innermost-loop/…`) seeded into the graph and full-text searchable —
+and the *Accelerando* epoch dial with rotating Stross quotes.
+
+## Architecture
+
+```
+feeds (RSS / arXiv / HN / LaunchLibrary / GDELT)
+        │  async, no auth
+        ▼
+LangGraph StateGraph   fetch → dedupe → classify → persist → score → brief
+        │                                   │            │          └ qwen3 via Ollama (heuristic fallback)
+        ▼                                   ▼            ▼
+     seen.json                       Neo4j (:Story)-[:ABOUT]->(:Vector)      SI snapshots (JSONL)
+                                    (:Story)-[:MENTIONS]->(:Entity)
+                                    (:Story)-[:LOCATED]->(:Place)
+        ▼
+FastAPI  /api/state /api/globe /api/brief /api/si /api/convergence
+         /api/signals /api/graph /api/archive/search /api/feeds
+        ▼
+web/  zero-build dashboard — globe.gl + vanilla JS
+```
+
+- Ingest runs every 15 min (APScheduler); `POST /api/ingest` for a manual cycle,
+  `POST /api/brief/regenerate` to re-synthesize today's edition.
+- The LLM is optional: everything degrades to heuristics when Ollama is offline.
+
+## Setup
+
+```bash
+uv sync
+docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
+ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
+uv run python -m singularity_atlas.seed           # 218 editions → graph (once)
+scripts/dev.sh                                    # or: uv run uvicorn singularity_atlas.api:app --port 8055
+```
+
+Useful CLIs: `uv run python -m singularity_atlas.feeds` (smoke-test all feeds) ·
+`uv run python -m singularity_atlas.pipeline` (one ingest cycle).
+
+## Configuration
+
+Everything lives in `singularity_atlas/config.py`: feeds, vector weights, epoch years,
+globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J_URI`,
+`ATLAS_NEO4J_PASSWORD`, `ATLAS_MODEL`, `OLLAMA_HOST`.
+
+## Notes
+
+- Reference corpora stay in `ref/` (218 newsletter editions; *Accelerando* for the
+  epoch dial + header quotes). Nothing is uploaded anywhere.
+- Feeds are all public: no auth, no registration, no API keys.
+- Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)
+  RETURN e, s LIMIT 80`).
