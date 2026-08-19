@@ -105,10 +105,10 @@ These are gitignored or live outside git:
   empty; ingest and archive sync fill it.
 - **`ref/innermost-loop/`** — the 218-edition local corpus. All-rights-reserved
   third-party content, never published. Seed is a no-op without it.
+- **`ref/accelerando/`** — the local *Accelerando* copy (CC BY-NC-ND 2.5).
+  Never published; read the author's free edition instead.
 - **Neo4j volume** — graph is empty until seed + ingest.
 - **`.venv`** — `uv sync` recreates it.
-
-**Accelerando** *is* in the repo (`ref/accelerando/`, CC BY-NC-ND 2.5).
 
 Without the local corpus, archive panels start empty. `--sync` or the daily
 job pulls the latest **20** editions from the public feed into
