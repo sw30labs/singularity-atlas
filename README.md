@@ -1,7 +1,8 @@
 # The Singularity Atlas
 
-A Python port of [worldmonitor](https://github.com/koala73/worldmonitor)'s situational-awareness
-experience, re-aimed at a single subject: **the approach of the Singularity**.
+An independent Python application inspired by [worldmonitor](https://github.com/koala73/worldmonitor)'s
+situational-awareness dashboard, re-aimed at a single subject: **the approach of the Singularity**.
+No worldmonitor code is used here — see [NOTICE](NOTICE).
 
 A 3D globe of the AI build-out (datacenters, fabs, labs, launch pads), eight live signal panels,
 a cross-stream convergence radar, a composite **Singularity Index**, and a daily digest
@@ -12,7 +13,7 @@ all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembere
 ./setup_and_run.sh      # deps + neo4j + seed + tests + serve → http://localhost:8055
 ```
 
-## What was ported / cannibalized from worldmonitor
+## Ideas borrowed from worldmonitor, and what they became here
 
 | worldmonitor | The Singularity Atlas |
 |---|---|
@@ -87,3 +88,14 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 - Feeds are all public: no auth, no registration, no API keys.
 - Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)
   RETURN e, s LIMIT 80`).
+
+## Licence
+
+Apache 2.0 — see [LICENSE](LICENSE). That grant covers the code in this
+repository only.
+
+It does **not** cover `ref/`, which redistributes two third-party published
+works under their own, more restrictive terms: *Accelerando* (Charles Stross,
+CC BY-NC-ND 2.5 — noncommercial, no derivatives) and the *Innermost Loop*
+archive (Dr. Alex Wissner-Gross, all rights reserved). [NOTICE](NOTICE) records
+the full attribution, the acknowledgements, and the scope of each licence.
