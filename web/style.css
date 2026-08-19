@@ -50,13 +50,24 @@ body::after {
   flex: 0 0 auto;
 }
 
+.logo-row { display: flex; align-items: center; gap: 8px; }
 .brand .logo {
   font-size: 20px; font-weight: 700; letter-spacing: 4px;
   color: #eaf7ff;
   text-shadow: 0 0 18px rgba(0,229,255,0.55), 0 0 3px rgba(0,229,255,0.9);
   white-space: nowrap;
 }
-.brand .tagline { color: var(--text-dim); letter-spacing: 4px; font-size: 10px; margin-top: 2px; }
+.brand .tagline { color: var(--text-dim); letter-spacing: 4px; font-size: 10px; margin-top: 2px; padding-left: 34px; }
+
+.glyph-btn {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--cyan); width: 26px; height: 26px; flex: 0 0 26px;
+}
+.glyph-btn svg { display: block; width: 26px; height: 26px; }
+.glyph-btn:hover { filter: drop-shadow(0 0 6px var(--cyan)); }
+.glyph-btn:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+#lobster:hover { filter: drop-shadow(0 0 7px #ff4d4d); }
+#lobster:focus-visible { outline-color: #ff4d4d; }
 
 .quote {
   flex: 1; min-width: 0;
@@ -95,9 +106,32 @@ body::after {
 .epoch-sub { margin-top: 5px; color: var(--text-dim); font-size: 10px; text-align: center; }
 .epoch-sub #epoch-name { color: var(--cyan); }
 
-.clock-block { text-align: right; }
+.clock-block { display: flex; align-items: center; gap: 12px; text-align: right; }
 .clock { font-size: 20px; color: #eaf7ff; letter-spacing: 2px; }
 .clock-label { color: var(--text-dim); font-size: 9px; letter-spacing: 3px; }
+
+.aineko {
+  width: 36px; color: var(--text-dim); text-align: center;
+}
+.aineko svg { display: block; width: 28px; height: 28px; margin: 0 auto; }
+.aineko .watch-eyes { display: none; }
+.aineko.watching .idle-eyes { display: none; }
+.aineko.watching .watch-eyes { display: block; }
+.aineko.watching { color: var(--cyan); }
+.aineko-label {
+  display: block; font-size: 7px; letter-spacing: 1px; margin-top: 2px; color: inherit;
+}
+.aineko.watching .tail {
+  transform-origin: 6px 16px;
+  animation: aineko-tail 1.4s ease-in-out infinite;
+}
+@keyframes aineko-tail {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(14deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aineko.watching .tail { animation: none; }
+}
 
 /* ---------------- layout ---------------- */
 

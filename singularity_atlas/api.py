@@ -51,6 +51,7 @@ def api_state() -> dict:
         "on_this_date": loop_archive.on_this_date(),
         "loop_sync": loop_sync.last_sync(),
         "last_ingest": scheduler.last_run(),
+        "ingest_running": scheduler.ingest_running(),
     }
 
 
@@ -87,6 +88,11 @@ def api_graph(entity: str = Query(...)) -> dict:
 @app.get("/api/brief")
 def api_brief() -> dict:
     return {"brief": store.latest_brief(), "history": store.brief_history()}
+
+
+@app.get("/api/ingest")
+def api_ingest_status() -> dict:
+    return {"running": scheduler.ingest_running(), "last": scheduler.last_run()}
 
 
 @app.post("/api/ingest")

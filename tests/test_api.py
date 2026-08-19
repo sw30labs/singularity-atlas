@@ -18,6 +18,7 @@ def client(requires_neo4j, monkeypatch):
     monkeypatch.setattr(api.scheduler, "start", lambda: None)
     monkeypatch.setattr(api.scheduler, "stop", lambda: None)
     monkeypatch.setattr(api.scheduler, "last_run", lambda: None)
+    monkeypatch.setattr(api.scheduler, "ingest_running", lambda: False)
     with TestClient(api.app) as c:
         yield c
 
@@ -29,8 +30,13 @@ class TestStatic:
         assert "SINGULARITY" in r.text.upper()
 
     def test_static_assets(self, client):
-        for path in ("/static/app.js", "/static/style.css"):
+        for path in ("/static/app.js", "/static/style.css", "/static/favicon.svg"):
             assert client.get(path).status_code == 200
+
+    def test_glyphs_in_chrome(self, client):
+        html = client.get("/").text
+        assert 'id="lobster"' in html
+        assert 'id="aineko"' in html
 
 
 class TestEndpoints:
@@ -38,7 +44,7 @@ class TestEndpoints:
         d = client.get("/api/state").json()
         for key in ("si", "si_history", "vectors", "signals", "convergence",
                     "brief", "feeds", "graph", "llm", "quotes",
-                    "si_baseline_days"):
+                    "si_baseline_days", "ingest_running"):
             assert key in d, key
         assert 0 <= d["si"]["si"] <= 100
         # the frontend renders the delta label from this, so it must be a
@@ -74,6 +80,11 @@ class TestEndpoints:
         assert "brief" in d and "history" in d
         if d["brief"]:
             assert len(d["brief"]["text"]) > 100
+
+    def test_ingest_status(self, client):
+        d = client.get("/api/ingest").json()
+        assert d["running"] is False
+        assert "last" in d
 
     def test_graph_requires_entity(self, client):
         assert client.get("/api/graph").status_code == 422

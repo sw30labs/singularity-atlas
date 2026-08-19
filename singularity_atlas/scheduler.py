@@ -32,6 +32,10 @@ def last_run() -> dict | None:
     return _last_run
 
 
+def ingest_running() -> bool:
+    return _lock.locked()
+
+
 def run_loop_sync_safe() -> dict:
     """Pull new Innermost Loop editions and push them into the graph."""
     global _last_loop_sync
