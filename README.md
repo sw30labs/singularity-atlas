@@ -9,7 +9,7 @@ synthesized by a local LLM in the register of Alex Wissner-Gross's *The Innermos
 all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembered by **Neo4j**.
 
 ```
-scripts/dev.sh          # neo4j up + archive seed + serve → http://localhost:8055
+./setup_and_run.sh      # deps + neo4j + seed + tests + serve → http://localhost:8055
 ```
 
 ## What was ported / cannibalized from worldmonitor
@@ -63,11 +63,16 @@ uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
 ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
 uv run python -m singularity_atlas.seed           # shipped editions → graph (once)
-scripts/dev.sh                                    # or: uv run uvicorn singularity_atlas.api:app --port 8055
+./setup_and_run.sh                                # or all of the above in one step
 ```
 
 Useful CLIs: `uv run python -m singularity_atlas.feeds` (smoke-test all feeds) ·
 `uv run python -m singularity_atlas.pipeline` (one ingest cycle).
+
+`./setup_and_run.sh` is the canonical entry point (`--setup-only`, `--no-tests`,
+`--sync`, `--help`); it clears a stale dashboard holding the port before
+starting, since a forgotten instance keeps ingesting in the background.
+`scripts/dev.sh` is a shim that forwards to it.
 
 ## Configuration
 
