@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Singularity Atlas</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://unpkg.com/globe.gl@2"></script>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">
+    <div class="logo">SINGULARITY&nbsp;ATLAS</div>
+    <div class="tagline">THE&nbsp;INNERMOST&nbsp;LOOP,&nbsp;MAPPED</div>
+  </div>
+
+  <div id="quote" class="quote"><span id="quote-text">The innermost loop is always the fastest.</span><span id="quote-src"></span></div>
+
+  <div class="header-right">
+    <div class="si-block" title="Singularity Index — composite proximity score">
+      <svg id="si-gauge" viewBox="0 0 120 70" width="150" height="88">
+        <path d="M 10 62 A 50 50 0 0 1 110 62" fill="none" stroke="#16202a" stroke-width="7"/>
+        <path id="si-arc" d="M 10 62 A 50 50 0 0 1 110 62" fill="none" stroke="#00e5ff"
+              stroke-width="7" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="157"/>
+        <text id="si-value" x="60" y="52" text-anchor="middle" class="si-value">—</text>
+        <text id="si-delta" x="60" y="66" text-anchor="middle" class="si-delta"></text>
+      </svg>
+      <div class="si-label">SINGULARITY&nbsp;INDEX</div>
+    </div>
+
+    <div class="epoch-block" title="Stross epoch dial — where we are on the Accelerando timeline">
+      <div id="epoch-dial" class="epoch-dial">
+        <div class="epoch-seg" data-epoch="0"><span>SLOW&nbsp;TAKEOFF</span></div>
+        <div class="epoch-seg" data-epoch="1"><span>POINT&nbsp;OF&nbsp;INFLEXION</span></div>
+        <div class="epoch-seg" data-epoch="2"><span>SINGULARITY</span></div>
+        <div id="epoch-marker" class="epoch-marker"></div>
+      </div>
+      <div class="epoch-sub"><span id="epoch-name">—</span> · <span id="countdown">— days to 2045</span></div>
+    </div>
+
+    <div class="clock-block">
+      <div id="clock" class="clock">--:--:--</div>
+      <div class="clock-label">UTC</div>
+    </div>
+  </div>
+</header>
+
+<main id="layout">
+
+  <aside id="left">
+    <div class="panel-col" id="vector-panels"></div>
+  </aside>
+
+  <section id="center">
+    <div id="globe-wrap">
+      <div id="globe"></div>
+      <div id="globe-overlay">
+        <div class="layer-toggles">
+          <label><input type="checkbox" data-layer="datacenter" checked> <i style="--c:#ff6d00"></i>DATACENTERS</label>
+          <label><input type="checkbox" data-layer="fab" checked> <i style="--c:#ffd600"></i>FABS</label>
+          <label><input type="checkbox" data-layer="lab" checked> <i style="--c:#00e5ff"></i>LABS</label>
+          <label><input type="checkbox" data-layer="launch" checked> <i style="--c:#ffffff"></i>LAUNCHES</label>
+          <label><input type="checkbox" data-layer="events" checked> <i style="--c:#00e676"></i>SIGNALS</label>
+          <label><input type="checkbox" data-layer="arcs" checked> <i style="--c:#d500f9"></i>FLOWS</label>
+        </div>
+        <div id="globe-stats" class="globe-stats"></div>
+      </div>
+      <div id="si-spark-wrap"><svg id="si-spark" preserveAspectRatio="none"></svg></div>
+    </div>
+  </section>
+
+  <aside id="right">
+    <div class="panel" id="brief-panel">
+      <div class="panel-head">
+        <span class="panel-title">THE DAILY LOOP</span>
+        <span class="panel-meta" id="brief-meta"></span>
+      </div>
+      <div class="panel-body brief-body" id="brief-body">
+        <div class="loading">synthesizing…</div>
+      </div>
+    </div>
+
+    <div class="panel" id="convergence-panel">
+      <div class="panel-head"><span class="panel-title">CONVERGENCE RADAR</span>
+        <span class="panel-meta">entities crossing streams · 72h</span></div>
+      <div class="panel-body" id="convergence-body"></div>
+    </div>
+
+    <div class="panel" id="archive-panel">
+      <div class="panel-head"><span class="panel-title">THE INNERMOST LOOP</span>
+        <span class="panel-meta">218 editions</span></div>
+      <div class="panel-body">
+        <div id="on-this-date"></div>
+        <div class="archive-search">
+          <input id="archive-q" type="text" placeholder="search the archive…" autocomplete="off">
+        </div>
+        <div id="archive-hits"></div>
+      </div>
+    </div>
+  </aside>
+
+</main>
+
+<footer id="ticker-wrap"><div id="ticker"></div></footer>
+
+<div id="drawer" class="drawer hidden">
+  <div class="drawer-head">
+    <span id="drawer-title"></span>
+    <button id="drawer-close" aria-label="close">×</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
