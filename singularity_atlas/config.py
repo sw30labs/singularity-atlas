@@ -19,7 +19,7 @@ SEEN_FILE = DATA_DIR / "seen.json"          # dedupe fingerprints
 SI_HISTORY_FILE = DATA_DIR / "si_history.jsonl"
 FEED_HEALTH_FILE = DATA_DIR / "feed_health.json"
 LOOP_ARCHIVE_DIR = ROOT / "ref" / "innermost-loop" / "the-innermost-loop-markdown" / "issues"
-LOOP_FETCH_DIR = DATA_DIR / "loop_issues"   # editions fetched after the shipped corpus
+LOOP_FETCH_DIR = DATA_DIR / "loop_issues"   # editions fetched from the live feed
 LOOP_SYNC_STATE_FILE = DATA_DIR / "loop_sync.json"
 WEB_DIR = ROOT / "web"
 
