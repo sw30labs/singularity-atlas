@@ -26,7 +26,7 @@ The Apache 2.0 licence in LICENSE covers the original work in this repository:
     web/
     scripts/
     setup_and_run.sh, docker-compose.yml, pyproject.toml, README.md,
-    QUICKSTART.md
+    QUICKSTART.md, docs/
 
 It does NOT cover anything under ref/. That directory holds third-party
 published works redistributed under their own terms, which are more restrictive

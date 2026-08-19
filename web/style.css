@@ -218,6 +218,7 @@ aside { overflow-y: auto; min-height: 0; }
   overflow: hidden; display: flex; align-items: center; background: #05080d;
 }
 #ticker { white-space: nowrap; animation: tick 120s linear infinite; }
+body.demo #ticker { animation-duration: 48s; }
 #ticker span { margin: 0 26px; color: var(--text-dim); }
 #ticker span b { color: var(--cyan); font-weight: 400; }
 @keyframes tick { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
