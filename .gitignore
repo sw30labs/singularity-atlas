@@ -20,3 +20,7 @@ htmlcov/
 
 # app state
 data/
+
+# Third-party newsletter corpus: all rights reserved by the author and original
+# publishers, with no redistribution grant. Kept locally, never published.
+ref/innermost-loop/
