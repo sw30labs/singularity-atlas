@@ -1,0 +1,39 @@
+[project]
+name = "singularity-atlas"
+version = "0.1.0"
+description = "The Singularity Atlas — a worldmonitor-style situational-awareness dashboard for the approach of the Singularity"
+authors = [
+    { name = "Nicolas Cravino", email = "ncravino@mac.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "apscheduler>=3.11.3",
+    "fastapi>=0.141.1",
+    "feedparser>=6.0.14",
+    "httpx>=0.28.1",
+    "langgraph>=1.2.11",
+    "neo4j>=6.2.0",
+    "pydantic>=2.13.4",
+    "python-dateutil>=2.9.0.post0",
+    "uvicorn[standard]>=0.52.3",
+]
+
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: requires the Neo4j container running (skipped otherwise)",
+]
+addopts = "-q"

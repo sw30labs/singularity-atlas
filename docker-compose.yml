@@ -1,0 +1,24 @@
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: singularity-atlas-neo4j
+    ports:
+      - "7476:7474"   # HTTP browser
+      - "7689:7687"   # Bolt
+    environment:
+      NEO4J_AUTH: neo4j/singularity-atlas
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512m
+    volumes:
+      - singularity-atlas-neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+volumes:
+  singularity-atlas-neo4j-data:
+    external: true
