@@ -68,7 +68,8 @@ function renderSI(si) {
   const v = Math.max(0, Math.min(100, si.si ?? 0));
   $("#si-value").textContent = v.toFixed(1);
   const d = si.delta ?? 0;
-  $("#si-delta").textContent = `${d >= 0 ? "▲" : "▼"} ${Math.abs(d).toFixed(1)} vs 7d mean`;
+  const days = STATE?.si_baseline_days ?? 7;
+  $("#si-delta").textContent = `${d >= 0 ? "▲" : "▼"} ${Math.abs(d).toFixed(1)} vs ${days}d mean`;
   const arc = $("#si-arc");
   arc.setAttribute("stroke-dashoffset", String(157 * (1 - v / 100)));
   arc.setAttribute("stroke", v < 34 ? "#00e5ff" : v < 67 ? "#ffd600" : "#ff1744");

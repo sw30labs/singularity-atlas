@@ -8,7 +8,7 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
-from singularity_atlas import api
+from singularity_atlas import api, config
 
 pytestmark = pytest.mark.integration
 
@@ -37,9 +37,13 @@ class TestEndpoints:
     def test_state_shape(self, client):
         d = client.get("/api/state").json()
         for key in ("si", "si_history", "vectors", "signals", "convergence",
-                    "brief", "feeds", "graph", "llm", "quotes"):
+                    "brief", "feeds", "graph", "llm", "quotes",
+                    "si_baseline_days"):
             assert key in d, key
         assert 0 <= d["si"]["si"] <= 100
+        # the frontend renders the delta label from this, so it must be a
+        # positive number of days, not a hardcoded literal
+        assert d["si_baseline_days"] == config.SI_BASELINE_DAYS > 0
         assert set(d["vectors"].keys()) == set(d["signals"].keys())
 
     def test_si(self, client):

@@ -50,7 +50,7 @@ INGEST_INTERVAL_MIN = 15
 BRIEF_MIN_NEW_ITEMS = 6          # skip brief if fewer new stories
 BRIEF_TOP_N = 14                 # stories fed to the LLM for the daily loop
 SIGNAL_WINDOW_H = 72             # convergence window
-SI_BASELINE_DAYS = 7
+SI_BASELINE_DAYS = 7             # window for the SI delta baseline mean
 
 # ---------------------------------------------------------------------------
 # Singularity vectors — the eight streams the dashboard watches.
