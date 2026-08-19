@@ -30,7 +30,7 @@ The Apache 2.0 licence in LICENSE covers the original work in this repository:
 It does NOT cover anything under ref/. That directory holds third-party
 published works redistributed under their own terms, which are more restrictive
 than Apache 2.0 and are not altered by this repository's licence. See
-"Third-party works bundled in ref/" below.
+"Third-party works under ref/" below.
 
 
 ================================================================================
@@ -64,12 +64,13 @@ Ars Technica, The Verge, VentureBeat, Import AI and Interconnects.
 
 
 ================================================================================
-THIRD-PARTY WORKS BUNDLED IN ref/
+THIRD-PARTY WORKS UNDER ref/
 ================================================================================
 
-These are redistributed copies of other people's published work. They are NOT
-licensed under Apache 2.0, and this repository grants no rights in them beyond
-what their own licences already allow.
+Other people's published work. None of it is licensed under Apache 2.0, and
+this repository grants no rights in any of it beyond what its own licence
+already allows. One is redistributed here under that licence; the other is
+gitignored and deliberately not published.
 
 ref/accelerando/
     "Accelerando" by Charles Stross. Copyright (C) Charles Stross, 2005.
@@ -82,17 +83,16 @@ ref/accelerando/
     NOTE: these terms conflict with Apache 2.0, which permits commercial use and
     derivative works. The CC BY-NC-ND terms govern this directory.
 
-ref/innermost-loop/
-    "The Innermost Loop" by Dr. Alex Wissner-Gross — 218 editions captured from
-    the author's official public Substack mirror. Copyright remains with the
-    author and the original publishers. No licence granting redistribution has
-    been identified for this material.
+ref/innermost-loop/   -- NOT IN VERSION CONTROL
+    "The Innermost Loop" by Dr. Alex Wissner-Gross. Copyright remains with the
+    author and the original publishers, and no licence granting redistribution
+    has been identified for this material.
 
-    NOTE: this is all-rights-reserved third-party content. Redistributing it
-    from a public repository is not covered by any grant found in the source,
-    and rests on the copyright holder's permission, which has not been secured
-    here. Treat it as reference material to be kept locally rather than
-    published, unless permission is obtained.
+    Because of that, this directory is gitignored and deliberately not
+    published: a local capture may sit here on a developer's machine, but the
+    repository does not redistribute it. singularity_atlas/loop_sync.py
+    likewise writes fetched editions only to data/loop_issues/, which is also
+    gitignored. Nothing in this repository grants any right in this work.
 
 data/loop_issues/
     Not in version control (gitignored), but populated at runtime by

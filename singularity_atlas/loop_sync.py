@@ -1,10 +1,10 @@
 """Keep the Loop Archive current with Alex's official Substack mirror.
 
-The shipped corpus under ``ref/`` is a fixed reference set that stops at
-edition 218. This module fetches issues published since then and writes them,
-in the same markdown + front-matter shape, into ``data/loop_issues/`` so
-``loop_archive.load_issues()`` picks them up alongside the shipped editions.
-``ref/`` is never modified.
+Any local corpus under ``ref/`` is a fixed reference set that stops at whatever
+edition it was captured on (and is not in version control). This module fetches
+issues published since then and writes them, in the same markdown +
+front-matter shape, into ``data/loop_issues/`` so ``loop_archive.load_issues()``
+picks them up alongside it. ``ref/`` is never modified.
 
 Dating follows the corpus convention exactly (verified to reproduce all 218
 shipped issue dates): a "Welcome to <Month D, YYYY>" title is authoritative,

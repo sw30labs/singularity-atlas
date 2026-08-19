@@ -1,9 +1,11 @@
 """The Loop Archive: the Innermost Loop editions as a searchable,
 graph-seedable corpus of local markdown.
 
-Two sources, same format: the fixed corpus shipped under ``ref/`` and any
-newer editions ``loop_sync`` has fetched into ``data/loop_issues/``. Reading
-stays offline; only ``loop_sync`` touches the network.
+Two sources, same format: whatever local corpus sits under ``ref/`` (not in
+version control -- third-party, all rights reserved) and any editions
+``loop_sync`` has fetched into ``data/loop_issues/``. Both are optional: with
+neither present the archive is simply empty. Reading stays offline; only
+``loop_sync`` touches the network.
 """
 
 from __future__ import annotations

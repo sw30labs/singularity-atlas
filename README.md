@@ -26,8 +26,8 @@ all fed by public no-auth feeds, digested by a **LangGraph** pipeline, remembere
 | Local AI via Ollama | Same. Zero API keys, zero registration |
 
 Plus what only this atlas has: the **Loop Archive** — the *Innermost Loop* editions
-(218 shipped in `ref/innermost-loop/…`, kept current from the author's official
-Substack feed) seeded into the graph and full-text searchable —
+(kept current from the author's official Substack feed) seeded into the graph
+and full-text searchable —
 and the *Accelerando* epoch dial with rotating Stross quotes.
 
 ## Architecture
@@ -63,7 +63,7 @@ web/  zero-build dashboard — globe.gl + vanilla JS
 uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
 ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
-uv run python -m singularity_atlas.seed           # shipped editions → graph (once)
+uv run python -m singularity_atlas.seed           # local archive → graph (once)
 ./setup_and_run.sh                                # or all of the above in one step
 ```
 
@@ -83,8 +83,13 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 
 ## Notes
 
-- Reference corpora stay in `ref/` (the 218 shipped editions; *Accelerando* for the
-  epoch dial + header quotes). Nothing is uploaded anywhere.
+- `ref/innermost-loop/` is **not in version control**: the newsletter archive is
+  all-rights-reserved third-party content, so it is kept locally and never
+  published. A fresh clone therefore starts with an empty archive — the archive
+  panels return nothing until the daily sync (or `POST /api/archive/sync`)
+  populates `data/loop_issues/` from the public feed, which exposes the latest
+  20 editions. *Accelerando* stays in `ref/` under its own CC licence.
+- Nothing is uploaded anywhere.
 - Feeds are all public: no auth, no registration, no API keys.
 - Neo4j browser: http://localhost:7476 (try `MATCH (e:Entity)<-[:MENTIONS]-(s:Story)
   RETURN e, s LIMIT 80`).
