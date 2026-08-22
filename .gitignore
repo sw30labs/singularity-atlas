@@ -18,9 +18,18 @@ htmlcov/
 # Virtual environments
 .venv
 
-# app state
-data/
+# Runtime state at the repo root. The committed snapshot is baseline/data/.
+/data/
+/data.bak-before-import-*/
+
+# Local migrate tarballs. GitHub allows .tar.gz, but the tracked baseline is
+# the unpacked neo4j.dump + JSON under baseline/ (well under the 100 MB cap).
+/singularity-atlas-migrate-*.tar.gz
+/baseline/*.tar.gz
+/atlas-export/
 
 # Third-party published works: kept locally, never published.
 ref/innermost-loop/
 ref/accelerando/
+transcriptions_moonshot/
+observatory-output/

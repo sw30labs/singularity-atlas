@@ -3,7 +3,7 @@
 # Archive seed, one feed ingest, then the dashboard.
 #
 # Usage:
-#   ./setup_and_run.sh                # sync deps, Neo4j up, seed, ingest, test, serve
+#   ./setup_and_run.sh                # sync deps, Neo4j up, baseline if empty, seed, ingest, test, serve
 #   ./setup_and_run.sh --setup-only   # everything except serving
 #   ./setup_and_run.sh --no-tests     # skip the suite (faster restarts)
 #   ./setup_and_run.sh --sync         # pull new Loop editions now, then ingest + serve
@@ -105,6 +105,11 @@ if docker info >/dev/null 2>&1; then
   done
   if [ "$ready" -eq 1 ]; then
     echo "    Neo4j is up"
+    # Fresh clone: baseline/ holds a neo4j.dump + seen-set so first paint is
+    # not an empty globe. Skips itself when the graph already has stories.
+    if [ -x scripts/load_baseline.sh ]; then
+      ATLAS_IMPORT_QUIET=1 ./scripts/load_baseline.sh
+    fi
   else
     echo "!! Neo4j did not answer within 60s — continuing; the graph will be empty" >&2
   fi
@@ -117,7 +122,7 @@ if [ "$RUN_TESTS" -eq 1 ]; then
   uv run pytest
 fi
 
-echo "==> Seeding the Loop Archive (idempotent)"
+echo "==> Seeding the Loop and Moonshot archives (idempotent)"
 uv run python -m singularity_atlas.seed
 
 if [ "$SYNC_NOW" -eq 1 ]; then

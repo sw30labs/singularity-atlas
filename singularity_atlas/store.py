@@ -2,7 +2,7 @@
 
 Graph model
     (:Story {id, title, url, source, source_label, summary, published_at,
-             salience, ingested_at, origin})        origin: feed|archive
+             salience, ingested_at, origin})        origin: feed|archive|moonshot
     (:Vector {name, label})
     (:Entity {name, type})                         type: org|person|model|place|tech
     (:Brief  {id, date, text, model, created_at, n_items})
@@ -130,16 +130,19 @@ def _persist_tx(tx, items: list[dict]) -> int:
 
 
 def _refresh_cooccurrence() -> None:
-    """Rebuild CO_OCCURS edges from recent shared stories (bounded, cheap)."""
+    """Rebuild CO_OCCURS from recent *feed* stories (published_at, not ingest)."""
+    since = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
     with driver().session() as s:
         s.run(
             """
             MATCH (e1:Entity)<-[:MENTIONS]-(s:Story)-[:MENTIONS]->(e2:Entity)
             WHERE e1.name < e2.name
-              AND s.ingested_at > datetime() - duration('P7D')
+              AND coalesce(s.origin, 'feed') = 'feed'
+              AND coalesce(s.published_at, s.ingested_at) > $since
             WITH e1, e2, count(DISTINCT s) AS n
             MERGE (e1)-[r:CO_OCCURS]-(e2) SET r.stories = n
-            """
+            """,
+            since=since,
         )
 
 
@@ -174,12 +177,14 @@ def _decode_story(st: dict) -> dict:
 # ---------------------------------------------------------------------------
 
 def recent_stories(hours: int = 48, limit: int = 400) -> list[dict]:
+    """Live firehose: feed stories only. Archive and Moonshots stay out of SI."""
     since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
     with driver().session() as s:
         res = s.run(
             """
             MATCH (s:Story)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND coalesce(s.origin, 'feed') = 'feed'
             OPTIONAL MATCH (s)-[a:ABOUT]->(v:Vector)
             WITH s, collect({vector: v.name, score: a.score}) AS vecs
             OPTIONAL MATCH (s)-[:MENTIONS]->(e:Entity)
@@ -206,6 +211,7 @@ def vector_signals(hours: int = 72, per_vector: int = 12) -> dict[str, list[dict
                 """
                 MATCH (s:Story)-[a:ABOUT]->(v:Vector {name: $v})
                 WHERE coalesce(s.published_at, s.ingested_at) > $since
+                  AND coalesce(s.origin, 'feed') = 'feed'
                 OPTIONAL MATCH (s)-[:MENTIONS]->(e:Entity)
                 WITH s, a, collect(DISTINCT e.name) AS ents
                 RETURN s, a.score AS score, ents
@@ -226,6 +232,7 @@ def convergence(hours: int = 72, limit: int = 20) -> list[dict]:
             """
             MATCH (e:Entity)<-[:MENTIONS]-(s:Story)-[:ABOUT]->(v:Vector)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND coalesce(s.origin, 'feed') = 'feed'
               AND e.type <> 'thing'
             WITH e, collect(DISTINCT v.name) AS vecs, count(DISTINCT s) AS stories,
                  sum(s.salience) AS heat
@@ -248,6 +255,7 @@ def entity_ego(name: str, hours: int = 168) -> dict:
             """
             MATCH (e:Entity {name: $name})<-[:MENTIONS]-(s:Story)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND coalesce(s.origin, 'feed') = 'feed'
             OPTIONAL MATCH (s)-[:MENTIONS]->(o:Entity)
             RETURN s, collect(o.name) AS others
             ORDER BY s.salience DESC LIMIT 30
@@ -274,6 +282,7 @@ def globe_events(hours: int = 72, limit: int = 60) -> list[dict]:
             """
             MATCH (s:Story)-[l:LOCATED]->(p:Entity)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND coalesce(s.origin, 'feed') = 'feed'
             RETURN s.title AS title, s.url AS url, s.salience AS salience,
                    p.name AS place, l.lat AS lat, l.lon AS lon,
                    s.published_at AS published_at
@@ -293,6 +302,7 @@ def globe_arcs(hours: int = 72, limit: int = 40) -> list[dict]:
             MATCH (s:Story)-[l1:LOCATED]->(p1:Entity),
                   (s)-[l2:LOCATED]->(p2:Entity)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND coalesce(s.origin, 'feed') = 'feed'
               AND p1.name < p2.name
             WITH p1.name AS from_name, l1.lat AS from_lat, l1.lon AS from_lon,
                  p2.name AS to_name, l2.lat AS to_lat, l2.lon AS to_lon,

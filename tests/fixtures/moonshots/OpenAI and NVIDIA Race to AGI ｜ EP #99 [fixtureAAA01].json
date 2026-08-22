@@ -1,0 +1,54 @@
+{
+  "title": "OpenAI and NVIDIA Race to AGI | EP #99",
+  "url": "https://www.youtube.com/watch?v=fixtureAAA01",
+  "id": "fixtureAAA01",
+  "video_key": "fixtureAAA01",
+  "model": "openai/whisper-large-v3",
+  "dtype": "bfloat16",
+  "language": null,
+  "speaker_profile": "moonshots",
+  "speaker_profile_revision": "test",
+  "upload_date": "2026-08-01",
+  "text": "[00:00:00] Peter H. Diamandis: Welcome to Moonshots. Today we talk about OpenAI and NVIDIA building a gigawatt datacenter.\n[00:00:12] Alexander Wissner-Gross: The campus in Ohio is the real story. Frontier models, H100 clusters, the whole stack.",
+  "plain_text": "Welcome to Moonshots. Today we talk about OpenAI and NVIDIA building a gigawatt datacenter. The campus in Ohio is the real story. Frontier models, H100 clusters, the whole stack.",
+  "segments": [
+    {
+      "text": "Welcome to Moonshots. Today we talk about OpenAI and NVIDIA building a gigawatt datacenter.",
+      "start": 0.0,
+      "end": 12.0,
+      "diarization_label": "SPEAKER_00",
+      "speaker_id": "peter-h-diamandis",
+      "speaker": "Peter H. Diamandis",
+      "speaker_source": "voice_profile",
+      "speaker_similarity": 0.9
+    },
+    {
+      "text": "The campus in Ohio is the real story. Frontier models, H100 clusters, the whole stack.",
+      "start": 12.0,
+      "end": 24.0,
+      "diarization_label": "SPEAKER_01",
+      "speaker_id": "alexander-wissner-gross",
+      "speaker": "Alexander Wissner-Gross",
+      "speaker_source": "voice_profile",
+      "speaker_similarity": 0.88
+    }
+  ],
+  "diarization": {
+    "profile": "moonshots",
+    "speakers": {
+      "SPEAKER_00": {
+        "speaker_id": "peter-h-diamandis",
+        "name": "Peter H. Diamandis",
+        "source": "voice_profile",
+        "similarity": 0.9
+      },
+      "SPEAKER_01": {
+        "speaker_id": "alexander-wissner-gross",
+        "name": "Alexander Wissner-Gross",
+        "source": "voice_profile",
+        "similarity": 0.88
+      }
+    },
+    "guest_candidates": []
+  }
+}

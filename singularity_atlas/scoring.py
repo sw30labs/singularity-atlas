@@ -71,8 +71,13 @@ def compute_si() -> dict:
         weight_total += meta["weight"]
 
     composite = weighted_sum / max(weight_total, 1e-9)
-    composite += CONVERGENCE_BONUS * min(len(conv_names), 6)
+    guest_bonus, guest_hits = _guest_news_bonus(stories)
+    conv_bonus = CONVERGENCE_BONUS * min(len(conv_names), 6)
+    composite += min(6.0, conv_bonus + guest_bonus)
     composite = min(100.0, composite)
+    feed_si = composite
+    prior = _apply_prior(feed_si)
+    composite = min(100.0, prior["si"])
 
     now = datetime.now(timezone.utc)
     snapshot = {
@@ -83,6 +88,9 @@ def compute_si() -> dict:
         "vectors": vector_scores,
         "convergent_entities": sorted(conv_names),
         "n_stories_24h": len(stories),
+        "feed_si": round(feed_si, 1),
+        "prior": {k: prior[k] for k in ("alpha", "prior", "clamped") if k in prior},
+        "guest_hits": guest_hits,
     }
 
     # delta vs the mean of prior snapshots inside the baseline window.
@@ -91,6 +99,52 @@ def compute_si() -> dict:
     snapshot["delta"] = _delta_vs_baseline(snapshot["si"], now)
 
     return snapshot
+
+
+def _guest_news_bonus(stories: list[dict]) -> tuple[float, list[str]]:
+    """Tiny SI bump when a recent Moonshot *guest* is also in today's feed."""
+    if config.MOONSHOT_GUEST_BONUS <= 0:
+        return 0.0, []
+    from . import moonshot_archive
+    guests = moonshot_archive.recent_guests(config.MOONSHOT_GUEST_WINDOW_D)
+    if not guests:
+        return 0.0, []
+    want = {g.lower() for g in guests}
+    hits: list[str] = []
+    seen: set[str] = set()
+    for st in stories:
+        for e in st.get("entities") or []:
+            name = e if isinstance(e, str) else (e.get("name") if isinstance(e, dict) else "")
+            if name and name.lower() in want and name not in seen:
+                seen.add(name)
+                hits.append(name)
+    bonus = min(config.MOONSHOT_GUEST_BONUS_CAP,
+                config.MOONSHOT_GUEST_BONUS * len(hits))
+    return bonus, hits
+
+
+def _apply_prior(feed_si: float) -> dict:
+    """Mix a log-compressed 90-day Moonshot vector mix into feed SI, clamped."""
+    alpha = float(getattr(config, "MOONSHOT_PRIOR_ALPHA", 0.0) or 0.0)
+    empty = {"alpha": 0.0, "prior": None, "si": feed_si, "clamped": False}
+    if alpha <= 0:
+        return empty
+    from . import moonshot_archive
+    if not moonshot_archive.load_episodes():
+        return empty
+    shares = moonshot_archive.prior_shares()
+    prior = 0.0
+    wt = 0.0
+    for v, meta in config.VECTORS.items():
+        prior += shares.get(v, 0.0) * 100.0 * meta["weight"]
+        wt += meta["weight"]
+    prior = prior / max(wt, 1e-9)
+    mixed = (1.0 - alpha) * feed_si + alpha * prior
+    lo = feed_si - config.MOONSHOT_PRIOR_CLAMP
+    hi = feed_si + config.MOONSHOT_PRIOR_CLAMP
+    clamped = mixed < lo or mixed > hi
+    mixed = min(hi, max(lo, mixed))
+    return {"alpha": alpha, "prior": round(prior, 1), "si": mixed, "clamped": clamped}
 
 
 def _delta_vs_baseline(si: float, now: datetime) -> float:

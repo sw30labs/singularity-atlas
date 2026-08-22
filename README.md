@@ -26,9 +26,9 @@ Fresh machine from a clone: [QUICKSTART.md](QUICKSTART.md).
 | Local AI via Ollama | Same. Zero API keys, zero registration |
 
 Plus what only this atlas has: the **Loop Archive** — the *Innermost Loop* editions
-(kept current from the author's official Substack feed) seeded into the graph
-and full-text searchable —
-and the *Accelerando* epoch dial with rotating Stross quotes.
+(kept current from the author's official Substack feed) and the local **Moonshots**
+transcripts (speaker-diarized JSON + TXT pairs) seeded into the graph and
+full-text searchable — and the *Accelerando* epoch dial with rotating Stross quotes.
 
 </details>
 
@@ -43,6 +43,14 @@ and the *Accelerando* epoch dial with rotating Stross quotes.
   editions are written to `data/loop_issues/` and pushed straight into the
   graph; `POST /api/archive/sync` pulls immediately. `/api/state.loop_sync`
   reports when the feed was last checked and what arrived.
+- Moonshot episodes are a local JSON + TXT dump under `transcriptions_moonshot/`
+  (gitignored). `uv run python -m singularity_atlas.seed` pushes them into the
+  graph beside the Loop editions; there is no live YouTube poll. Live SI /
+  ticker / 72h radar stay **feed-only**. Mid-roll ads (Blitzy, Fountain Life,
+  …) are stripped before classify/search/forecasts. A capped 90-day expert
+  prior (`ATLAS_MOONSHOT_PRIOR`, default 0.04, clamp ±3) plus a guest-in-the-news
+  bonus can lean the gauge; the stacked mix under the sparkline and the
+  forecast ledger do not.
 - The LLM is optional: everything degrades to heuristics when Ollama is offline.
 
 ## Setup
@@ -54,7 +62,8 @@ Clone-from-scratch, prerequisites, and what a fresh clone does *not* include:
 uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
 ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
-uv run python -m singularity_atlas.seed           # local archive → graph (once)
+./scripts/load_baseline.sh                        # committed graph snapshot (skip if Neo4j already has stories)
+uv run python -m singularity_atlas.seed           # local archive → graph (once; idempotent)
 ./setup_and_run.sh --sync                         # or all of the above in one step, plus Loop feed + first ingest
 ```
 
@@ -62,11 +71,13 @@ Useful CLIs: `uv run python -m singularity_atlas.feeds` (smoke-test all feeds) �
 `uv run python -m singularity_atlas.pipeline` (one ingest cycle).
 
 `./setup_and_run.sh` is the canonical entry point (`--setup-only`, `--no-tests`,
-`--sync`, `--help`); it runs one feed ingest before serving so the dashboard
-is not empty on first paint, then uvicorn's scheduler keeps ingesting every
-15 min (not cron). It clears a stale dashboard holding the port before
-starting, since a forgotten instance keeps ingesting in the background.
-`scripts/dev.sh` is a shim that forwards to it.
+`--sync`, `--help`); on a fresh volume it loads `baseline/` so the globe is
+not empty, then one feed ingest before serving. uvicorn's scheduler keeps
+ingesting every 15 min (not cron). It clears a stale dashboard holding the
+port before starting, since a forgotten instance keeps ingesting in the
+background. `scripts/dev.sh` is a shim that forwards to it.
+`./scripts/load_baseline.sh --force` replaces an existing graph with the
+snapshot.
 
 ## Configuration
 
@@ -81,7 +92,9 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
   published. A fresh clone therefore starts with an empty archive — the archive
   panels return nothing until the daily sync (or `POST /api/archive/sync`)
   populates `data/loop_issues/` from the public feed, which exposes the latest
-  20 editions. *Accelerando* is not in the repo either — read it from the
+  20 editions. `transcriptions_moonshot/` (JSON + TXT pairs of the Moonshots
+  podcast) is gitignored for the same reason; seed is a no-op without it.
+  *Accelerando* is not in the repo either — read it from the
   author's free edition (link in [NOTICE](NOTICE)).
 - Nothing is uploaded anywhere.
 - Feeds are all public: no auth, no registration, no API keys.
@@ -98,9 +111,10 @@ globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J
 Apache 2.0 — see [LICENSE](LICENSE). That grant covers the code in this
 repository only.
 
-It does **not** cover `ref/`, which is gitignored: a local *Accelerando*
-(Charles Stross, CC BY-NC-ND 2.5) and a local *Innermost Loop* archive
-(Dr. Alex Wissner-Gross, all rights reserved) may sit on a developer's
-machine, but this repository does not redistribute either. [NOTICE](NOTICE)
-records the full attribution, the acknowledgements, and the scope of each
-licence.
+It does **not** cover `ref/` or `transcriptions_moonshot/`, which are
+gitignored: a local *Accelerando* (Charles Stross, CC BY-NC-ND 2.5), a local
+*Innermost Loop* archive (Dr. Alex Wissner-Gross, all rights reserved), and
+local Moonshots transcripts (Peter H. Diamandis and guests) may sit on a
+developer's machine, but this repository does not redistribute them.
+[NOTICE](NOTICE) records the full attribution, the acknowledgements, and the
+scope of each licence.

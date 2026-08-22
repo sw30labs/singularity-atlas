@@ -21,6 +21,9 @@ FEED_HEALTH_FILE = DATA_DIR / "feed_health.json"
 LOOP_ARCHIVE_DIR = ROOT / "ref" / "innermost-loop" / "the-innermost-loop-markdown" / "issues"
 LOOP_FETCH_DIR = DATA_DIR / "loop_issues"   # editions fetched from the live feed
 LOOP_SYNC_STATE_FILE = DATA_DIR / "loop_sync.json"
+# Local Moonshots transcripts (JSON + TXT pairs). Gitignored; third-party.
+MOONSHOT_DIR = ROOT / "transcriptions_moonshot"
+MOONSHOT_DATES_FILE = Path(__file__).resolve().parent / "moonshot_dates.json"
 WEB_DIR = ROOT / "web"
 
 # ---------------------------------------------------------------------------
@@ -54,6 +57,16 @@ BRIEF_MIN_NEW_ITEMS = 6          # skip brief if fewer new stories
 BRIEF_TOP_N = 14                 # stories fed to the LLM for the daily loop
 SIGNAL_WINDOW_H = 72             # convergence window
 SI_BASELINE_DAYS = 7             # window for the SI delta baseline mean
+
+# Moonshot influence on the live gauge. 0 = illustration only (histograms,
+# ledger, drawer). Default is a hair of mix-in, hard-clamped so 276
+# historical episodes cannot peg the index.
+MOONSHOT_PRIOR_ALPHA = float(os.environ.get("ATLAS_MOONSHOT_PRIOR", "0.04"))
+MOONSHOT_PRIOR_CLAMP = 3.0
+MOONSHOT_PRIOR_DAYS = 90
+MOONSHOT_GUEST_WINDOW_D = 14
+MOONSHOT_GUEST_BONUS = 0.4       # per recent guest also in today's feed
+MOONSHOT_GUEST_BONUS_CAP = 2.0
 
 # ---------------------------------------------------------------------------
 # Singularity vectors — the eight streams the dashboard watches.

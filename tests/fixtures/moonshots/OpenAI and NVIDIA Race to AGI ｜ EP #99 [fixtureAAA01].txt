@@ -1,0 +1,2 @@
+[00:00:00] Peter H. Diamandis: Welcome to Moonshots. Today we talk about OpenAI and NVIDIA building a gigawatt datacenter.
+[00:00:12] Alexander Wissner-Gross: The campus in Ohio is the real story. Frontier models, H100 clusters, the whole stack.

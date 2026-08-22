@@ -11,8 +11,8 @@ from fastapi import FastAPI, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import (config, feeds, llm, loop_archive, loop_sync, scheduler,
-               scoring, store)
+from . import (config, feeds, llm, loop_archive, loop_sync, moonshot_archive,
+               moonshot_forecasts, scheduler, scoring, store)
 
 
 @asynccontextmanager
@@ -34,7 +34,7 @@ app = FastAPI(title="The Singularity Atlas", lifespan=lifespan)
 def api_state() -> dict:
     """The one-shot payload the frontend polls."""
     hist = store.si_history(limit=200)
-    current = hist[-1] if hist else scoring.compute_si()
+    current = scoring.compute_si()
     return {
         "si": current,
         "si_history": [{"ts": h["ts"], "si": h["si"]} for h in hist],
@@ -49,6 +49,15 @@ def api_state() -> dict:
         "quotes": config.ACCELERANDO_QUOTES,
         "si_baseline_days": config.SI_BASELINE_DAYS,
         "on_this_date": loop_archive.on_this_date(),
+        "latest_moonshot": moonshot_archive.latest(),
+        "archive": {
+            "loop": len(loop_archive.load_issues()),
+            "moonshots": len(moonshot_archive.load_episodes()),
+        },
+        "moonshot": {
+            "mix_90d": moonshot_archive.prior_shares() if moonshot_archive.load_episodes() else {},
+            "ledger": moonshot_forecasts.summary(),
+        },
         "loop_sync": loop_sync.last_sync(),
         "last_ingest": scheduler.last_run(),
         "ingest_running": scheduler.ingest_running(),
@@ -78,6 +87,8 @@ def api_convergence(hours: int = 72) -> dict:
 def api_graph(entity: str = Query(...)) -> dict:
     ego = store.entity_ego(entity)
     ego["loop_editions"] = loop_archive.entity_editions(entity)
+    ego["moonshot_episodes"] = moonshot_archive.entity_episodes(entity)
+    ego["forecasts"] = moonshot_forecasts.for_entity(entity)
     return ego
 
 
@@ -124,14 +135,36 @@ def api_globe() -> dict:
 # Loop archive
 # ---------------------------------------------------------------------------
 
+def _archive_search(query: str, limit: int = 8) -> list[dict]:
+    """Interleave Loop and Moonshot hits so the longer transcripts cannot drown the editions."""
+    half = max(3, limit // 2)
+    loop_hits = [{**h, "source": "loop"} for h in loop_archive.search(query, limit=half)]
+    ms_hits = [{**h, "source": "moonshot"} for h in moonshot_archive.search(query, limit=half)]
+    out: list[dict] = []
+    for i in range(max(len(loop_hits), len(ms_hits))):
+        if i < len(loop_hits):
+            out.append(loop_hits[i])
+        if i < len(ms_hits):
+            out.append(ms_hits[i])
+        if len(out) >= limit:
+            break
+    return out[:limit]
+
+
 @app.get("/api/archive/search")
 def api_archive_search(q: str = Query(..., min_length=2)) -> dict:
-    return {"q": q, "hits": loop_archive.search(q)}
+    return {"q": q, "hits": _archive_search(q)}
 
 
 @app.get("/api/archive/entity")
 def api_archive_entity(name: str = Query(...)) -> dict:
-    return {"entity": name, "editions": loop_archive.entity_editions(name, limit=10)}
+    return {
+        "entity": name,
+        "editions": loop_archive.entity_editions(name, limit=10),
+        "moonshots": moonshot_archive.entity_episodes(name, limit=10),
+        "forecasts": moonshot_forecasts.for_entity(name),
+        "guest": name in moonshot_archive.known_guests(),
+    }
 
 
 @app.post("/api/archive/sync")

@@ -1,0 +1,70 @@
+{
+  "title": "Humanoid Robots in Every Home w/ Emad Mostaque | EP #100",
+  "url": "https://www.youtube.com/watch?v=fixtureBBB02",
+  "id": "fixtureBBB02",
+  "video_key": "fixtureBBB02",
+  "model": "openai/whisper-large-v3",
+  "dtype": "bfloat16",
+  "language": null,
+  "speaker_profile": "moonshots",
+  "speaker_profile_revision": "test",
+  "upload_date": "2025-01-15",
+  "text": "[00:00:00] Peter H. Diamandis: Welcome back. Today, humanoid robots and Figure AI.\n[00:00:08] Humanoid Robots w／ Emad Mostaque: Optimus and the factory floor will eat knowledge work too.\n[00:00:18] Unknown speaker 1: [inaudible]",
+  "plain_text": "Welcome back. Today, humanoid robots and Figure AI. Optimus and the factory floor will eat knowledge work too. [inaudible]",
+  "segments": [
+    {
+      "text": "Welcome back. Today, humanoid robots and Figure AI.",
+      "start": 0.0,
+      "end": 8.0,
+      "diarization_label": "SPEAKER_00",
+      "speaker_id": "peter-h-diamandis",
+      "speaker": "Peter H. Diamandis",
+      "speaker_source": "voice_profile",
+      "speaker_similarity": 0.91
+    },
+    {
+      "text": "Optimus and the factory floor will eat knowledge work too.",
+      "start": 8.0,
+      "end": 18.0,
+      "diarization_label": "SPEAKER_01",
+      "speaker_id": "guest-01",
+      "speaker": "Humanoid Robots w／ Emad Mostaque",
+      "speaker_source": "youtube_metadata",
+      "speaker_similarity": null
+    },
+    {
+      "text": "[inaudible]",
+      "start": 18.0,
+      "end": 19.0,
+      "diarization_label": "SPEAKER_02",
+      "speaker_id": "unmatched-01",
+      "speaker": "Unknown speaker 1",
+      "speaker_source": "unmatched",
+      "speaker_similarity": null
+    }
+  ],
+  "diarization": {
+    "profile": "moonshots",
+    "speakers": {
+      "SPEAKER_00": {
+        "speaker_id": "peter-h-diamandis",
+        "name": "Peter H. Diamandis",
+        "source": "voice_profile",
+        "similarity": 0.91
+      },
+      "SPEAKER_01": {
+        "speaker_id": "guest-01",
+        "name": "Humanoid Robots w／ Emad Mostaque",
+        "source": "youtube_metadata",
+        "similarity": null
+      },
+      "SPEAKER_02": {
+        "speaker_id": "unmatched-01",
+        "name": "Unknown speaker 1",
+        "source": "unmatched",
+        "similarity": null
+      }
+    },
+    "guest_candidates": ["Emad Mostaque"]
+  }
+}

@@ -50,8 +50,25 @@ class TestExtractEntities:
         ents = {e["name"] for e in taxonomy.extract_entities("Claude and GPT-5 walk into a benchmark")}
         assert "Claude" in ents
 
+    def test_moonshot_hosts_canonical(self):
+        ents = {e["name"] for e in taxonomy.extract_entities(
+            "Peter H. Diamandis sat with Alexander Wissner-Gross and Salim Ismail")}
+        assert "Peter Diamandis" in ents
+        assert "Alex Wissner-Gross" in ents
+        assert "Salim Ismail" in ents
+
     def test_no_entities(self):
         assert taxonomy.extract_entities("nothing notable here") == []
+
+    def test_figure_out_is_not_figure_ai(self):
+        names = {e["name"] for e in taxonomy.extract_entities(
+            "I figure this will be easy once we figure out the hidden figure")}
+        assert "Figure AI" not in names
+
+    def test_figure_ai_still_matches(self):
+        names = {e["name"] for e in taxonomy.extract_entities("Brett Adcock at Figure AI")}
+        assert "Figure AI" in names
+        assert "Brett Adcock" in names
 
 
 class TestGeo:

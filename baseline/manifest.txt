@@ -1,0 +1,8 @@
+project: singularity-atlas
+created_utc: 20260822T110809Z
+source_host: spidersacstudio.lan
+volume: singularity-atlas-neo4j-data
+image: neo4j:5-community
+dump: neo4j.dump
+sha256: d835c9b28115364f4ab8dbebd021b8c5442ea2b4b097b6b4dcad0710ab2ca6cd
+bytes: 444882
