@@ -90,29 +90,34 @@
 
 <main id="layout">
 
-  <aside id="left">
-    <div class="panel-col" id="vector-panels"></div>
-  </aside>
-
   <section id="center">
     <div id="globe-wrap">
       <div id="globe"></div>
       <div id="globe-overlay">
-        <div class="layer-toggles">
-          <label><input type="checkbox" data-layer="datacenter" checked> <i style="--c:#ff6d00"></i>DATACENTERS</label>
-          <label><input type="checkbox" data-layer="fab" checked> <i style="--c:#ffd600"></i>FABS</label>
-          <label><input type="checkbox" data-layer="lab" checked> <i style="--c:#00e5ff"></i>LABS</label>
-          <label><input type="checkbox" data-layer="launch" checked> <i style="--c:#ffffff"></i>LAUNCHES</label>
-          <label><input type="checkbox" data-layer="events" checked> <i style="--c:#00e676"></i>SIGNALS</label>
-          <label><input type="checkbox" data-layer="arcs" checked> <i style="--c:#d500f9"></i>FLOWS</label>
+        <div class="hud-chip">
+          <div class="layer-toggles">
+            <label><input type="checkbox" data-layer="datacenter" checked> <i style="--c:#ff6d00"></i>DATACENTERS</label>
+            <label><input type="checkbox" data-layer="fab" checked> <i style="--c:#ffd600"></i>FABS</label>
+            <label><input type="checkbox" data-layer="lab" checked> <i style="--c:#00e5ff"></i>LABS</label>
+            <label><input type="checkbox" data-layer="launch" checked> <i style="--c:#ffffff"></i>LAUNCHES</label>
+            <label><input type="checkbox" data-layer="events" checked> <i style="--c:#00e676"></i>SIGNALS</label>
+            <label><input type="checkbox" data-layer="arcs" checked> <i style="--c:#d500f9"></i>FLOWS</label>
+          </div>
+          <div id="globe-stats" class="globe-stats"></div>
         </div>
-        <div id="globe-stats" class="globe-stats"></div>
       </div>
-      <div id="si-spark-wrap"><svg id="si-spark" preserveAspectRatio="none"></svg></div>
+      <div id="si-spark-wrap">
+        <svg id="si-spark" preserveAspectRatio="none"></svg>
+        <div id="prior-mix" title="Moonshot expert mix · last 12 months · not the live gauge"></div>
+      </div>
     </div>
   </section>
 
-  <aside id="right">
+  <aside id="left" class="hud-rail">
+    <div class="panel-col" id="vector-panels"></div>
+  </aside>
+
+  <aside id="right" class="hud-rail">
     <div class="panel" id="brief-panel">
       <div class="panel-head">
         <span class="panel-title">THE DAILY LOOP</span>
@@ -130,12 +135,14 @@
     </div>
 
     <div class="panel" id="archive-panel">
-      <div class="panel-head"><span class="panel-title">THE INNERMOST LOOP</span>
-        <span class="panel-meta">218 editions</span></div>
+      <div class="panel-head"><span class="panel-title">THE ARCHIVE</span>
+        <span class="panel-meta" id="archive-meta"></span></div>
       <div class="panel-body">
         <div id="on-this-date"></div>
+        <div id="latest-moonshot"></div>
+        <div id="forecast-ledger"></div>
         <div class="archive-search">
-          <input id="archive-q" type="text" placeholder="search the archive…" autocomplete="off">
+          <input id="archive-q" type="text" placeholder="search loop & moonshots…" autocomplete="off">
         </div>
         <div id="archive-hits"></div>
       </div>

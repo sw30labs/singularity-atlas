@@ -1,0 +1,107 @@
+{
+ "verge-ai": {
+  "last_fetch": "2026-08-22T01:08:15.550339+00:00",
+  "ok": true,
+  "items": 10,
+  "error": null,
+  "fetches": 50
+ },
+ "arxiv-cs-lg": {
+  "last_fetch": "2026-08-22T01:08:15.652362+00:00",
+  "ok": true,
+  "items": 12,
+  "error": null,
+  "fetches": 50
+ },
+ "arxiv-cs-ai": {
+  "last_fetch": "2026-08-22T01:08:15.555607+00:00",
+  "ok": true,
+  "items": 12,
+  "error": null,
+  "fetches": 50
+ },
+ "launches": {
+  "last_fetch": "2026-08-22T01:08:15.444174+00:00",
+  "ok": true,
+  "items": 20,
+  "error": null,
+  "fetches": 50
+ },
+ "ars": {
+  "last_fetch": "2026-08-22T01:08:15.430531+00:00",
+  "ok": true,
+  "items": 20,
+  "error": null,
+  "fetches": 50
+ },
+ "arxiv-cs-cl": {
+  "last_fetch": "2026-08-22T01:08:15.590639+00:00",
+  "ok": true,
+  "items": 12,
+  "error": null,
+  "fetches": 50
+ },
+ "mit-tr-ai": {
+  "last_fetch": "2026-08-22T01:08:15.466933+00:00",
+  "ok": true,
+  "items": 10,
+  "error": null,
+  "fetches": 50
+ },
+ "interconnects": {
+  "last_fetch": "2026-08-22T01:08:15.523643+00:00",
+  "ok": true,
+  "items": 20,
+  "error": null,
+  "fetches": 50
+ },
+ "import-ai": {
+  "last_fetch": "2026-08-22T01:08:15.646189+00:00",
+  "ok": true,
+  "items": 20,
+  "error": null,
+  "fetches": 50
+ },
+ "openai": {
+  "last_fetch": "2026-08-22T01:08:15.767812+00:00",
+  "ok": true,
+  "items": 25,
+  "error": null,
+  "fetches": 50
+ },
+ "deepmind": {
+  "last_fetch": "2026-08-22T01:08:15.781836+00:00",
+  "ok": true,
+  "items": 25,
+  "error": null,
+  "fetches": 50
+ },
+ "venturebeat-ai": {
+  "last_fetch": "2026-08-22T01:08:15.584908+00:00",
+  "ok": true,
+  "items": 7,
+  "error": null,
+  "fetches": 50
+ },
+ "arxiv-cs-ro": {
+  "last_fetch": "2026-08-22T01:08:15.596590+00:00",
+  "ok": true,
+  "items": 12,
+  "error": null,
+  "fetches": 50
+ },
+ "hn-ai": {
+  "last_fetch": "2026-08-22T01:08:16.896140+00:00",
+  "ok": true,
+  "items": 71,
+  "error": null,
+  "fetches": 50
+ },
+ "gdelt-ai": {
+  "last_fetch": "2026-08-22T01:08:42.887707+00:00",
+  "ok": false,
+  "items": 0,
+  "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+  "fetches": 50
+ }
+}

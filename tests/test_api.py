@@ -37,6 +37,8 @@ class TestStatic:
         html = client.get("/").text
         assert 'id="lobster"' in html
         assert 'id="aineko"' in html
+        assert 'id="forecast-ledger"' in html
+        assert 'id="prior-mix"' in html
 
 
 class TestEndpoints:
@@ -44,13 +46,16 @@ class TestEndpoints:
         d = client.get("/api/state").json()
         for key in ("si", "si_history", "vectors", "signals", "convergence",
                     "brief", "feeds", "graph", "llm", "quotes",
-                    "si_baseline_days", "ingest_running"):
+                    "si_baseline_days", "ingest_running", "archive"):
             assert key in d, key
         assert 0 <= d["si"]["si"] <= 100
         # the frontend renders the delta label from this, so it must be a
         # positive number of days, not a hardcoded literal
         assert d["si_baseline_days"] == config.SI_BASELINE_DAYS > 0
         assert set(d["vectors"].keys()) == set(d["signals"].keys())
+        assert set(d["archive"]) >= {"loop", "moonshots"}
+        assert "moonshot" in d
+        assert "ledger" in (d["moonshot"] or {})
 
     def test_si(self, client):
         d = client.get("/api/si").json()
@@ -89,7 +94,7 @@ class TestEndpoints:
     def test_graph_requires_entity(self, client):
         assert client.get("/api/graph").status_code == 422
         d = client.get("/api/graph", params={"entity": "OpenAI"}).json()
-        assert set(d) >= {"nodes", "edges", "loop_editions"}
+        assert set(d) >= {"nodes", "edges", "loop_editions", "moonshot_episodes", "forecasts"}
 
     def test_archive_search(self, client):
         assert client.get("/api/archive/search", params={"q": "x"}).status_code == 422
@@ -100,6 +105,8 @@ class TestEndpoints:
         d = client.get("/api/archive/entity", params={"name": "OpenAI"}).json()
         assert d["entity"] == "OpenAI"
         assert isinstance(d["editions"], list)
+        assert isinstance(d["moonshots"], list)
+        assert "forecasts" in d
 
     def test_feeds_health(self, client):
         d = client.get("/api/feeds").json()

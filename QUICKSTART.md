@@ -46,12 +46,15 @@ will fetch a matching interpreter if the machine does not have one.
    `external: true` — `docker compose up` fails without this; the script
    creates it)
 3. `docker compose up -d` and wait for Bolt
-4. `uv run pytest` (skip with `--no-tests`)
-5. `uv run python -m singularity_atlas.seed` (idempotent; a no-op if the local
+4. `./scripts/load_baseline.sh` if the graph is empty (committed snapshot in
+   `baseline/` — 370 feed stories + 220 Loop editions). Already-populated
+   graphs are left alone; `--force` replaces them.
+5. `uv run pytest` (skip with `--no-tests`)
+6. `uv run python -m singularity_atlas.seed` (idempotent; a no-op if the local
    Loop corpus is absent)
-6. optional Loop-feed pull (`--sync`)
-7. **one feed ingest cycle** so the dashboard is not empty on first paint
-8. `uvicorn` on `127.0.0.1:8055`
+7. optional Loop-feed pull (`--sync`)
+8. **one feed ingest cycle** so the dashboard catches up with current feeds
+9. `uvicorn` on `127.0.0.1:8055`
 
 If Docker is missing, the script continues and expects Neo4j at
 `${ATLAS_NEO4J_URI:-bolt://localhost:7689}`.
@@ -62,6 +65,7 @@ Manual equivalent:
 uv sync
 docker volume create singularity-atlas-neo4j-data
 docker compose up -d
+./scripts/load_baseline.sh                     # no-op if the graph already has stories
 uv run python -m singularity_atlas.seed
 uv run python -m singularity_atlas.pipeline    # one ingest cycle
 uv run uvicorn singularity_atlas.api:app --host 127.0.0.1 --port 8055
@@ -102,13 +106,24 @@ and `uv run python -m singularity_atlas.feeds` (smoke-test every feed).
 These are gitignored or live outside git:
 
 - **`data/`** — seen-set, SI history, feed health, fetched Loop issues. Starts
-  empty; ingest and archive sync fill it.
+  empty; `load_baseline.sh` copies `baseline/data/` here, then ingest and
+  archive sync keep it current.
 - **`ref/innermost-loop/`** — the 218-edition local corpus. All-rights-reserved
-  third-party content, never published. Seed is a no-op without it.
+  third-party content, never published. Seed is a no-op without it. The
+  baseline dump already contains 220 archive stories, so the Loop panels
+  work on a fresh clone even without this directory.
+- **`transcriptions_moonshot/`** — JSON + TXT pairs of the Moonshots podcast
+  (speaker-diarized, third-party, never published). Seed is a no-op without
+  it. Copy the directory onto a new machine if you want the Moonshot
+  archive; do not commit it.
 - **`ref/accelerando/`** — the local *Accelerando* copy (CC BY-NC-ND 2.5).
   Never published; read the author's free edition instead.
-- **Neo4j volume** — graph is empty until seed + ingest.
+- **Neo4j volume** — empty until `load_baseline.sh` (or seed + ingest).
 - **`.venv`** — `uv sync` recreates it.
+
+The committed graph snapshot is **`baseline/`** (`neo4j.dump` + JSON, not a
+`.tar.gz` — GitHub's 100 MB cap; see `baseline/README.md`). Replace a live
+graph with `./scripts/load_baseline.sh --force`.
 
 Without the local corpus, archive panels start empty. `--sync` or the daily
 job pulls the latest **20** editions from the public feed into

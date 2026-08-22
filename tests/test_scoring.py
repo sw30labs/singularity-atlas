@@ -105,6 +105,27 @@ class TestComputeSI:
         si = scoring.compute_si()
         assert si["delta"] == 0.0
 
+    def test_prior_skipped_without_corpus(self, monkeypatch):
+        self._patch_store(monkeypatch, stories=[])
+        si = scoring.compute_si()
+        assert si["si"] == 0.0
+        assert si["prior"]["alpha"] == 0.0 or si["prior"]["prior"] is None
+
+    def test_prior_clamped(self, monkeypatch):
+        from singularity_atlas import moonshot_archive as ma
+        monkeypatch.setattr(config, "MOONSHOT_PRIOR_ALPHA", 0.5)
+        monkeypatch.setattr(config, "MOONSHOT_PRIOR_CLAMP", 3.0)
+        monkeypatch.setattr(ma, "load_episodes", lambda: [{"date": "2026-08-01"}])
+        monkeypatch.setattr(ma, "prior_shares", lambda days=None: {
+            v: 1.0 / len(config.VECTOR_NAMES) for v in config.VECTOR_NAMES
+        })
+        monkeypatch.setattr(ma, "recent_guests", lambda days=14: [])
+        self._patch_store(monkeypatch, stories=[])
+        si = scoring.compute_si()
+        # feed SI is 0; 50% mix toward ~12.5 would be 6.25, clamped to 3
+        assert si["si"] == pytest.approx(3.0, abs=0.05)
+        assert si["prior"]["clamped"] is True
+
     def test_weights_sum_to_one(self):
         total = sum(m["weight"] for m in config.VECTORS.values())
         assert total == pytest.approx(1.0)

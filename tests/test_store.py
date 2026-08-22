@@ -93,6 +93,25 @@ class TestNeo4j:
         assert set(stats) == {"stories", "entities", "briefs", "edges"}
         assert all(isinstance(v, int) and v >= 0 for v in stats.values())
 
+    def test_moonshot_origin_stays_out_of_live_queries(self, requires_neo4j):
+        sid = "pytest-moonshot-live-0001"
+        now = "2099-06-01T12:00:00+00:00"
+        item = {
+            "id": sid, "source": "moonshots", "source_label": "Moonshots",
+            "title": "Pytest moonshot should not enter the 24h firehose",
+            "url": "https://example.com/moon",
+            "summary": "x", "published_at": now, "salience": 9.0,
+            "vectors": {"capability": 4.0},
+            "entities": [{"name": "PytestMoonGuest", "type": "person"}],
+            "places": [], "origin": "moonshot",
+        }
+        try:
+            store.persist_items([item])
+            ids = {s["id"] for s in store.recent_stories(hours=24 * 365 * 80, limit=5000)}
+            assert sid not in ids
+        finally:
+            self._delete(sid)
+
     def test_queries_return_lists(self, requires_neo4j):
         assert isinstance(store.recent_stories(hours=1), list)
         assert isinstance(store.convergence(hours=1), list)

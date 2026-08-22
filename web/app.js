@@ -86,7 +86,7 @@ function renderSI(si) {
 function renderSpark(history) {
   const svg = $("#si-spark");
   if (!history || history.length < 2) { svg.innerHTML = ""; return; }
-  const W = 800, H = 42;
+  const W = 800, H = 36;
   const vals = history.map((h) => h.si);
   const min = Math.min(...vals) - 2, max = Math.max(...vals) + 2;
   const pts = vals.map((v, i) =>
@@ -95,6 +95,18 @@ function renderSpark(history) {
   svg.innerHTML =
     `<polyline points="${pts}" fill="none" stroke="#00e5ff" stroke-width="1.2" opacity="0.9"/>` +
     `<circle cx="${W}" cy="${H - ((vals.at(-1) - min) / (max - min)) * (H - 6) - 3}" r="2.5" fill="#00e5ff"/>`;
+}
+
+function renderPriorMix() {
+  const el = $("#prior-mix");
+  if (!el) return;
+  const shares = STATE?.moonshot?.mix_90d || {};
+  if (!Object.keys(shares).length) { el.innerHTML = ""; return; }
+  el.innerHTML = Object.keys(STATE?.vectors || {}).map((v) => {
+    const pct = Math.max(0, (shares[v] || 0) * 100);
+    const c = (STATE.vectors[v] || {}).color || "#5d7285";
+    return `<i style="width:${pct}%;background:${c}" title="${esc(v)} ${pct.toFixed(0)}%"></i>`;
+  }).join("");
 }
 
 /* ---------------- globe ---------------- */
@@ -124,8 +136,13 @@ function initGlobe() {
     world.controls().autoRotateSpeed = 1.1;
   }
 
-  const resize = () => world.width($("#globe").clientWidth).height($("#globe").clientHeight);
+  const resize = () => {
+    const el = $("#globe");
+    if (!el || !world) return;
+    world.width(el.clientWidth).height(el.clientHeight);
+  };
   window.addEventListener("resize", resize);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe($("#globe"));
   setTimeout(resize, 50);
 }
 
@@ -204,6 +221,8 @@ $$(".layer-toggles input").forEach((i) => i.addEventListener("change", rebuildGl
 
 /* ---------------- vector panels ---------------- */
 
+const collapsedVectors = new Set();
+
 function renderVectors() {
   if (!STATE) return;
   const wrap = $("#vector-panels");
@@ -214,8 +233,9 @@ function renderVectors() {
     const score = vecScores[name]?.score ?? 0;
     const div = document.createElement("div");
     div.className = "panel vector-panel";
+    if (collapsedVectors.has(name)) div.classList.add("collapsed");
     div.innerHTML =
-      `<div class="panel-head">
+      `<div class="panel-head" title="fold this stream">
          <span class="panel-title"><span class="vector-dot" style="color:${meta.color};background:${meta.color}"></span>${esc(meta.label.toUpperCase())}</span>
          <span class="vector-score">${score.toFixed(0)}</span>
        </div>
@@ -226,6 +246,11 @@ function renderVectors() {
               <div class="story-meta">${esc(s.source_label || s.source)} · ${relTime(s.published_at)}</div>
             </div>`).join("") || '<div class="loading">quiet…</div>'
        }</div>`;
+    div.querySelector(".panel-head").addEventListener("click", () => {
+      div.classList.toggle("collapsed");
+      if (div.classList.contains("collapsed")) collapsedVectors.add(name);
+      else collapsedVectors.delete(name);
+    });
     wrap.appendChild(div);
   }
 }
@@ -261,6 +286,16 @@ function renderConvergence() {
 
 /* ---------------- archive ---------------- */
 
+function renderArchiveMeta() {
+  const el = $("#archive-meta");
+  if (!el) return;
+  const a = STATE?.archive || {};
+  const parts = [];
+  if (a.loop) parts.push(`${a.loop} editions`);
+  if (a.moonshots) parts.push(`${a.moonshots} episodes`);
+  el.textContent = parts.join(" · ");
+}
+
 function renderOnThisDate() {
   const o = STATE?.on_this_date;
   const el = $("#on-this-date");
@@ -271,6 +306,52 @@ function renderOnThisDate() {
      <div class="otd-desc">${esc(o.description || "")}</div>`;
 }
 
+function renderForecastLedger() {
+  const el = $("#forecast-ledger");
+  if (!el) return;
+  const led = STATE?.moonshot?.ledger;
+  if (!led || !led.n) { el.innerHTML = ""; return; }
+  const med = led.guest_median ? Number(led.guest_median).toFixed(0) : "—";
+  const vel = led.velocity_yr == null ? "" :
+    ` · ${led.velocity_yr > 0 ? "+" : ""}${led.velocity_yr} yr/yr`;
+  const q = (led.sample || [])[0];
+  const quote = q
+    ? `<div class="led-quote">“${esc((q.quote || "").slice(0, 140))}”</div>
+       <div class="led-meta">${esc(q.speaker || "")}${q.year ? " · " + q.year : ""} · stated years, not a prediction</div>`
+    : `<div class="led-meta">stated years · not a prediction</div>`;
+  el.innerHTML =
+    `<div class="otd-label">FORECAST LEDGER · ${led.n} claims</div>
+     <div>GUEST MEDIAN ${esc(med)}${esc(vel)}</div>
+     ${quote}`;
+}
+
+function renderLatestMoonshot() {
+  const o = STATE?.latest_moonshot;
+  const el = $("#latest-moonshot");
+  if (!el) return;
+  if (!o) { el.innerHTML = ""; return; }
+  const ep = o.episode ? `EP ${o.episode}` : "episode";
+  const guests = (o.guests || []).slice(0, 3).join(", ");
+  el.innerHTML =
+    `<div class="otd-label">LATEST MOONSHOT · ${esc(ep)}</div>
+     <a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title)}</a>
+     <div class="otd-desc">${esc(guests || (o.date || ""))}</div>`;
+}
+
+function archHit(h) {
+  const moon = h.source === "moonshot";
+  const src = moon ? "MOONSHOT" : "LOOP";
+  const id = moon
+    ? (h.episode ? `EP ${h.episode}` : "episode")
+    : `#${h.edition}`;
+  const who = h.speaker ? ` · ${esc(h.speaker)}` : "";
+  return `<div class="arch-hit">
+       <a href="${esc(h.url)}" target="_blank" rel="noopener"><span class="arch-src ${moon ? "moonshot" : "loop"}">${src}</span> ${id} · ${esc(h.title)}</a>
+       <div class="arch-meta">${esc(h.date || "")}${who}</div>
+       <div class="arch-snippet">…${esc(h.snippet || "")}…</div>
+     </div>`;
+}
+
 let archTimer = null;
 $("#archive-q").addEventListener("input", (e) => {
   clearTimeout(archTimer);
@@ -278,12 +359,8 @@ $("#archive-q").addEventListener("input", (e) => {
   if (q.length < 3) { $("#archive-hits").innerHTML = ""; return; }
   archTimer = setTimeout(async () => {
     const r = await fetch(`/api/archive/search?q=${encodeURIComponent(q)}`).then((x) => x.json());
-    $("#archive-hits").innerHTML = (r.hits || []).map((h) =>
-      `<div class="arch-hit">
-         <a href="${esc(h.url)}" target="_blank" rel="noopener">#${h.edition} · ${esc(h.title)}</a>
-         <div class="arch-meta">${esc(h.date)}</div>
-         <div class="arch-snippet">…${esc(h.snippet)}…</div>
-       </div>`).join("") || '<div class="loading">nothing in the loop</div>';
+    $("#archive-hits").innerHTML = (r.hits || []).map(archHit).join("")
+      || '<div class="loading">nothing in the archive</div>';
   }, 250);
 });
 
@@ -367,11 +444,31 @@ async function openEntityDrawer(name) {
   const editions = (arch.editions || []).map((e) =>
     `<div class="arch-hit"><a href="${esc(e.url)}" target="_blank" rel="noopener">#${e.edition} · ${esc(e.title)}</a>
      <div class="arch-meta">${esc(e.date)} · ${e.mentions} mentions</div></div>`).join("");
+  const moonshots = (arch.moonshots || []).map((e) => {
+    const ep = e.episode ? `EP ${e.episode}` : "episode";
+    const who = (e.speakers || []).length ? ` · ${(e.speakers).map(esc).join(", ")}` : "";
+    const q = (e.quotes || []).map((x) =>
+      `<div class="arch-snippet">${x.role === "guest" ? "GUEST" : "HOST"} · ${esc(x.speaker)}: ${esc((x.text || "").slice(0, 180))}</div>`
+    ).join("");
+    return `<div class="arch-hit"><a href="${esc(e.url)}" target="_blank" rel="noopener">${ep} · ${esc(e.title)}</a>
+     <div class="arch-meta">${esc(e.date || "")}${who} · ${e.mentions} mentions</div>${q}</div>`;
+  }).join("");
+  const said = (arch.forecasts || []).map((f) =>
+    `<div class="arch-hit">
+       <div class="arch-meta">${esc(f.role || "").toUpperCase()} · ${esc(f.speaker)}${f.year ? " · " + f.year : ""} · ${esc(f.family || "")}</div>
+       <div class="arch-snippet">“${esc(f.quote || "")}”</div>
+     </div>`).join("");
+  const guestHead = arch.guest ? `<div class="dim">GUEST · has sat on Moonshots</div>` : "";
   $("#drawer-body").innerHTML = `
     <h2>CONSTELLATION · 7 DAYS</h2>
     <canvas id="ego-canvas" width="430" height="300"></canvas>
+    ${guestHead}
     <h2>ALEX WROTE ABOUT THIS</h2>
-    ${editions || '<div class="dim">no editions mention this yet</div>'}`;
+    ${editions || '<div class="dim">no editions mention this yet</div>'}
+    <h2>MOONSHOTS TALKED ABOUT THIS</h2>
+    ${moonshots || '<div class="dim">no episodes mention this yet</div>'}
+    <h2>THEY SAID</h2>
+    ${said || '<div class="dim">no dated claims extracted</div>'}`;
   drawEgo($("#ego-canvas"), name, ego);
 }
 
@@ -432,7 +529,11 @@ async function pollState() {
     renderVectors();
     renderBrief();
     renderConvergence();
+    renderArchiveMeta();
     renderOnThisDate();
+    renderLatestMoonshot();
+    renderForecastLedger();
+    renderPriorMix();
     renderTicker();
     rebuildGlobeLayers();
     setAineko(!!STATE.ingest_running);

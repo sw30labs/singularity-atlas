@@ -28,9 +28,9 @@ The Apache 2.0 licence in LICENSE covers the original work in this repository:
     setup_and_run.sh, docker-compose.yml, pyproject.toml, README.md,
     QUICKSTART.md, docs/
 
-It does NOT cover anything under ref/. That directory is for local copies of
-third-party published works and is not part of this repository. See
-"Third-party works under ref/" below.
+It does NOT cover anything under ref/ or transcriptions_moonshot/. Those
+directories are for local copies of third-party published works and are
+not part of this repository. See "Third-party works under ref/" below.
 
 
 ================================================================================
@@ -64,12 +64,12 @@ Ars Technica, The Verge, VentureBeat, Import AI and Interconnects.
 
 
 ================================================================================
-THIRD-PARTY WORKS UNDER ref/
+THIRD-PARTY WORKS UNDER ref/ AND transcriptions_moonshot/
 ================================================================================
 
 Other people's published work. None of it is licensed under Apache 2.0, and
-this repository grants no rights in any of it. Both trees under ref/ are
-gitignored and deliberately not published.
+this repository grants no rights in any of it. The trees under ref/ and
+transcriptions_moonshot/ are gitignored and deliberately not published.
 
 ref/accelerando/   -- NOT IN VERSION CONTROL
     "Accelerando" by Charles Stross. Copyright (C) Charles Stross, 2005.
@@ -95,6 +95,18 @@ data/loop_issues/
     Not in version control (gitignored), but populated at runtime by
     singularity_atlas/loop_sync.py from the same Substack feed. The same
     copyright position applies to its contents.
+
+transcriptions_moonshot/   -- NOT IN VERSION CONTROL
+    Transcripts of "Moonshots" (also titled Moonshots and Mindsets), the
+    podcast hosted by Peter H. Diamandis. Copyright remains with the
+    host, guests, and original publishers. No licence granting
+    redistribution of the recordings or of these transcripts has been
+    identified.
+
+    The files are local JSON + TXT pairs produced for this machine;
+    this repository does not redistribute them. singularity_atlas/
+    moonshot_dates.json is a separate lookup of public YouTube video
+    ids and upload dates, not transcript text.
 
 
 ================================================================================

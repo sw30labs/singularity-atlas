@@ -1,0 +1,30 @@
+{
+  "title": "AGI by 2027 w/ Mo Gawdat | EP #101",
+  "url": "https://www.youtube.com/watch?v=fixtureCCC03",
+  "id": "fixtureCCC03",
+  "video_key": "fixtureCCC03",
+  "model": "openai/whisper-large-v3",
+  "dtype": "bfloat16",
+  "language": null,
+  "speaker_profile": "moonshots",
+  "speaker_profile_revision": "test",
+  "upload_date": "2026-08-20",
+  "text": "[00:00:00] Peter H. Diamandis: Welcome back to Moonshots.\n[00:00:08] Mo Gawdat: I think AGI will be here by 2027, earlier than Kurzweil.\n[00:00:20] Unknown speaker 1: This episode is brought to you by Blitzy, autonomous software development with infinite code context. Visit blitzy.com to start building.\n[00:01:20] Peter H. Diamandis: I want to take a short break from our episode. The company is called Fountain Life. Go to fountainlife.com slash Peter. All right, let's go back to the episode.\n[00:02:30] Mo Gawdat: OpenAI is not the only lab that matters.",
+  "plain_text": "Welcome back to Moonshots. I think AGI will be here by 2027, earlier than Kurzweil. This episode is brought to you by Blitzy, autonomous software development with infinite code context. Visit blitzy.com to start building. I want to take a short break from our episode. The company is called Fountain Life. Go to fountainlife.com slash Peter. All right, let's go back to the episode. OpenAI is not the only lab that matters.",
+  "segments": [
+    {"text": "Welcome back to Moonshots.", "start": 0.0, "end": 8.0, "speaker": "Peter H. Diamandis", "speaker_id": "peter-h-diamandis", "speaker_source": "voice_profile"},
+    {"text": "I think AGI will be here by 2027, earlier than Kurzweil.", "start": 8.0, "end": 20.0, "speaker": "Mo Gawdat", "speaker_id": "guest-01", "speaker_source": "youtube_metadata"},
+    {"text": "This episode is brought to you by Blitzy, autonomous software development with infinite code context. Visit blitzy.com to start building.", "start": 20.0, "end": 80.0, "speaker": "Unknown speaker 1", "speaker_id": "unmatched-01", "speaker_source": "unmatched"},
+    {"text": "I want to take a short break from our episode. The company is called Fountain Life. Go to fountainlife.com slash Peter. All right, let's go back to the episode.", "start": 80.0, "end": 150.0, "speaker": "Peter H. Diamandis", "speaker_id": "peter-h-diamandis", "speaker_source": "voice_profile"},
+    {"text": "OpenAI is not the only lab that matters.", "start": 150.0, "end": 156.0, "speaker": "Mo Gawdat", "speaker_id": "guest-01", "speaker_source": "youtube_metadata"}
+  ],
+  "diarization": {
+    "profile": "moonshots",
+    "speakers": {
+      "SPEAKER_00": {"speaker_id": "peter-h-diamandis", "name": "Peter H. Diamandis", "source": "voice_profile", "similarity": 0.9},
+      "SPEAKER_01": {"speaker_id": "guest-01", "name": "Mo Gawdat", "source": "youtube_metadata", "similarity": null},
+      "SPEAKER_02": {"speaker_id": "unmatched-01", "name": "Unknown speaker 1", "source": "unmatched", "similarity": null}
+    },
+    "guest_candidates": ["Mo Gawdat"]
+  }
+}
