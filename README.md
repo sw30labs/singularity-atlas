@@ -1,8 +1,10 @@
 <table>
   <tr>
     <td>
-      <strong><a href="https://github.com/sw30labs/.github/wiki/singularity-atlas">Wiki · The Singularity Atlas</a></strong><br />
-      Argument, architecture, layer table. Local live board vs the public 24h snapshot.
+      <strong><a href="https://sw30labs.github.io/singularity-atlas/">Daily board · last 24h</a></strong>
+      &nbsp;·&nbsp;
+      <strong><a href="https://github.com/sw30labs/.github/wiki/singularity-atlas">Wiki</a></strong><br />
+      Public snapshot of the index, Daily Loop, and globe. Live dashboard stays at localhost:8055.
     </td>
   </tr>
 </table>
