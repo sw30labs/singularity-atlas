@@ -1,3 +1,12 @@
+<table>
+  <tr>
+    <td>
+      <strong><a href="https://github.com/sw30labs/.github/wiki/singularity-atlas">Wiki · The Singularity Atlas</a></strong><br />
+      Argument, architecture, layer table. Local live board vs the public 24h snapshot.
+    </td>
+  </tr>
+</table>
+
 # The Singularity Atlas
 
 The news of the AI build-out — models, fabs, capital, robots, launches — does not arrive as one story. **The Singularity Atlas is a local situational-awareness dashboard that fuses those public feeds into a globe, eight live vectors, a composite Singularity Index, and a daily brief, so you can watch the approach in one place instead of fourteen tabs.**
