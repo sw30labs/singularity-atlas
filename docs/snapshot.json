@@ -1,11 +1,11 @@
 {
-  "generated_utc": "2026-08-29T11:13:52.023528+00:00",
-  "generated_et": "2026-08-29 07:13 EDT",
-  "si": 18.8,
+  "generated_utc": "2026-08-30T11:12:42.046216+00:00",
+  "generated_et": "2026-08-30 07:12 EDT",
+  "si": 19.3,
   "epoch": "Slow Takeoff",
-  "n_stories_24h": 26,
+  "n_stories_24h": 28,
   "countdown": {
-    "days": 6699,
+    "days": 6698,
     "years": 18.34,
     "target": "2045-01-01"
   },
@@ -18,13 +18,13 @@
     },
     "compute": {
       "label": "Compute",
-      "score": 19.1,
+      "score": 7.6,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 7.4,
+      "score": 14.8,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
@@ -42,28 +42,28 @@
     },
     "security": {
       "label": "Security",
-      "score": 0.0,
+      "score": 8.6,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 67.5,
+      "score": 68.1,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 20.0,
+      "score": 24.8,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 698,
-    "entities": 142,
-    "briefs": 4,
-    "edges": 2864
+    "stories": 702,
+    "entities": 144,
+    "briefs": 5,
+    "edges": 2874
   },
   "llm": {
     "available": true,
@@ -71,120 +71,105 @@
     "active": "qwen3.8:27b-mtp-bf16"
   },
   "brief": {
-    "date": "2026-08-29",
+    "date": "2026-08-30",
     "model": "qwen3.8:27b-mtp-bf16",
     "n_items": 14,
-    "text": "# Welcome to August 29, 2026\n\nThe sky is becoming a crowded marketplace where national security, commercial bandwidth, and constitutional rights collide in real-time. Today\u2019s index sits at a sluggish 25.6, a slow takeoff that masks the frantic velocity of infrastructure being bolted onto the edge of the atmosphere. We are not watching a single launch; we are watching the assembly of a new orbital stratum, one where the distinction between a utility provider and a state actor has dissolved into the vacuum.\n\nSpaceX dominates the rhythm, firing off [Crew-13](https://ll.thespacedevs.com/2.2.0/launch/18441371-8b2e-457c-afb5-1ec1b11ab630/) to the ISS while simultaneously stacking two batches of [Starlink satellites](https://ll.thespacedevs.com/2.2.0/launch/63181269-b125-4c36-951c-c9bd9bbc4b55/) into the constellation. This is not just internet; it is a [Proliferated Warfighter Space Architecture](https://ll.thespacedevs.com/2.2.0/launch/da43dc2c-00af-4cc1-8ef1-90a60b2eb9e5/) node disguised as a consumer service. Meanwhile, [Starship Flight 14](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) marks the third attempt of the V3 variant, pushing the heavy-lift envelope that will eventually make the current constellation density look quaint. The competition is no longer about who gets to orbit first, but who can saturate the medium fastest.\n\nRocket Lab is refining the small-lift niche with [LOXSAT 1](https://ll.thespacedevs.com/2.2.0/launch/599ba2df-7483-4b2f-a083-2b5ddc06e069/), a NASA-sponsored cryogenic demonstration that hints at a future where even small rockets manage complex fluid dynamics in space. They are also launching [The Lightning God Defends](https://ll.thespacedevs.com/2.2.0/launch/57280454-470e-4c5d-8de1-1bbd0ea41b49/) and [Owl Around The World](https://ll.thespacedevs.com/2.2.0/launch/9f5a4cb6-63f9-47e1-9512-b468bae2a8e6/), synthetic aperture radar satellites for Japanese firms, signaling that Earth observation is becoming a commodity service for regional powers. ULA\u2019s [Vulcan VC6L](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) is pushing [Amazon Leo](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) into the fray, adding another mega-constellation to the orbital traffic jam, while a [Falcon Heavy](https://ll.thespacedevs.com/2.2.0/launch/521f3a1c-f977-4306-9b7f-495858719adf/) sends the [Nancy Grace Roman Space Telescope](https://ll.thespacedevs.com/2.2.0/launch/521f3a1c-f977-4306-9b7f-495858719adf/) to stare into the deep infrared.\n\nOn the ground, the legal landscape for AI is shifting under the weight of executive overreach. A court has ruled that the [blacklisting of Anthropic](https://www.theverge.com/ai-artificial-intelligence/985947/anthropic-supply-chain-risk-lawsuit-judge-ruling) by the Trump administration was unconstitutional, a victory that suggests the state cannot simply label a private lab as a supply-chain risk to silence it. This legal clarity arrives just as [Google\u2019s Gemini Notebook](https://www.theverge.com/tech/985567/google-gemini-notebook-expert-sources-books) expands its reach, allowing users to query their purchased books directly, blurring the line between reference and computation. In Thailand, [OpenAI and MHESI](https://openai.com/index/supporting-next-generation-ai-startups-thailand) are launching an accelerator for health and education startups, proving that the export of AI capability is now a diplomatic tool as much as a commercial one.\n\nThe singularity is not a moment of ignition but a gradual accretion of systems that talk to each other across domains. The same rockets that deploy [O3b mPower](https://ll.thespacedevs.com/2.2.0/launch/ad358a4d-c541-409b-9366-9c2f2da4aeb9/) communications satellites in medium Earth orbit are the ones carrying the hardware that secures national defense. The AI models that help take notes are the same ones whose developers are fighting for their right to exist under federal law. The infrastructure is being built before the rules are written, and the vacuum is filling faster than the legal frameworks can breathe.\n\nWe are building the nervous system of a planetary civilization, one launch at a time. The signal is clear, if the noise is deafening. The future is not coming; it is being assembled, bolt by bolt, in the black.",
-    "created_at": "2026-08-29T00:01:31.722813+00:00"
+    "text": "# Welcome to August 30, 2026\n\nThe sky is no longer a frontier but a crowded factory floor, where the sheer volume of [Starlink Group 15-23 launches](https://ll.thespacedevs.com/2.2.0/launch/63181269-b125-4c36-951c-c9bd9bbc4b55) and [Starlink Group 15-24 deployments](https://ll.thespacedevs.com/2.2.0/launch/153ef8ef-b12b-43f4-a4bf-05b225c0cd37/) transforms orbital mechanics from a science of precision into a discipline of logistics, ensuring that the internet arrives not as a utility but as an atmospheric condition. This is the era of the Slow Takeoff, where the Singularity Index sits at 19.0/100, not because intelligence is slow, but because the hardware required to house it is currently being assembled in batches of twenty-seven per rocket.\n\nWhile the digital infrastructure thickens, the physical infrastructure diversifies, with [Amazon Leo (LV-01)](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) marking the aggressive entry of big tech into the low-earth orbit broadband market, challenging the monopoly of the early movers. The competition is no longer about who can reach space, but who can saturate it, a race mirrored on the ground by the [Sony Music and Warner Chappell lawsuit against Anthropic](https://www.theverge.com/ai-artificial-intelligence/986438/sony-music-warner-chappell-anthropic-lawsuit-copyright), where the legal battle over \"tens of thousands\" of copyrighted works serves as the final, inevitable friction between the creative commons and the machine learning commons.\n\nIn the shadows of these mega-constellations, smaller players are carving out niches of specialized utility, such as the [LOXSAT 1 demonstration satellite](https://ll.thespacedevs.com/2.2.0/launch/599ba2df-7483-4b2f-a083-2b5ddc06e069/) proving the viability of cryogenic oxygen management in orbit, a technical detail that seems minor until one realizes it is the key to long-duration spaceflight and the eventual move beyond low-earth orbit. This is the quiet work of the [Rocket Lab Electron](https://ll.thespacedevs.com/2.2.0/launch/599ba2df-7483-4b2f-a083-2b5ddc06e069/) fleet, which continues to launch specialized assets like the [iQPS SAR satellite](https://ll.thespacedevs.com/2.2.0/launch/57280454-470e-4c5d-8de1-1bbd0ea41b49/) and [BlackSky Gen-3 imaging satellites](https://ll.thespacedevs.com/2.2.0/launch/b81156da-c0b8-46c8-aebd-8af8d2be83cd/), building a sensor web that sees the Earth in synthetic aperture radar and high-resolution detail, turning the planet into a fully observable system.\n\nThe military dimension of this saturation is no longer secret, with the [SDA Tranche 1 Transport Layer A](https://ll.thespacedevs.com/2.2.0/launch/da43dc2c-00af-4cc1-8ef1-90a60b2eb9e5/) mission deploying nodes for the Proliferated Warfighter Space Architecture, a system designed to be resilient through sheer numbers rather than individual robustness. This proliferated architecture is the logical endpoint of the satellite model, where the cost of a single node is so low that its destruction is an acceptable operational expense, a shift in strategy that mirrors the disposable nature of the [Starlink batches](https://ll.thespacedevs.com/2.2.0/launch/63181269-b125-4c36-951c-c9bd9bbc4b55) but with a sharper, more lethal intent.\n\nAmidst the industrial churn, the human element persists, with [Crew-13](https://ll.thespacedevs.com/2.2.0/launch/18441371-8b2e-457c-afb5-1ec1b11ab630/) launching to the International Space Station, a reminder that the space station is now a transit hub in a much larger network, while the [Nancy Grace Roman Space Telescope](https://ll.thespacedevs.com/2.2.0/launch/521f3a1c-f977-4306-9b7f-495858719adf/) rides a [Falcon Heavy](https://ll.thespacedevs.com/2.2.0/launch/521f3a1c-f977-4306-9b7f-495858719adf/) into the deep field, looking back in time with a 300.8-megapixel eye. The contrast is stark: one telescope looks at the birth of the universe, while thousands of satellites look at the present, creating a dual vision that defines the current moment, a split focus between the ancient past and the immediate, data-rich now.\n\nThe [Starship Flight 14](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) test continues, the third flight of the V3 variant, pushing the boundaries of what is possible with reusable heavy lift, a development that will eventually change the economics of space so drastically that the current congestion will seem like a minor traffic jam. We are building the rails for a future where space is as ordinary as the air we breathe, but for now, we are still just laying the tracks, one satellite at a time, in the slow, steady, and inevitable creep of the takeoff.",
+    "created_at": "2026-08-30T00:01:54.841688+00:00"
   },
   "feeds": {
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-08-29T10:59:58.543706+00:00",
+      "last_fetch": "2026-08-30T10:59:58.533113+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-08-29T10:59:58.481218+00:00",
+      "last_fetch": "2026-08-30T10:59:58.541265+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-08-29T10:59:58.498152+00:00",
+      "last_fetch": "2026-08-30T10:59:58.513554+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-08-29T10:59:58.560531+00:00",
+      "last_fetch": "2026-08-30T10:59:59.813408+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-08-29T10:59:58.558857+00:00",
+      "last_fetch": "2026-08-30T10:59:58.666615+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-08-29T10:59:58.492589+00:00",
+      "last_fetch": "2026-08-30T10:59:58.537376+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-08-29T10:59:58.576533+00:00",
+      "last_fetch": "2026-08-30T10:59:58.507303+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-08-29T10:59:58.797189+00:00",
+      "last_fetch": "2026-08-30T10:59:58.641470+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-08-29T10:59:58.622289+00:00",
+      "last_fetch": "2026-08-30T10:59:58.589178+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-08-29T10:59:58.745294+00:00",
+      "last_fetch": "2026-08-30T10:59:58.909452+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-08-29T10:59:58.811852+00:00",
+      "last_fetch": "2026-08-30T10:59:58.676170+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": true,
       "items": 7,
-      "last_fetch": "2026-08-29T10:59:58.637945+00:00",
+      "last_fetch": "2026-08-30T10:59:58.654839+00:00",
       "error": null
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-08-29T10:59:58.801065+00:00",
+      "last_fetch": "2026-08-30T10:59:58.517953+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-08-29T11:00:00.206646+00:00",
+      "last_fetch": "2026-08-30T10:59:59.890358+00:00",
       "error": null
     },
     "gdelt-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-08-29T11:00:20.499874+00:00",
+      "last_fetch": "2026-08-30T11:00:18.390494+00:00",
       "error": "gdelt-ai: ConnectTimeout: "
     }
   },
   "convergence": [
-    {
-      "name": "Hugging Face",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "agency",
-        "compute",
-        "capability",
-        "embodiment",
-        "capital",
-        "space"
-      ],
-      "stories": 5,
-      "heat": 52.087999999999994
-    },
     {
       "name": "OpenAI",
       "type": "org",
@@ -196,76 +181,21 @@
         "culture",
         "compute"
       ],
-      "stories": 9,
-      "heat": 85.44900000000001
+      "stories": 4,
+      "heat": 36.585
     },
     {
-      "name": "NVIDIA",
+      "name": "Hugging Face",
       "type": "org",
       "vecs": [
         "culture",
-        "capital",
-        "compute",
-        "capability",
         "agency",
-        "space"
-      ],
-      "stories": 3,
-      "heat": 40.8
-    },
-    {
-      "name": "Jensen Huang",
-      "type": "person",
-      "vecs": [
-        "culture",
-        "capital",
         "compute",
-        "capability",
-        "agency",
-        "space"
+        "embodiment",
+        "capital"
       ],
       "stories": 2,
-      "heat": 30.911999999999995
-    },
-    {
-      "name": "Washington",
-      "type": "place",
-      "vecs": [
-        "capital",
-        "culture",
-        "capability",
-        "agency",
-        "compute",
-        "space"
-      ],
-      "stories": 2,
-      "heat": 26.590999999999998
-    },
-    {
-      "name": "Google",
-      "type": "org",
-      "vecs": [
-        "capital",
-        "capability",
-        "culture",
-        "space",
-        "compute"
-      ],
-      "stories": 3,
-      "heat": 29.344
-    },
-    {
-      "name": "Anthropic",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "agency",
-        "compute",
-        "space"
-      ],
-      "stories": 2,
-      "heat": 24.413999999999998
+      "heat": 15.953999999999999
     },
     {
       "name": "SpaceX",
@@ -280,52 +210,106 @@
       "heat": 31.482000000000003
     },
     {
+      "name": "Cursor",
+      "type": "model",
+      "vecs": [
+        "space",
+        "agency",
+        "capital",
+        "capability"
+      ],
+      "stories": 1,
+      "heat": 11.984
+    },
+    {
+      "name": "Jensen Huang",
+      "type": "person",
+      "vecs": [
+        "culture",
+        "capital",
+        "compute",
+        "capability"
+      ],
+      "stories": 1,
+      "heat": 11.776
+    },
+    {
+      "name": "NVIDIA",
+      "type": "org",
+      "vecs": [
+        "culture",
+        "capital",
+        "compute",
+        "capability"
+      ],
+      "stories": 1,
+      "heat": 11.776
+    },
+    {
+      "name": "Rocket Lab",
+      "type": "org",
+      "vecs": [
+        "space",
+        "embodiment",
+        "culture"
+      ],
+      "stories": 6,
+      "heat": 24.195
+    },
+    {
+      "name": "Anthropic",
+      "type": "org",
+      "vecs": [
+        "security",
+        "capital",
+        "culture"
+      ],
+      "stories": 2,
+      "heat": 13.597
+    },
+    {
       "name": "Gemini",
       "type": "model",
       "vecs": [
-        "culture",
-        "space",
+        "capital",
         "capability",
-        "capital"
+        "culture"
       ],
-      "stories": 4,
-      "heat": 23.849999999999998
+      "stories": 2,
+      "heat": 10.321000000000002
     },
     {
-      "name": "Ohio",
-      "type": "place",
-      "vecs": [
-        "agency",
-        "capital",
-        "compute",
-        "space"
-      ],
-      "stories": 1,
-      "heat": 19.136
-    },
-    {
-      "name": "Alibaba",
+      "name": "Sony Music",
       "type": "org",
       "vecs": [
-        "agency",
+        "security",
         "capital",
-        "compute",
-        "space"
+        "culture"
       ],
       "stories": 1,
-      "heat": 19.136
+      "heat": 8.319
     },
     {
-      "name": "OpenRouter",
+      "name": "Warner Chappell",
       "type": "org",
       "vecs": [
-        "agency",
+        "security",
         "capital",
-        "compute",
-        "space"
+        "culture"
       ],
       "stories": 1,
-      "heat": 19.136
+      "heat": 8.319
+    },
+    {
+      "name": "Google",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "capability",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 8.124
     }
   ],
   "last_ingest": {
@@ -334,7 +318,7 @@
       "new": 0,
       "persisted": 0
     },
-    "si": 18.8,
+    "si": 19.3,
     "brief_model": null,
     "errors": [
       "gdelt-ai: ConnectTimeout: "
