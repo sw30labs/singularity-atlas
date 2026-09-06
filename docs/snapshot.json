@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-09-05T12:00:48.955209+00:00",
-  "generated_et": "2026-09-05 08:00 EDT",
-  "si": 37.9,
-  "epoch": "Point of Inflexion",
-  "n_stories_24h": 33,
+  "generated_utc": "2026-09-06T11:50:04.617177+00:00",
+  "generated_et": "2026-09-06 07:50 EDT",
+  "si": 32.2,
+  "epoch": "Slow Takeoff",
+  "n_stories_24h": 29,
   "countdown": {
     "days": 6692,
     "years": 18.32,
@@ -12,25 +12,25 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 28.2,
+      "score": 15.2,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 35.6,
+      "score": 29.5,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 41.0,
+      "score": 41.6,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
     "embodiment": {
       "label": "Embodiment",
-      "score": 20.5,
+      "score": 15.1,
       "blurb": "Robots, humanoids, drones, autonomy",
       "color": "#00e676"
     },
@@ -42,28 +42,28 @@
     },
     "security": {
       "label": "Security",
-      "score": 11.8,
+      "score": 0.0,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 61.9,
+      "score": 60.5,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 54.5,
+      "score": 51.1,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 981,
+    "stories": 982,
     "entities": 147,
     "briefs": 11,
-    "edges": 3558
+    "edges": 3562
   },
   "llm": {
     "available": false,
@@ -81,91 +81,91 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-05T05:52:05.581296+00:00",
+      "last_fetch": "2026-09-06T11:50:00.442452+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-05T05:52:05.533194+00:00",
+      "last_fetch": "2026-09-06T11:50:00.424472+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-05T05:52:05.527021+00:00",
+      "last_fetch": "2026-09-06T11:50:00.417447+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-05T05:52:05.595899+00:00",
+      "last_fetch": "2026-09-06T11:50:00.666126+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-05T05:52:05.556234+00:00",
+      "last_fetch": "2026-09-06T11:50:00.436705+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-05T05:52:05.593387+00:00",
+      "last_fetch": "2026-09-06T11:50:00.452850+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-05T05:52:05.575225+00:00",
+      "last_fetch": "2026-09-06T11:50:00.487292+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-05T05:52:05.694790+00:00",
+      "last_fetch": "2026-09-06T11:50:00.722437+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-05T05:52:05.642978+00:00",
+      "last_fetch": "2026-09-06T11:50:00.664071+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-05T05:52:05.818825+00:00",
+      "last_fetch": "2026-09-06T11:50:00.614508+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-05T05:52:05.829322+00:00",
+      "last_fetch": "2026-09-06T11:50:00.740762+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-05T05:52:05.594140+00:00",
+      "last_fetch": "2026-09-06T11:50:00.488017+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-05T05:52:05.541566+00:00",
+      "last_fetch": "2026-09-06T11:50:00.729522+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-05T05:52:07.215309+00:00",
+      "last_fetch": "2026-09-06T11:50:02.458809+00:00",
       "error": null
     },
     "gdelt-ai": {
       "ok": true,
       "items": 40,
-      "last_fetch": "2026-09-05T05:52:22.485163+00:00",
+      "last_fetch": "2026-09-05T15:07:38.746005+00:00",
       "error": null
     }
   },
@@ -175,29 +175,15 @@
       "type": "org",
       "vecs": [
         "culture",
+        "capital",
         "agency",
         "compute",
-        "capital",
         "space",
         "security",
         "capability"
       ],
-      "stories": 10,
-      "heat": 88.30200000000002
-    },
-    {
-      "name": "NVIDIA",
-      "type": "org",
-      "vecs": [
-        "compute",
-        "capital",
-        "culture",
-        "capability",
-        "space",
-        "embodiment"
-      ],
-      "stories": 5,
-      "heat": 37.073
+      "stories": 8,
+      "heat": 76.98800000000001
     },
     {
       "name": "Sam Altman",
@@ -209,8 +195,8 @@
         "compute",
         "security"
       ],
-      "stories": 3,
-      "heat": 27.872
+      "stories": 2,
+      "heat": 21.984
     },
     {
       "name": "GPT-6",
@@ -221,54 +207,20 @@
         "agency",
         "capital"
       ],
-      "stories": 6,
-      "heat": 44.34400000000001
+      "stories": 5,
+      "heat": 39.374
     },
     {
-      "name": "Gemini",
-      "type": "model",
-      "vecs": [
-        "capital",
-        "capability",
-        "culture",
-        "security"
-      ],
-      "stories": 3,
-      "heat": 21.793999999999997
-    },
-    {
-      "name": "Transformer",
-      "type": "tech",
-      "vecs": [
-        "capability",
-        "space",
-        "compute",
-        "agency"
-      ],
-      "stories": 3,
-      "heat": 15.140999999999998
-    },
-    {
-      "name": "New York",
-      "type": "place",
-      "vecs": [
-        "capital",
-        "culture",
-        "security"
-      ],
-      "stories": 3,
-      "heat": 19.796999999999997
-    },
-    {
-      "name": "Google",
+      "name": "NVIDIA",
       "type": "org",
       "vecs": [
+        "compute",
         "capital",
-        "capability",
-        "culture"
+        "culture",
+        "capability"
       ],
-      "stories": 2,
-      "heat": 16.998
+      "stories": 3,
+      "heat": 21.961999999999996
     },
     {
       "name": "Microsoft",
@@ -282,8 +234,8 @@
       "heat": 13.447000000000001
     },
     {
-      "name": "Claude",
-      "type": "model",
+      "name": "Greg Brockman",
+      "type": "person",
       "vecs": [
         "compute",
         "capability",
@@ -293,8 +245,8 @@
       "heat": 12.995999999999999
     },
     {
-      "name": "Greg Brockman",
-      "type": "person",
+      "name": "Claude",
+      "type": "model",
       "vecs": [
         "compute",
         "capability",
@@ -313,18 +265,48 @@
       ],
       "stories": 1,
       "heat": 12.995999999999999
+    },
+    {
+      "name": "Hugging Face",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "compute",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 8.499
+    },
+    {
+      "name": "Rocket Lab",
+      "type": "org",
+      "vecs": [
+        "space",
+        "embodiment"
+      ],
+      "stories": 3,
+      "heat": 12.825
+    },
+    {
+      "name": "BlackSky",
+      "type": "org",
+      "vecs": [
+        "space",
+        "embodiment"
+      ],
+      "stories": 2,
+      "heat": 10.26
+    },
+    {
+      "name": "Gen-3",
+      "type": "tech",
+      "vecs": [
+        "space",
+        "embodiment"
+      ],
+      "stories": 2,
+      "heat": 10.26
     }
   ],
-  "last_ingest": {
-    "stats": {
-      "fetched": 309,
-      "new": 0,
-      "persisted": 0
-    },
-    "si": 37.9,
-    "brief_model": null,
-    "errors": [
-      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    ]
-  }
+  "last_ingest": null
 }
