@@ -1,7 +1,7 @@
 {
-  "generated_utc": "2026-09-07T11:06:54.138442+00:00",
-  "generated_et": "2026-09-07 07:06 EDT",
-  "si": 22.0,
+  "generated_utc": "2026-09-08T11:00:12.303010+00:00",
+  "generated_et": "2026-09-08 07:00 EDT",
+  "si": 20.3,
   "epoch": "Slow Takeoff",
   "n_stories_24h": 22,
   "countdown": {
@@ -12,7 +12,7 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 20.5,
+      "score": 14.8,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
@@ -36,19 +36,19 @@
     },
     "agency": {
       "label": "Agency",
-      "score": 20.5,
+      "score": 14.8,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 7.4,
+      "score": 8.0,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 61.5,
+      "score": 62.8,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
@@ -60,10 +60,10 @@
     }
   },
   "graph": {
-    "stories": 1056,
+    "stories": 1059,
     "entities": 147,
     "briefs": 13,
-    "edges": 3725
+    "edges": 3736
   },
   "llm": {
     "available": false,
@@ -81,91 +81,91 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-07T11:05:00.483761+00:00",
+      "last_fetch": "2026-09-08T11:00:09.818062+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-07T11:05:00.492381+00:00",
+      "last_fetch": "2026-09-08T11:00:09.897636+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-07T11:05:00.476989+00:00",
+      "last_fetch": "2026-09-08T11:00:09.873301+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-07T11:05:05.802930+00:00",
+      "last_fetch": "2026-09-08T11:00:10.030614+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-07T11:05:00.551742+00:00",
+      "last_fetch": "2026-09-08T11:00:10.844879+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-07T11:05:00.487745+00:00",
+      "last_fetch": "2026-09-08T11:00:09.929638+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-07T11:05:00.460686+00:00",
+      "last_fetch": "2026-09-08T11:00:10.002799+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-07T11:05:00.604109+00:00",
+      "last_fetch": "2026-09-08T11:00:11.181407+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-07T11:05:00.540763+00:00",
+      "last_fetch": "2026-09-08T11:00:10.786963+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-07T11:05:00.714652+00:00",
+      "last_fetch": "2026-09-08T11:00:10.584021+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-07T11:05:00.724802+00:00",
+      "last_fetch": "2026-09-08T11:00:10.906454+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-07T11:05:00.477266+00:00",
+      "last_fetch": "2026-09-08T11:00:10.021679+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-07T11:05:00.468160+00:00",
+      "last_fetch": "2026-09-08T11:00:11.663990+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-07T11:05:02.240356+00:00",
+      "last_fetch": "2026-09-07T17:20:02.661285+00:00",
       "error": null
     },
     "gdelt-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-07T11:05:35.167361+00:00",
+      "last_fetch": "2026-09-07T17:20:28.240699+00:00",
       "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     }
   },
@@ -174,71 +174,37 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
+        "capability",
+        "agency",
+        "embodiment",
         "space",
-        "agency",
-        "capability",
-        "capital",
-        "culture",
-        "compute"
-      ],
-      "stories": 8,
-      "heat": 60.28100000000001
-    },
-    {
-      "name": "Meta",
-      "type": "org",
-      "vecs": [
-        "capability",
-        "agency",
         "capital",
         "culture"
       ],
-      "stories": 2,
-      "heat": 9.884
+      "stories": 5,
+      "heat": 38.370000000000005
     },
     {
-      "name": "Microsoft",
-      "type": "org",
-      "vecs": [
-        "capital",
-        "culture",
-        "compute"
-      ],
-      "stories": 3,
-      "heat": 19.334999999999997
-    },
-    {
-      "name": "Transformer",
-      "type": "tech",
-      "vecs": [
-        "agency",
-        "capability",
-        "embodiment"
-      ],
-      "stories": 3,
-      "heat": 16.695
-    },
-    {
-      "name": "Sam Altman",
-      "type": "person",
-      "vecs": [
-        "capability",
-        "capital",
-        "culture"
-      ],
-      "stories": 1,
-      "heat": 8.988
-    },
-    {
-      "name": "GPT-6",
+      "name": "Claude",
       "type": "model",
       "vecs": [
         "capability",
-        "capital",
-        "culture"
+        "agency",
+        "embodiment"
       ],
       "stories": 1,
-      "heat": 8.988
+      "heat": 11.832
+    },
+    {
+      "name": "Google DeepMind",
+      "type": "org",
+      "vecs": [
+        "agency",
+        "capability",
+        "security"
+      ],
+      "stories": 1,
+      "heat": 7.455
     },
     {
       "name": "Rocket Lab",
@@ -247,8 +213,8 @@
         "space",
         "embodiment"
       ],
-      "stories": 3,
-      "heat": 12.825
+      "stories": 4,
+      "heat": 15.532999999999998
     },
     {
       "name": "BlackSky",
@@ -271,47 +237,15 @@
       "heat": 10.26
     },
     {
-      "name": "Copilot",
-      "type": "model",
-      "vecs": [
-        "capital",
-        "culture"
-      ],
-      "stories": 1,
-      "heat": 5.992
-    },
-    {
-      "name": "New York",
-      "type": "place",
-      "vecs": [
-        "capital",
-        "culture"
-      ],
-      "stories": 1,
-      "heat": 5.992
-    },
-    {
-      "name": "DeepSeek",
+      "name": "Microsoft",
       "type": "org",
       "vecs": [
-        "capability",
-        "agency"
+        "capital",
+        "culture"
       ],
       "stories": 1,
-      "heat": 4.97
+      "heat": 5.888
     }
   ],
-  "last_ingest": {
-    "stats": {
-      "fetched": 269,
-      "new": 0,
-      "persisted": 0
-    },
-    "si": 22.0,
-    "brief_model": null,
-    "errors": [
-      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
-      "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    ]
-  }
+  "last_ingest": null
 }
