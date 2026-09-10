@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-09-09T11:00:04.707014+00:00",
-  "generated_et": "2026-09-09 07:00 EDT",
-  "si": 60.7,
+  "generated_utc": "2026-09-10T11:00:07.756331+00:00",
+  "generated_et": "2026-09-10 07:00 EDT",
+  "si": 55.0,
   "epoch": "Point of Inflexion",
-  "n_stories_24h": 96,
+  "n_stories_24h": 74,
   "countdown": {
     "days": 6688,
     "years": 18.31,
@@ -12,58 +12,58 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 81.6,
+      "score": 73.3,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 24.3,
+      "score": 14.3,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 51.2,
+      "score": 52.9,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
     "embodiment": {
       "label": "Embodiment",
-      "score": 58.2,
+      "score": 39.2,
       "blurb": "Robots, humanoids, drones, autonomy",
       "color": "#00e676"
     },
     "agency": {
       "label": "Agency",
-      "score": 79.5,
+      "score": 71.7,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 20.9,
+      "score": 21.6,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 64.0,
+      "score": 66.9,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 52.8,
+      "score": 56.1,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1178,
-    "entities": 147,
+    "stories": 1191,
+    "entities": 148,
     "briefs": 15,
-    "edges": 3993
+    "edges": 4037
   },
   "llm": {
     "available": false,
@@ -81,92 +81,92 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-09T10:45:10.068563+00:00",
+      "last_fetch": "2026-09-10T11:00:05.201874+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-09T10:45:09.935461+00:00",
+      "last_fetch": "2026-09-10T11:00:05.230451+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-09T10:45:10.024438+00:00",
+      "last_fetch": "2026-09-10T11:00:05.248629+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-09T10:45:12.759945+00:00",
+      "last_fetch": "2026-09-09T22:15:10.025640+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-09T10:45:10.002320+00:00",
+      "last_fetch": "2026-09-10T11:00:05.420922+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-09T10:45:10.044872+00:00",
+      "last_fetch": "2026-09-10T11:00:05.357958+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-09T10:45:10.149082+00:00",
+      "last_fetch": "2026-09-10T11:00:05.336188+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-09T10:45:10.468865+00:00",
+      "last_fetch": "2026-09-10T11:00:06.665452+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-09T10:45:11.268206+00:00",
+      "last_fetch": "2026-09-10T11:00:06.320810+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-09T10:45:11.070803+00:00",
+      "last_fetch": "2026-09-10T11:00:06.031084+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-09T10:45:11.338463+00:00",
+      "last_fetch": "2026-09-10T11:00:06.085233+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-09T10:45:10.069959+00:00",
+      "last_fetch": "2026-09-10T11:00:05.338122+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-09T10:45:09.920987+00:00",
+      "last_fetch": "2026-09-10T11:00:06.349646+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-09T10:45:12.626724+00:00",
+      "last_fetch": "2026-09-09T22:15:12.564372+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-09T10:45:41.502961+00:00",
-      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 40,
+      "last_fetch": "2026-09-09T22:15:46.979171+00:00",
+      "error": null
     }
   },
   "convergence": [
@@ -188,14 +188,14 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "culture",
         "capability",
         "agency",
+        "culture",
         "capital",
-        "space"
+        "security"
       ],
       "stories": 8,
-      "heat": 51.24600000000001
+      "heat": 50.57399999999999
     },
     {
       "name": "Atlas",
@@ -222,15 +222,37 @@
       "heat": 9.736
     },
     {
-      "name": "Microsoft",
+      "name": "Apple",
       "type": "org",
       "vecs": [
         "culture",
-        "compute",
-        "capital"
+        "capital",
+        "space"
       ],
       "stories": 2,
-      "heat": 10.494
+      "heat": 12.523
+    },
+    {
+      "name": "Amazon",
+      "type": "org",
+      "vecs": [
+        "culture",
+        "capital",
+        "space"
+      ],
+      "stories": 3,
+      "heat": 10.147
+    },
+    {
+      "name": "Microsoft",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "culture",
+        "compute"
+      ],
+      "stories": 2,
+      "heat": 9.736
     },
     {
       "name": "Google",
@@ -276,47 +298,15 @@
       "heat": 15.532999999999998
     },
     {
-      "name": "BlackSky",
-      "type": "org",
-      "vecs": [
-        "space",
-        "embodiment"
-      ],
-      "stories": 2,
-      "heat": 10.26
-    },
-    {
-      "name": "Gen-3",
-      "type": "tech",
-      "vecs": [
-        "space",
-        "embodiment"
-      ],
-      "stories": 2,
-      "heat": 10.26
-    },
-    {
-      "name": "Anthropic",
-      "type": "org",
+      "name": "New York",
+      "type": "place",
       "vecs": [
         "capital",
         "culture"
       ],
       "stories": 2,
-      "heat": 9.883999999999999
+      "heat": 10.26
     }
   ],
-  "last_ingest": {
-    "stats": {
-      "fetched": 269,
-      "new": 0,
-      "persisted": 0
-    },
-    "si": 60.7,
-    "brief_model": null,
-    "errors": [
-      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
-      "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    ]
-  }
+  "last_ingest": null
 }
