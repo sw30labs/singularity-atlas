@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-09-12T11:00:10.848145+00:00",
-  "generated_et": "2026-09-12 07:00 EDT",
-  "si": 27.4,
+  "generated_utc": "2026-09-13T11:00:13.492896+00:00",
+  "generated_et": "2026-09-13 07:00 EDT",
+  "si": 26.9,
   "epoch": "Slow Takeoff",
-  "n_stories_24h": 31,
+  "n_stories_24h": 30,
   "countdown": {
     "days": 6685,
     "years": 18.3,
@@ -12,19 +12,19 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 29.3,
+      "score": 19.9,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 6.9,
+      "score": 7.8,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 25.2,
+      "score": 33.4,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
@@ -36,34 +36,34 @@
     },
     "agency": {
       "label": "Agency",
-      "score": 25.5,
+      "score": 14.9,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 0.0,
+      "score": 7.8,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 64.6,
+      "score": 63.6,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 28.2,
+      "score": 36.5,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1297,
+    "stories": 1302,
     "entities": 149,
     "briefs": 18,
-    "edges": 4262
+    "edges": 4282
   },
   "llm": {
     "available": false,
@@ -81,92 +81,92 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-12T11:00:07.546279+00:00",
+      "last_fetch": "2026-09-13T11:00:11.171292+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
-      "ok": true,
-      "items": 12,
-      "last_fetch": "2026-09-12T11:00:07.640978+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-13T11:00:11.288745+00:00",
+      "error": "arxiv-cs-lg: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.LG&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ai": {
-      "ok": true,
-      "items": 12,
-      "last_fetch": "2026-09-12T11:00:07.611439+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-12T18:45:07.530672+00:00",
+      "error": "arxiv-cs-ai: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-12T08:15:11.415729+00:00",
+      "last_fetch": "2026-09-12T18:45:07.552468+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-12T11:00:08.408007+00:00",
+      "last_fetch": "2026-09-13T11:00:11.239530+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
-      "ok": true,
-      "items": 12,
-      "last_fetch": "2026-09-12T11:00:07.586207+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-12T18:45:27.323246+00:00",
+      "error": "arxiv-cs-cl: ReadTimeout: "
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-12T11:00:07.486806+00:00",
+      "last_fetch": "2026-09-13T11:00:11.281818+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-12T11:00:09.022757+00:00",
+      "last_fetch": "2026-09-13T11:00:11.983731+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-12T11:00:08.697352+00:00",
+      "last_fetch": "2026-09-13T11:00:11.800403+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-12T11:00:08.281346+00:00",
+      "last_fetch": "2026-09-13T11:00:11.652617+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-12T11:00:08.337630+00:00",
+      "last_fetch": "2026-09-13T11:00:12.015862+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-12T11:00:07.647503+00:00",
+      "last_fetch": "2026-09-13T11:00:11.117451+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
-      "ok": true,
-      "items": 12,
-      "last_fetch": "2026-09-12T11:00:07.405944+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-12T18:45:07.522114+00:00",
+      "error": "arxiv-cs-ro: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-12T08:15:12.721211+00:00",
+      "last_fetch": "2026-09-12T18:45:10.430556+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": true,
-      "items": 40,
-      "last_fetch": "2026-09-12T08:15:26.844854+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-12T18:45:38.495987+00:00",
+      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     }
   },
   "convergence": [
@@ -174,14 +174,27 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "capital",
-        "agency",
-        "capability",
         "security",
-        "culture"
+        "culture",
+        "agency",
+        "capital",
+        "capability"
       ],
-      "stories": 6,
-      "heat": 38.134
+      "stories": 5,
+      "heat": 35.48599999999999
+    },
+    {
+      "name": "Google",
+      "type": "org",
+      "vecs": [
+        "security",
+        "culture",
+        "agency",
+        "embodiment",
+        "capital"
+      ],
+      "stories": 3,
+      "heat": 23.119999999999997
     },
     {
       "name": "Meta",
@@ -207,28 +220,6 @@
       "heat": 23.116
     },
     {
-      "name": "Apple",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "space"
-      ],
-      "stories": 2,
-      "heat": 12.523
-    },
-    {
-      "name": "Amazon",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "space"
-      ],
-      "stories": 3,
-      "heat": 10.147
-    },
-    {
       "name": "xAI",
       "type": "org",
       "vecs": [
@@ -240,16 +231,6 @@
       "heat": 7.455
     },
     {
-      "name": "GPT-6",
-      "type": "model",
-      "vecs": [
-        "agency",
-        "capability"
-      ],
-      "stories": 3,
-      "heat": 16.72
-    },
-    {
       "name": "Rocket Lab",
       "type": "org",
       "vecs": [
@@ -258,6 +239,16 @@
       ],
       "stories": 4,
       "heat": 15.818999999999999
+    },
+    {
+      "name": "GPT-6",
+      "type": "model",
+      "vecs": [
+        "agency",
+        "capability"
+      ],
+      "stories": 2,
+      "heat": 10.832
     },
     {
       "name": "BlackSky",
@@ -287,7 +278,7 @@
         "capital"
       ],
       "stories": 2,
-      "heat": 9.212
+      "heat": 9.736
     },
     {
       "name": "Perplexity",
@@ -298,6 +289,16 @@
       ],
       "stories": 1,
       "heat": 5.416
+    },
+    {
+      "name": "Dario Amodei",
+      "type": "person",
+      "vecs": [
+        "culture",
+        "capital"
+      ],
+      "stories": 1,
+      "heat": 5.13
     }
   ],
   "last_ingest": null
