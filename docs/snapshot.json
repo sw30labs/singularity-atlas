@@ -1,69 +1,69 @@
 {
-  "generated_utc": "2026-09-15T11:00:10.566035+00:00",
-  "generated_et": "2026-09-15 07:00 EDT",
-  "si": 16.6,
-  "epoch": "Slow Takeoff",
-  "n_stories_24h": 22,
+  "generated_utc": "2026-09-16T11:00:10.369832+00:00",
+  "generated_et": "2026-09-16 07:00 EDT",
+  "si": 50.6,
+  "epoch": "Point of Inflexion",
+  "n_stories_24h": 51,
   "countdown": {
-    "days": 6683,
-    "years": 18.3,
+    "days": 6682,
+    "years": 18.29,
     "target": "2045-01-01"
   },
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 8.5,
+      "score": 68.4,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 0.0,
+      "score": 20.8,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 9.8,
+      "score": 36.3,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
     "embodiment": {
       "label": "Embodiment",
-      "score": 8.2,
+      "score": 21.5,
       "blurb": "Robots, humanoids, drones, autonomy",
       "color": "#00e676"
     },
     "agency": {
       "label": "Agency",
-      "score": 8.5,
+      "score": 67.4,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 0.0,
+      "score": 31.6,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 62.3,
+      "score": 64.0,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 9.8,
+      "score": 45.7,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1336,
+    "stories": 1367,
     "entities": 149,
-    "briefs": 20,
-    "edges": 4375
+    "briefs": 21,
+    "edges": 4475
   },
   "llm": {
     "available": false,
@@ -71,200 +71,228 @@
     "active": null
   },
   "brief": {
-    "date": "2026-09-14",
+    "date": "2026-09-15",
     "model": "heuristic",
     "n_items": 14,
-    "text": "# Welcome to September 14, 2026\n\nThe Singularity Index reads **16.6/100** \u2014 Slow Takeoff. 6683 days to 2045-01-01. 22 signals crossed the wire in the last cycle.\n\n[Trump and Mike Johnson think the AI industry is overreacting](https://www.theverge.com/ai-artificial-intelligence/994441/trump-mike-johnson-ai-industry-overreacting) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[Falcon 9 Block 5 | Starlink Group 15-27 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d1471f9d-e9d0-4146-8e97-90863e48bfc8/) \u2014 *Launch Library* \u00b7 space\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n[Starship | Flight 14 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | SDA Tranche 1 Transport Layer A \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/da43dc2c-00af-4cc1-8ef1-90a60b2eb9e5/) \u2014 *Launch Library* \u00b7 space\n\n[Perplexity trusts GPT-6 Astra with end-to-end systems](https://openai.com/index/perplexity-improving-accuracy-with-astra) \u2014 *OpenAI* \u00b7 agency, capability\n\n[Falcon 9 Block 5 | O3b mPower 11-13 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/ad358a4d-c541-409b-9366-9c2f2da4aeb9/) \u2014 *Launch Library* \u00b7 space\n\n[Electron | StriX Launch 12 \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/f4c720ce-0cfd-43e6-b8dd-00273073bc01/) \u2014 *Launch Library* \u00b7 space\n\n[Ariane 64 Block 2 | Amazon Leo (LE-04) \u2014 Arianespace](https://ll.thespacedevs.com/2.2.0/launch/7bdc412b-c965-4517-a131-f57a01189803/) \u2014 *Launch Library* \u00b7 space\n\n[Electron | 6x HawkEye 360 \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/7766f3bb-674c-4c71-b986-963bd633fcfe/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
-    "created_at": "2026-09-14T08:30:48.774872+00:00"
+    "text": "# Welcome to September 15, 2026\n\nThe Singularity Index reads **50.5/100** \u2014 Point of Inflexion. 6682 days to 2045-01-01. 51 signals crossed the wire in the last cycle.\n\n[Is Big Tech\u2019s AI slowdown a safety pact or a cartel?](https://www.theverge.com/ai-artificial-intelligence/995186/is-big-techs-ai-slowdown-a-safety-pact-or-a-cartel) \u2014 *The Verge AI* \u00b7 capital, space, culture\n\n[AI agents blew the whistle on their cheating colleagues](https://www.technologyreview.com/2026/09/14/1144037/ai-agents-blew-whistle-o-cheating-colleagues/) \u2014 *MIT Tech Review AI* \u00b7 capability, agency, culture, security\n\n[Falcon 9 Block 5 | Starlink Group 15-27 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d1471f9d-e9d0-4146-8e97-90863e48bfc8/) \u2014 *Launch Library* \u00b7 space\n\n[Vulnerability Localization Benchmark: Measuring Agentic Security Analysis at Repository Scale](https://arxiv.org/abs/2609.15939v1) \u2014 *arXiv cs.AI* \u00b7 capability, security, agency\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n[Jensen Huang puts Trump on speakerphone onstage to announce robots won\u2019t take over the world](https://www.theverge.com/tech/995079/president-donald-trump-calls-nvidia-ceo-jensen-huang-all-in-summit) \u2014 *The Verge AI* \u00b7 compute, capital, embodiment, culture\n\n[Starship | Flight 14 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) \u2014 *Launch Library* \u00b7 space\n\n[Microsoft says \u2018people matter more than AI\u2019 following safety concerns](https://www.theverge.com/news/994566/microsoft-humanist-ai-code-of-conduct) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[The AI industry has taken a doomer turn. What now?](https://www.technologyreview.com/2026/09/14/1144048/the-ai-industry-has-taken-a-doomer-turn-what-now/) \u2014 *MIT Tech Review AI* \u00b7 capability, culture\n\n[Electron | StriX Launch 12 \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/f4c720ce-0cfd-43e6-b8dd-00273073bc01/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
+    "created_at": "2026-09-15T11:45:39.793123+00:00"
   },
   "feeds": {
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-15T11:00:08.431647+00:00",
+      "last_fetch": "2026-09-16T11:00:08.908515+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-15T11:00:08.466024+00:00",
-      "error": "arxiv-cs-lg: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.LG&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 12,
+      "last_fetch": "2026-09-16T11:00:08.851823+00:00",
+      "error": null
     },
     "arxiv-cs-ai": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-14T12:15:11.194094+00:00",
-      "error": "arxiv-cs-ai: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 12,
+      "last_fetch": "2026-09-16T11:00:08.690911+00:00",
+      "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-15T11:00:08.464949+00:00",
+      "last_fetch": "2026-09-15T13:30:08.434726+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-15T11:00:08.402971+00:00",
+      "last_fetch": "2026-09-16T11:00:08.802913+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-14T12:15:11.189834+00:00",
-      "error": "arxiv-cs-cl: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 12,
+      "last_fetch": "2026-09-16T11:00:08.828932+00:00",
+      "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-15T11:00:08.343876+00:00",
+      "last_fetch": "2026-09-16T11:00:08.748903+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-15T11:00:09.463411+00:00",
+      "last_fetch": "2026-09-16T11:00:09.723991+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-15T11:00:09.195360+00:00",
+      "last_fetch": "2026-09-16T11:00:09.445897+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-15T11:00:08.969280+00:00",
+      "last_fetch": "2026-09-16T11:00:09.301777+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-15T11:00:09.247249+00:00",
+      "last_fetch": "2026-09-16T11:00:09.483678+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-15T11:00:08.450743+00:00",
+      "last_fetch": "2026-09-16T11:00:08.920417+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-15T11:00:08.457288+00:00",
-      "error": "arxiv-cs-ro: HTTPStatusError: Client error '429 Unknown Error' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 12,
+      "last_fetch": "2026-09-16T11:00:09.513837+00:00",
+      "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-14T12:15:13.483217+00:00",
+      "last_fetch": "2026-09-15T13:30:12.600981+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": true,
-      "items": 40,
-      "last_fetch": "2026-09-14T12:15:29.290966+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-15T13:30:50.852832+00:00",
+      "error": "gdelt-ai: ConnectTimeout: "
     }
   },
   "convergence": [
     {
+      "name": "Google",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "space",
+        "culture",
+        "capability",
+        "agency",
+        "security"
+      ],
+      "stories": 3,
+      "heat": 29.596000000000004
+    },
+    {
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "security",
-        "capability",
         "capital",
+        "space",
         "culture",
-        "agency"
-      ],
-      "stories": 5,
-      "heat": 41.858
-    },
-    {
-      "name": "Sam Altman",
-      "type": "person",
-      "vecs": [
-        "security",
-        "capability",
-        "capital",
-        "culture",
-        "agency"
-      ],
-      "stories": 3,
-      "heat": 28.933000000000003
-    },
-    {
-      "name": "Hugging Face",
-      "type": "org",
-      "vecs": [
-        "security",
-        "capability",
-        "capital",
+        "compute",
         "agency",
-        "culture"
-      ],
-      "stories": 2,
-      "heat": 22.269000000000002
-    },
-    {
-      "name": "Dario Amodei",
-      "type": "person",
-      "vecs": [
-        "security",
-        "capability",
-        "capital",
-        "culture"
+        "capability"
       ],
       "stories": 3,
-      "heat": 24.790000000000003
-    },
-    {
-      "name": "Elon Musk",
-      "type": "person",
-      "vecs": [
-        "security",
-        "capability",
-        "capital",
-        "culture"
-      ],
-      "stories": 2,
-      "heat": 19.66
-    },
-    {
-      "name": "Demis Hassabis",
-      "type": "person",
-      "vecs": [
-        "security",
-        "capability",
-        "capital",
-        "culture"
-      ],
-      "stories": 2,
-      "heat": 19.66
+      "heat": 24.871000000000002
     },
     {
       "name": "Google DeepMind",
       "type": "org",
       "vecs": [
+        "capability",
+        "agency",
+        "culture",
+        "security",
+        "capital",
+        "space"
+      ],
+      "stories": 2,
+      "heat": 22.932
+    },
+    {
+      "name": "Dario Amodei",
+      "type": "person",
+      "vecs": [
+        "culture",
+        "capital",
         "security",
         "capability",
-        "capital"
+        "space"
       ],
-      "stories": 1,
-      "heat": 12.995999999999999
+      "stories": 5,
+      "heat": 35.833
     },
     {
       "name": "Anthropic",
       "type": "org",
       "vecs": [
         "culture",
-        "capital"
+        "capital",
+        "capability",
+        "space"
+      ],
+      "stories": 4,
+      "heat": 28.378000000000004
+    },
+    {
+      "name": "NVIDIA",
+      "type": "org",
+      "vecs": [
+        "compute",
+        "capital",
+        "embodiment",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 11.332
+    },
+    {
+      "name": "Jensen Huang",
+      "type": "person",
+      "vecs": [
+        "compute",
+        "capital",
+        "embodiment",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 11.332
+    },
+    {
+      "name": "Elon Musk",
+      "type": "person",
+      "vecs": [
+        "capital",
+        "space",
+        "culture"
       ],
       "stories": 2,
-      "heat": 11.793999999999999
+      "heat": 17.416
+    },
+    {
+      "name": "Demis Hassabis",
+      "type": "person",
+      "vecs": [
+        "capital",
+        "space",
+        "culture"
+      ],
+      "stories": 2,
+      "heat": 17.416
+    },
+    {
+      "name": "Sam Altman",
+      "type": "person",
+      "vecs": [
+        "capital",
+        "space",
+        "culture"
+      ],
+      "stories": 2,
+      "heat": 17.416
     },
     {
       "name": "Rocket Lab",
@@ -277,34 +305,14 @@
       "heat": 10.402999999999999
     },
     {
-      "name": "Google",
-      "type": "org",
+      "name": "Transformer",
+      "type": "tech",
       "vecs": [
-        "culture",
-        "capital"
+        "capability",
+        "agency"
       ],
-      "stories": 1,
-      "heat": 6.664
-    },
-    {
-      "name": "Perplexity",
-      "type": "org",
-      "vecs": [
-        "agency",
-        "capability"
-      ],
-      "stories": 1,
-      "heat": 5.416
-    },
-    {
-      "name": "GPT-6",
-      "type": "model",
-      "vecs": [
-        "agency",
-        "capability"
-      ],
-      "stories": 1,
-      "heat": 5.416
+      "stories": 2,
+      "heat": 9.575999999999999
     }
   ],
   "last_ingest": null
