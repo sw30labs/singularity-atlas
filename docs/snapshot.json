@@ -1,30 +1,30 @@
 {
-  "generated_utc": "2026-09-20T11:00:11.795162+00:00",
-  "generated_et": "2026-09-20 07:00 EDT",
-  "si": 28.4,
+  "generated_utc": "2026-09-21T11:00:06.645708+00:00",
+  "generated_et": "2026-09-21 07:00 EDT",
+  "si": 26.3,
   "epoch": "Slow Takeoff",
-  "n_stories_24h": 30,
+  "n_stories_24h": 28,
   "countdown": {
-    "days": 6678,
+    "days": 6676,
     "years": 18.28,
     "target": "2045-01-01"
   },
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 20.6,
+      "score": 0.0,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 7.8,
+      "score": 20.9,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 38.7,
+      "score": 31.2,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
@@ -36,34 +36,34 @@
     },
     "agency": {
       "label": "Agency",
-      "score": 6.9,
+      "score": 16.5,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 20.8,
+      "score": 16.1,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 65.5,
+      "score": 65.3,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 38.7,
+      "score": 34.9,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1615,
+    "stories": 1700,
     "entities": 150,
-    "briefs": 25,
-    "edges": 5079
+    "briefs": 27,
+    "edges": 5277
   },
   "llm": {
     "available": false,
@@ -71,102 +71,102 @@
     "active": null
   },
   "brief": {
-    "date": "2026-09-19",
+    "date": "2026-09-21",
     "model": "heuristic",
     "n_items": 14,
-    "text": "# Welcome to September 19, 2026\n\nThe Singularity Index reads **28.7/100** \u2014 Slow Takeoff. 6678 days to 2045-01-01. 28 signals crossed the wire in the last cycle.\n\n[Starship | Starlink Group 31-1 (Starship Flight 14) \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) \u2014 *Launch Library* \u00b7 space\n\n[OpenAI and Microsoft knew they were starting a \u2018doom loop\u2019 for the web](https://www.theverge.com/ai-artificial-intelligence/997633/openai-microsoft-chatgpt-ai-new-york-times-doom-loop-theft-google-zero) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | USSF-385 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7330d83b-c478-426c-8859-f9e3a335876d/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Starlink Group 15-27 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d1471f9d-e9d0-4146-8e97-90863e48bfc8/) \u2014 *Launch Library* \u00b7 space\n\n[Security researchers used Claude to help them hack into OpenAI](https://www.theverge.com/ai-artificial-intelligence/997444/openai-hack-claude-heif-heist) \u2014 *The Verge AI* \u00b7 culture, capital, capability\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n[What Hollywood thinks about existential AI warnings](https://www.theverge.com/ai-artificial-intelligence/997358/what-hollywood-thinks-about-existential-ai-warnings) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[Electron | Owl By The Dozen (StriX Launch 12) \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/f4c720ce-0cfd-43e6-b8dd-00273073bc01/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | O3b mPower 11-13 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/ad358a4d-c541-409b-9366-9c2f2da4aeb9/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
-    "created_at": "2026-09-19T00:00:44.333858+00:00"
+    "text": "# Welcome to September 21, 2026\n\nThe Singularity Index reads **21.0/100** \u2014 Slow Takeoff. 6676 days to 2045-01-01. 26 signals crossed the wire in the last cycle.\n\n[Starship | Starlink Group 31-1 (Starship Flight 14) \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7d1afb26-6f9c-429b-9ccf-29012fd1e519/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | USSF-385 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7330d83b-c478-426c-8859-f9e3a335876d/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Starlink Group 15-25 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/97c6f5e1-299e-4652-b72d-9618ac047076/) \u2014 *Launch Library* \u00b7 space\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n[No one is surprised that Nvidia\u2019s Jensen Huang thinks AI fears are overblown.](https://www.theverge.com/ai-artificial-intelligence/997936/nvidia-jensen-huang-ai-fears-overblown) \u2014 *The Verge AI* \u00b7 compute, capital, culture\n\n[Falcon 9 Block 5 | O3b mPower 11-13 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/ad358a4d-c541-409b-9366-9c2f2da4aeb9/) \u2014 *Launch Library* \u00b7 space\n\n[Ariane 64 Block 2 | Amazon Leo (LE-04) \u2014 Arianespace](https://ll.thespacedevs.com/2.2.0/launch/7bdc412b-c965-4517-a131-f57a01189803/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | SDA Tranche 1 Transport Layer A \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/da43dc2c-00af-4cc1-8ef1-90a60b2eb9e5/) \u2014 *Launch Library* \u00b7 space\n\n[Electron | Owlright, Owlright, Owlright (StriX Launch 13) \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/9e24bef7-c44b-4fdc-ba52-68545ce9457e/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
+    "created_at": "2026-09-21T03:30:55.650476+00:00"
   },
   "feeds": {
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-20T11:00:08.393351+00:00",
+      "last_fetch": "2026-09-21T10:45:08.556249+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-20T11:00:09.489268+00:00",
+      "last_fetch": "2026-09-21T10:45:08.424609+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-20T11:00:08.548695+00:00",
+      "last_fetch": "2026-09-21T10:45:08.456581+00:00",
       "error": null
     },
     "launches": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-19T21:00:29.901044+00:00",
-      "error": "launches: ReadTimeout: "
+      "ok": true,
+      "items": 20,
+      "last_fetch": "2026-09-21T10:45:09.941251+00:00",
+      "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-20T11:00:08.511595+00:00",
+      "last_fetch": "2026-09-21T10:45:08.630468+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-20T11:00:09.510239+00:00",
+      "last_fetch": "2026-09-21T10:45:08.488075+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-20T11:00:09.447557+00:00",
+      "last_fetch": "2026-09-21T10:45:08.374961+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-20T11:00:08.837420+00:00",
+      "last_fetch": "2026-09-21T10:45:09.005687+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-20T11:00:09.778047+00:00",
+      "last_fetch": "2026-09-21T10:45:09.261115+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-20T11:00:09.363042+00:00",
+      "last_fetch": "2026-09-21T10:45:09.932389+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-20T11:00:09.556622+00:00",
+      "last_fetch": "2026-09-21T10:45:09.316399+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-20T11:00:08.420031+00:00",
+      "last_fetch": "2026-09-21T10:45:08.429842+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-20T11:00:08.525255+00:00",
+      "last_fetch": "2026-09-21T10:45:08.396788+00:00",
       "error": "arxiv-cs-ro: HTTPStatusError: Client error '406 Not Acceptable' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406"
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-19T21:00:16.908429+00:00",
+      "last_fetch": "2026-09-21T10:45:11.495444+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-19T21:00:47.311896+00:00",
-      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": true,
+      "items": 40,
+      "last_fetch": "2026-09-21T10:45:39.799943+00:00",
+      "error": null
     }
   },
   "convergence": [
@@ -174,40 +174,50 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "capital",
-        "capability",
         "culture",
+        "security",
         "agency",
-        "security"
+        "capital",
+        "capability"
       ],
-      "stories": 6,
-      "heat": 41.523999999999994
+      "stories": 5,
+      "heat": 40.767
     },
     {
-      "name": "Claude",
-      "type": "model",
+      "name": "Meta",
+      "type": "org",
       "vecs": [
-        "culture",
-        "capital",
-        "capability",
         "agency",
-        "compute"
+        "capital",
+        "culture",
+        "capability"
       ],
       "stories": 3,
-      "heat": 30.010999999999996
+      "heat": 22.240000000000002
     },
     {
-      "name": "Grok",
-      "type": "model",
+      "name": "Amazon",
+      "type": "org",
       "vecs": [
-        "capital",
         "agency",
-        "compute",
-        "capability",
-        "culture"
+        "capital",
+        "culture",
+        "space"
       ],
-      "stories": 1,
-      "heat": 15.674999999999999
+      "stories": 4,
+      "heat": 19.586
+    },
+    {
+      "name": "New York",
+      "type": "place",
+      "vecs": [
+        "culture",
+        "security",
+        "agency",
+        "capital"
+      ],
+      "stories": 2,
+      "heat": 18.356
     },
     {
       "name": "Anthropic",
@@ -218,98 +228,101 @@
         "security",
         "capability"
       ],
-      "stories": 3,
-      "heat": 25.781999999999996
+      "stories": 2,
+      "heat": 16.794
     },
     {
       "name": "Gemini",
       "type": "model",
       "vecs": [
-        "capital",
         "capability",
-        "culture",
-        "agency"
+        "embodiment",
+        "capital",
+        "culture"
       ],
       "stories": 2,
-      "heat": 14.801
-    },
-    {
-      "name": "Microsoft",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "security"
-      ],
-      "stories": 2,
-      "heat": 14.98
-    },
-    {
-      "name": "Amazon",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "space"
-      ],
-      "stories": 3,
-      "heat": 11.087000000000002
+      "heat": 13.931
     },
     {
       "name": "Google",
       "type": "org",
       "vecs": [
+        "compute",
+        "culture",
         "capital",
-        "capability",
-        "culture"
+        "capability"
       ],
-      "stories": 1,
-      "heat": 9.135
+      "stories": 2,
+      "heat": 13.741
     },
     {
-      "name": "Meta",
+      "name": "Hugging Face",
       "type": "org",
       "vecs": [
-        "capital",
-        "capability",
-        "culture"
-      ],
-      "stories": 1,
-      "heat": 9.135
-    },
-    {
-      "name": "Mustafa Suleyman",
-      "type": "person",
-      "vecs": [
+        "culture",
         "security",
-        "capital",
-        "culture"
+        "agency",
+        "capital"
       ],
       "stories": 1,
-      "heat": 8.988
+      "heat": 12.364
     },
     {
-      "name": "HBM",
+      "name": "World Models",
       "type": "tech",
       "vecs": [
         "capability",
-        "agency",
-        "compute"
+        "culture",
+        "agency"
       ],
-      "stories": 1,
-      "heat": 8.832
+      "stories": 2,
+      "heat": 13.111
     },
     {
-      "name": "DeepSeek",
-      "type": "org",
+      "name": "Transformer",
+      "type": "tech",
       "vecs": [
+        "compute",
         "capability",
-        "agency",
-        "compute"
+        "agency"
+      ],
+      "stories": 2,
+      "heat": 10.212
+    },
+    {
+      "name": "Claude",
+      "type": "model",
+      "vecs": [
+        "culture",
+        "capital",
+        "capability"
       ],
       "stories": 1,
-      "heat": 8.832
+      "heat": 8.67
+    },
+    {
+      "name": "Oracle",
+      "type": "org",
+      "vecs": [
+        "compute",
+        "capability",
+        "agency"
+      ],
+      "stories": 1,
+      "heat": 8.319
     }
   ],
-  "last_ingest": null
+  "last_ingest": {
+    "stats": {
+      "fetched": 297,
+      "new": 0,
+      "persisted": 0
+    },
+    "si": 26.3,
+    "brief_model": null,
+    "errors": [
+      "arxiv-cs-ro: HTTPStatusError: Client error '406 Not Acceptable' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406",
+      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+    ]
+  }
 }
