@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-09-21T11:00:06.645708+00:00",
-  "generated_et": "2026-09-21 07:00 EDT",
-  "si": 26.3,
-  "epoch": "Slow Takeoff",
-  "n_stories_24h": 28,
+  "generated_utc": "2026-09-22T11:00:12.093960+00:00",
+  "generated_et": "2026-09-22 07:00 EDT",
+  "si": 39.2,
+  "epoch": "Point of Inflexion",
+  "n_stories_24h": 35,
   "countdown": {
     "days": 6676,
     "years": 18.28,
@@ -12,19 +12,19 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 0.0,
+      "score": 36.5,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 20.9,
+      "score": 26.6,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 31.2,
+      "score": 35.0,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
@@ -36,13 +36,13 @@
     },
     "agency": {
       "label": "Agency",
-      "score": 16.5,
+      "score": 27.0,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 16.1,
+      "score": 37.3,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
@@ -54,16 +54,16 @@
     },
     "culture": {
       "label": "Culture",
-      "score": 34.9,
+      "score": 46.3,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1700,
+    "stories": 1708,
     "entities": 150,
     "briefs": 27,
-    "edges": 5277
+    "edges": 5304
   },
   "llm": {
     "available": false,
@@ -81,92 +81,92 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-21T10:45:08.556249+00:00",
+      "last_fetch": "2026-09-22T11:00:09.850622+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-21T10:45:08.424609+00:00",
+      "last_fetch": "2026-09-22T11:00:09.545496+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-21T10:45:08.456581+00:00",
+      "last_fetch": "2026-09-22T11:00:09.570528+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-21T10:45:09.941251+00:00",
+      "last_fetch": "2026-09-21T13:31:06.696459+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-21T10:45:08.630468+00:00",
+      "last_fetch": "2026-09-22T11:00:09.725474+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-21T10:45:08.488075+00:00",
+      "last_fetch": "2026-09-22T11:00:09.754718+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-21T10:45:08.374961+00:00",
+      "last_fetch": "2026-09-22T11:00:10.085119+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-21T10:45:09.005687+00:00",
+      "last_fetch": "2026-09-22T11:00:10.381434+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-21T10:45:09.261115+00:00",
+      "last_fetch": "2026-09-22T11:00:11.276290+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-21T10:45:09.932389+00:00",
+      "last_fetch": "2026-09-22T11:00:11.014763+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-21T10:45:09.316399+00:00",
+      "last_fetch": "2026-09-22T11:00:11.327850+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-21T10:45:08.429842+00:00",
+      "last_fetch": "2026-09-22T11:00:09.862030+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
-      "ok": false,
-      "items": 0,
-      "last_fetch": "2026-09-21T10:45:08.396788+00:00",
-      "error": "arxiv-cs-ro: HTTPStatusError: Client error '406 Not Acceptable' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406"
+      "ok": true,
+      "items": 12,
+      "last_fetch": "2026-09-22T11:00:09.654629+00:00",
+      "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-21T10:45:11.495444+00:00",
+      "last_fetch": "2026-09-21T13:31:09.483046+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": true,
-      "items": 40,
-      "last_fetch": "2026-09-21T10:45:39.799943+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-21T13:31:17.554981+00:00",
+      "error": "gdelt-ai: ConnectTimeout: "
     }
   },
   "convergence": [
@@ -174,14 +174,14 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
+        "capability",
         "culture",
         "security",
         "agency",
-        "capital",
-        "capability"
+        "capital"
       ],
-      "stories": 5,
-      "heat": 40.767
+      "stories": 3,
+      "heat": 25.677000000000007
     },
     {
       "name": "Meta",
@@ -204,44 +204,8 @@
         "culture",
         "space"
       ],
-      "stories": 4,
-      "heat": 19.586
-    },
-    {
-      "name": "New York",
-      "type": "place",
-      "vecs": [
-        "culture",
-        "security",
-        "agency",
-        "capital"
-      ],
-      "stories": 2,
-      "heat": 18.356
-    },
-    {
-      "name": "Anthropic",
-      "type": "org",
-      "vecs": [
-        "culture",
-        "capital",
-        "security",
-        "capability"
-      ],
-      "stories": 2,
-      "heat": 16.794
-    },
-    {
-      "name": "Gemini",
-      "type": "model",
-      "vecs": [
-        "capability",
-        "embodiment",
-        "capital",
-        "culture"
-      ],
-      "stories": 2,
-      "heat": 13.931
+      "stories": 3,
+      "heat": 14.040000000000001
     },
     {
       "name": "Google",
@@ -268,61 +232,84 @@
       "heat": 12.364
     },
     {
-      "name": "World Models",
-      "type": "tech",
+      "name": "New York",
+      "type": "place",
       "vecs": [
-        "capability",
         "culture",
-        "agency"
+        "security",
+        "agency",
+        "capital"
       ],
-      "stories": 2,
-      "heat": 13.111
+      "stories": 1,
+      "heat": 12.364
     },
     {
-      "name": "Transformer",
-      "type": "tech",
+      "name": "Anthropic",
+      "type": "org",
       "vecs": [
-        "compute",
         "capability",
-        "agency"
-      ],
-      "stories": 2,
-      "heat": 10.212
-    },
-    {
-      "name": "Claude",
-      "type": "model",
-      "vecs": [
         "culture",
         "capital",
-        "capability"
+        "security"
+      ],
+      "stories": 2,
+      "heat": 12.302000000000001
+    },
+    {
+      "name": "Gemini",
+      "type": "model",
+      "vecs": [
+        "capability",
+        "capital",
+        "culture"
+      ],
+      "stories": 2,
+      "heat": 13.313
+    },
+    {
+      "name": "GPT-5",
+      "type": "model",
+      "vecs": [
+        "agency",
+        "capability",
+        "compute"
       ],
       "stories": 1,
       "heat": 8.67
     },
     {
-      "name": "Oracle",
+      "name": "NVIDIA",
       "type": "org",
       "vecs": [
         "compute",
-        "capability",
-        "agency"
+        "capital",
+        "culture"
       ],
       "stories": 1,
-      "heat": 8.319
+      "heat": 8.124
+    },
+    {
+      "name": "Dario Amodei",
+      "type": "person",
+      "vecs": [
+        "culture",
+        "capital",
+        "security"
+      ],
+      "stories": 1,
+      "heat": 8.124
+    },
+    {
+      "name": "Jensen Huang",
+      "type": "person",
+      "vecs": [
+        "compute",
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 8.124
     }
   ],
-  "last_ingest": {
-    "stats": {
-      "fetched": 297,
-      "new": 0,
-      "persisted": 0
-    },
-    "si": 26.3,
-    "brief_model": null,
-    "errors": [
-      "arxiv-cs-ro: HTTPStatusError: Client error '406 Not Acceptable' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406",
-      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    ]
-  }
+  "last_ingest": null
 }
