@@ -1,69 +1,69 @@
 {
-  "generated_utc": "2026-09-26T11:00:13.025169+00:00",
-  "generated_et": "2026-09-26 07:00 EDT",
-  "si": 57.4,
-  "epoch": "Point of Inflexion",
-  "n_stories_24h": 70,
+  "generated_utc": "2026-09-27T11:00:10.826102+00:00",
+  "generated_et": "2026-09-27 07:00 EDT",
+  "si": 14.8,
+  "epoch": "Slow Takeoff",
+  "n_stories_24h": 23,
   "countdown": {
-    "days": 6672,
-    "years": 18.27,
+    "days": 6670,
+    "years": 18.26,
     "target": "2045-01-01"
   },
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 73.6,
+      "score": 0.0,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 21.3,
+      "score": 0.0,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 51.7,
+      "score": 13.5,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
     "embodiment": {
       "label": "Embodiment",
-      "score": 41.1,
+      "score": 8.2,
       "blurb": "Robots, humanoids, drones, autonomy",
       "color": "#00e676"
     },
     "agency": {
       "label": "Agency",
-      "score": 68.4,
+      "score": 0.0,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 38.0,
+      "score": 0.0,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
     "space": {
       "label": "Space",
-      "score": 65.5,
+      "score": 64.2,
       "blurb": "Launches, orbital compute, the frontier up",
       "color": "#2979ff"
     },
     "culture": {
       "label": "Culture",
-      "score": 53.3,
+      "score": 13.5,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 1888,
+    "stories": 1898,
     "entities": 152,
-    "briefs": 31,
-    "edges": 5794
+    "briefs": 33,
+    "edges": 5831
   },
   "llm": {
     "available": false,
@@ -71,184 +71,168 @@
     "active": null
   },
   "brief": {
-    "date": "2026-09-25",
+    "date": "2026-09-27",
     "model": "heuristic",
     "n_items": 14,
-    "text": "# Welcome to September 25, 2026\n\nThe Singularity Index reads **57.4/100** \u2014 Point of Inflexion. 6672 days to 2045-01-01. 70 signals crossed the wire in the last cycle.\n\n[Ringg\u2019s AI agents resolve up to 65% of customer calls with OpenAI](https://openai.com/index/ringg) \u2014 *OpenAI* \u00b7 capability, agency\n\n[LLM Agents Can Easily Tamper With Their Own Traces](https://arxiv.org/abs/2609.30266v1) \u2014 *arXiv cs.AI* \u00b7 agency, security, capability\n\n[Google is sending an AI satellite into space next week](https://www.theverge.com/tech/1000015/google-ai-satellite-space-project-suncatcher) \u2014 *The Verge AI* \u00b7 capital, compute, space, culture\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | USSF-385 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7330d83b-c478-426c-8859-f9e3a335876d/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Starlink Group 15-25 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/97c6f5e1-299e-4652-b72d-9618ac047076/) \u2014 *Launch Library* \u00b7 space\n\n[Muse sure looks a lot like OpenClaw](https://www.theverge.com/report/1000180/muse-openclaw-instinct-lookalike) \u2014 *The Verge AI* \u00b7 capital, culture, agency\n\n[Falcon Heavy | Griffin Mission One \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d3bd7fb2-fac6-49fc-ae52-cee07d2fde67/) \u2014 *Launch Library* \u00b7 space\n\n[Jensen Huang talks about AI and climate change like a supervillain](https://www.theverge.com/tech/1000140/jensen-huang-nvidia-ai-energy-climate-change-supervillain) \u2014 *The Verge AI* \u00b7 capital, compute, culture\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
-    "created_at": "2026-09-25T11:00:53.499656+00:00"
+    "text": "# Welcome to September 27, 2026\n\nThe Singularity Index reads **16.6/100** \u2014 Slow Takeoff. 6670 days to 2045-01-01. 25 signals crossed the wire in the last cycle.\n\n[Falcon 9 Block 5 | USSF-385 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/7330d83b-c478-426c-8859-f9e3a335876d/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon Heavy | Griffin Mission One \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d3bd7fb2-fac6-49fc-ae52-cee07d2fde67/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Starlink Group 15-25 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/97c6f5e1-299e-4652-b72d-9618ac047076/) \u2014 *Launch Library* \u00b7 space\n\n[Vulcan VC6L | Amazon Leo (LV-01) \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/ef9850ad-1096-425b-9d27-f7bbd186e61a/) \u2014 *Launch Library* \u00b7 space\n\n[Electron | Owlright, Owlright, Owlright (StriX Launch 13) \u2014 Rocket Lab](https://ll.thespacedevs.com/2.2.0/launch/9e24bef7-c44b-4fdc-ba52-68545ce9457e/) \u2014 *Launch Library* \u00b7 space\n\n[Ariane 64 Block 2 | Amazon Leo (LE-04) \u2014 Arianespace](https://ll.thespacedevs.com/2.2.0/launch/7bdc412b-c965-4517-a131-f57a01189803/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | SDA Tranche 1 Transport Layer A \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/da43dc2c-00af-4cc1-8ef1-90a60b2eb9e5/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | O3b mPower 11-13 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/ad358a4d-c541-409b-9366-9c2f2da4aeb9/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Transporter 18 (Dedicated SSO Rideshare) \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/67213393-7983-4c06-8b44-b8c785a5ed79/) \u2014 *Launch Library* \u00b7 space\n\n\n*Heuristic edition \u2014 local LLM offline.*",
+    "created_at": "2026-09-27T00:00:44.524326+00:00"
   },
   "feeds": {
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-26T11:00:10.042034+00:00",
+      "last_fetch": "2026-09-27T11:00:08.354339+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-26T11:00:09.978089+00:00",
+      "last_fetch": "2026-09-27T11:00:07.983490+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-26T11:00:10.206650+00:00",
+      "last_fetch": "2026-09-27T11:00:07.997609+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-25T11:45:09.534765+00:00",
+      "last_fetch": "2026-09-27T02:15:10.230731+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-26T11:00:10.180756+00:00",
+      "last_fetch": "2026-09-27T11:00:08.255818+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-09-26T11:00:09.954696+00:00",
+      "last_fetch": "2026-09-27T11:00:08.012028+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-09-26T11:00:10.620846+00:00",
+      "last_fetch": "2026-09-27T11:00:08.184902+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-26T11:00:11.562943+00:00",
+      "last_fetch": "2026-09-27T11:00:09.642550+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-09-26T11:00:10.506155+00:00",
+      "last_fetch": "2026-09-27T11:00:08.650394+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-26T11:00:11.211840+00:00",
+      "last_fetch": "2026-09-27T11:00:09.323839+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-09-26T11:00:10.085716+00:00",
+      "last_fetch": "2026-09-27T11:00:08.693387+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-26T11:00:10.215132+00:00",
+      "last_fetch": "2026-09-27T11:00:08.377422+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
-      "ok": true,
-      "items": 12,
-      "last_fetch": "2026-09-26T11:00:09.995727+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-09-27T11:00:08.013535+00:00",
+      "error": "arxiv-cs-ro: HTTPStatusError: Client error '406 Not Acceptable' for url 'https://export.arxiv.org/api/query?search_query=cat:cs.RO&sortBy=submittedDate&sortOrder=descending&max_results=12'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406"
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-09-25T11:45:11.387180+00:00",
+      "last_fetch": "2026-09-27T02:15:12.966451+00:00",
       "error": null
     },
     "gdelt-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-09-25T11:45:40.555215+00:00",
-      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "last_fetch": "2026-09-27T02:15:36.821017+00:00",
+      "error": "gdelt-ai: ConnectTimeout: "
     }
   },
   "convergence": [
     {
+      "name": "Google",
+      "type": "org",
+      "vecs": [
+        "culture",
+        "compute",
+        "capital",
+        "agency",
+        "security",
+        "capability",
+        "space"
+      ],
+      "stories": 6,
+      "heat": 51.908
+    },
+    {
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "capability",
+        "culture",
+        "capital",
         "agency",
         "security",
-        "space",
-        "culture",
-        "capital"
-      ],
-      "stories": 7,
-      "heat": 56.518999999999984
-    },
-    {
-      "name": "Claude",
-      "type": "model",
-      "vecs": [
-        "agency",
-        "security",
-        "capability",
-        "space",
-        "culture",
-        "capital"
+        "capability"
       ],
       "stories": 3,
-      "heat": 34.135
-    },
-    {
-      "name": "Anthropic",
-      "type": "org",
-      "vecs": [
-        "capability",
-        "agency",
-        "security",
-        "space",
-        "culture",
-        "capital"
-      ],
-      "stories": 3,
-      "heat": 33.669999999999995
+      "heat": 24.116000000000003
     },
     {
       "name": "Meta",
       "type": "org",
       "vecs": [
-        "culture",
-        "capital",
         "agency",
         "security",
-        "space"
+        "culture",
+        "capital"
       ],
-      "stories": 10,
-      "heat": 73.37299999999999
+      "stories": 6,
+      "heat": 43.733
     },
     {
-      "name": "Google",
+      "name": "Anthropic",
       "type": "org",
       "vecs": [
-        "capital",
-        "culture",
-        "capability",
-        "compute",
-        "space"
-      ],
-      "stories": 3,
-      "heat": 28.427999999999997
-    },
-    {
-      "name": "Sam Altman",
-      "type": "person",
-      "vecs": [
-        "capability",
         "agency",
         "security",
-        "space"
+        "culture",
+        "capital"
       ],
-      "stories": 2,
-      "heat": 24.999999999999993
+      "stories": 1,
+      "heat": 13.328
+    },
+    {
+      "name": "Hugging Face",
+      "type": "org",
+      "vecs": [
+        "agency",
+        "security",
+        "culture",
+        "capital"
+      ],
+      "stories": 1,
+      "heat": 13.328
     },
     {
       "name": "New York",
@@ -263,6 +247,30 @@
       "heat": 12.18
     },
     {
+      "name": "Copilot",
+      "type": "model",
+      "vecs": [
+        "agency",
+        "space",
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 11.332
+    },
+    {
+      "name": "Microsoft",
+      "type": "org",
+      "vecs": [
+        "agency",
+        "space",
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 11.332
+    },
+    {
       "name": "Gemini",
       "type": "model",
       "vecs": [
@@ -270,30 +278,30 @@
         "capability",
         "capital"
       ],
-      "stories": 4,
-      "heat": 20.642
+      "stories": 3,
+      "heat": 18.445
     },
     {
-      "name": "Mark Zuckerberg",
-      "type": "person",
-      "vecs": [
-        "culture",
-        "space",
-        "capital"
-      ],
-      "stories": 2,
-      "heat": 16.248
-    },
-    {
-      "name": "Figure AI",
+      "name": "Amazon",
       "type": "org",
       "vecs": [
-        "agency",
         "culture",
-        "capital"
+        "capital",
+        "space"
       ],
-      "stories": 2,
-      "heat": 13.105
+      "stories": 3,
+      "heat": 11.087000000000002
+    },
+    {
+      "name": "Claude",
+      "type": "model",
+      "vecs": [
+        "agency",
+        "security",
+        "capability"
+      ],
+      "stories": 1,
+      "heat": 9.135
     },
     {
       "name": "Grok",
@@ -305,17 +313,6 @@
       ],
       "stories": 1,
       "heat": 9.135
-    },
-    {
-      "name": "Hugging Face",
-      "type": "org",
-      "vecs": [
-        "capability",
-        "agency",
-        "culture"
-      ],
-      "stories": 1,
-      "heat": 8.67
     }
   ],
   "last_ingest": null
