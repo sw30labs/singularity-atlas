@@ -1,7 +1,7 @@
 {
-  "generated_utc": "2026-10-03T11:00:06.184970+00:00",
-  "generated_et": "2026-10-03 07:00 EDT",
-  "si": 32.7,
+  "generated_utc": "2026-10-04T11:00:12.571247+00:00",
+  "generated_et": "2026-10-04 07:00 EDT",
+  "si": 33.0,
   "epoch": "Slow Takeoff",
   "n_stories_24h": 32,
   "countdown": {
@@ -12,7 +12,7 @@
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 20.0,
+      "score": 15.0,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
@@ -24,7 +24,7 @@
     },
     "capital": {
       "label": "Capital",
-      "score": 43.8,
+      "score": 46.3,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
@@ -42,7 +42,7 @@
     },
     "security": {
       "label": "Security",
-      "score": 0.0,
+      "score": 8.0,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
@@ -54,16 +54,16 @@
     },
     "culture": {
       "label": "Culture",
-      "score": 48.7,
+      "score": 48.9,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 2254,
+    "stories": 2256,
     "entities": 153,
     "briefs": 39,
-    "edges": 6660
+    "edges": 6666
   },
   "llm": {
     "available": false,
@@ -81,92 +81,92 @@
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-10-03T10:45:10.666738+00:00",
+      "last_fetch": "2026-10-04T11:00:09.745972+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-03T10:45:10.627281+00:00",
+      "last_fetch": "2026-10-04T11:00:09.877748+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-03T10:45:10.688853+00:00",
+      "last_fetch": "2026-10-04T11:00:09.925284+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-03T10:45:10.773543+00:00",
+      "last_fetch": "2026-10-03T16:45:10.962920+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-03T10:45:12.215305+00:00",
+      "last_fetch": "2026-10-04T11:00:10.742496+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-03T10:45:10.715183+00:00",
+      "last_fetch": "2026-10-04T11:00:09.901177+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-10-03T10:45:10.601683+00:00",
+      "last_fetch": "2026-10-04T11:00:09.840512+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-03T10:45:12.153203+00:00",
+      "last_fetch": "2026-10-04T11:00:11.072415+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-03T10:45:11.827270+00:00",
+      "last_fetch": "2026-10-04T11:00:11.409176+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-10-03T10:45:11.558140+00:00",
+      "last_fetch": "2026-10-04T11:00:10.649002+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-10-03T10:45:12.266040+00:00",
+      "last_fetch": "2026-10-04T11:00:09.989658+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-10-03T10:45:12.273801+00:00",
+      "last_fetch": "2026-10-04T11:00:09.926846+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-03T10:45:10.741580+00:00",
+      "last_fetch": "2026-10-04T11:00:10.683182+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-10-03T10:45:13.690579+00:00",
+      "last_fetch": "2026-10-03T16:45:13.899039+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": true,
-      "items": 40,
-      "last_fetch": "2026-10-03T10:45:29.287475+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-10-03T16:45:41.572593+00:00",
+      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     }
   },
   "convergence": [
@@ -178,11 +178,10 @@
         "compute",
         "culture",
         "capital",
-        "capability",
-        "space"
+        "capability"
       ],
-      "stories": 7,
-      "heat": 64.395
+      "stories": 5,
+      "heat": 45.178999999999995
     },
     {
       "name": "OpenAI",
@@ -190,35 +189,12 @@
       "vecs": [
         "culture",
         "capital",
+        "security",
         "agency",
         "capability"
       ],
-      "stories": 8,
-      "heat": 61.638000000000005
-    },
-    {
-      "name": "Google",
-      "type": "org",
-      "vecs": [
-        "capital",
-        "capability",
-        "culture",
-        "security"
-      ],
-      "stories": 4,
-      "heat": 30.064000000000004
-    },
-    {
-      "name": "Gemini",
-      "type": "model",
-      "vecs": [
-        "capital",
-        "capability",
-        "culture",
-        "security"
-      ],
-      "stories": 3,
-      "heat": 22.685000000000002
+      "stories": 5,
+      "heat": 39.309
     },
     {
       "name": "GPT-6",
@@ -257,30 +233,6 @@
       "heat": 13.184
     },
     {
-      "name": "Google DeepMind",
-      "type": "org",
-      "vecs": [
-        "capital",
-        "culture",
-        "security",
-        "capability"
-      ],
-      "stories": 1,
-      "heat": 12.364
-    },
-    {
-      "name": "Hugging Face",
-      "type": "org",
-      "vecs": [
-        "capital",
-        "agency",
-        "culture",
-        "capability"
-      ],
-      "stories": 1,
-      "heat": 11.776
-    },
-    {
       "name": "Amazon",
       "type": "org",
       "vecs": [
@@ -293,6 +245,28 @@
       "heat": 10.625
     },
     {
+      "name": "Google",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "capability",
+        "culture"
+      ],
+      "stories": 2,
+      "heat": 13.094
+    },
+    {
+      "name": "Gemini",
+      "type": "model",
+      "vecs": [
+        "capital",
+        "capability",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 8.124
+    },
+    {
       "name": "NASA",
       "type": "org",
       "vecs": [
@@ -303,26 +277,35 @@
       "heat": 14.874
     },
     {
+      "name": "Atlas",
+      "type": "model",
+      "vecs": [
+        "embodiment",
+        "space"
+      ],
+      "stories": 1,
+      "heat": 5.992
+    },
+    {
+      "name": "GPT-5",
+      "type": "model",
+      "vecs": [
+        "capability",
+        "agency"
+      ],
+      "stories": 1,
+      "heat": 5.416
+    },
+    {
       "name": "ChatGPT",
       "type": "model",
       "vecs": [
         "agency",
         "capability"
       ],
-      "stories": 2,
-      "heat": 9.735999999999999
+      "stories": 1,
+      "heat": 5.13
     }
   ],
-  "last_ingest": {
-    "stats": {
-      "fetched": 309,
-      "new": 0,
-      "persisted": 0
-    },
-    "si": 32.7,
-    "brief_model": null,
-    "errors": [
-      "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
-    ]
-  }
+  "last_ingest": null
 }
