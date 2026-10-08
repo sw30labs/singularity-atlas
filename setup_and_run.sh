@@ -10,7 +10,8 @@
 #   ./setup_and_run.sh --help
 #
 # Env overrides: ATLAS_HOST, ATLAS_PORT, ATLAS_NEO4J_URI, ATLAS_NEO4J_PASSWORD,
-# ATLAS_MODEL, OLLAMA_HOST (see singularity_atlas/config.py).
+# ATLAS_LLM_PROVIDER, ATLAS_MODEL, OLLAMA_HOST, ATLAS_OPENAI_MODEL, OPENAI_API_KEY
+# (see singularity_atlas/config.py; also read from a gitignored .env).
 #
 # This project is uv-native and ships a lockfile, so setup is `uv sync` rather
 # than the venv+pip bootstrap used by the non-uv projects in this repo family.

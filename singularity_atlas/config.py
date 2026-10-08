@@ -22,6 +22,28 @@ LOOP_ARCHIVE_DIR = ROOT / "ref" / "innermost-loop" / "the-innermost-loop-markdow
 LOOP_FETCH_DIR = DATA_DIR / "loop_issues"   # editions fetched from the live feed
 LOOP_SYNC_STATE_FILE = DATA_DIR / "loop_sync.json"
 WEB_DIR = ROOT / "web"
+ENV_FILE = ROOT / ".env"
+
+
+def _load_env(path: Path) -> None:
+    """KEY=VALUE lines into os.environ, never overriding what is already set."""
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.removeprefix("export ").split("=", 1)
+        k, v = k.strip(), v.strip()
+        if len(v) >= 2 and v[0] == v[-1] and v[0] in "'\"":
+            v = v[1:-1]
+        if k and k not in os.environ:
+            os.environ[k] = v
+
+
+_load_env(ENV_FILE)  # gitignored; holds OPENAI_API_KEY when the OpenAI provider is used
 
 # ---------------------------------------------------------------------------
 # Neo4j
@@ -31,10 +53,14 @@ NEO4J_USER = os.environ.get("ATLAS_NEO4J_USER", "neo4j")
 NEO4J_PASSWORD = os.environ.get("ATLAS_NEO4J_PASSWORD", "singularity-atlas")
 
 # ---------------------------------------------------------------------------
-# Ollama
+# LLM — "ollama" (local, default) or "openai" (headlines leave this machine)
 # ---------------------------------------------------------------------------
+LLM_PROVIDER = os.environ.get("ATLAS_LLM_PROVIDER", "ollama").strip().lower()
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_MODEL = os.environ.get("ATLAS_MODEL", "qwen3.8:27b-mtp-bf16")
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+OPENAI_MODEL = os.environ.get("ATLAS_OPENAI_MODEL", "gpt-6-luna")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 LLM_TIMEOUT_S = 180
 
 # ---------------------------------------------------------------------------
