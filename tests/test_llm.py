@@ -134,3 +134,82 @@ class TestChatJson:
     def test_broken_json_returns_none(self, monkeypatch):
         self._wire(monkeypatch, '{"a": ')
         assert llm.chat_json("x") is None
+
+
+class OpenAIResp:
+    def __init__(self, status: int, payload: dict):
+        self.status_code = status
+        self._payload = payload
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise httpx.HTTPStatusError("bad", request=None, response=None)
+
+    def json(self):
+        return self._payload
+
+
+def openai_ok(content: str) -> OpenAIResp:
+    return OpenAIResp(200, {"choices": [{"message": {"role": "assistant", "content": content}}]})
+
+
+class TestOpenAI:
+    @pytest.fixture(autouse=True)
+    def _openai(self, monkeypatch):
+        monkeypatch.setattr(llm.config, "LLM_PROVIDER", "openai")
+        monkeypatch.setattr(llm.config, "OPENAI_MODEL", "gpt-test")
+        monkeypatch.setattr(llm.config, "OPENAI_API_KEY", "sk-test")
+        monkeypatch.setattr(llm.config, "OPENAI_BASE_URL", "https://api.openai.com/v1")
+
+        def no_tags(*a, **k):
+            raise AssertionError("OpenAI provider must not poll Ollama")
+        monkeypatch.setattr(llm.httpx, "get", no_tags)
+
+    def test_resolves_configured_model(self):
+        assert llm.provider() == "openai"
+        assert llm.resolve_model() == "gpt-test"
+        assert llm.preferred_model() == "gpt-test"
+        assert llm.current_model() == "gpt-test"
+
+    def test_unavailable_without_key(self, monkeypatch):
+        monkeypatch.setattr(llm.config, "OPENAI_API_KEY", "")
+        assert llm.available() is False
+        assert llm.chat("hi") is None
+
+    def test_chat_request_shape(self, monkeypatch):
+        captured = {}
+
+        def fake_post(url, json=None, headers=None, timeout=None):
+            captured.update(url=url, body=dict(json), headers=headers)
+            return openai_ok(" hello ")
+
+        monkeypatch.setattr(llm.httpx, "post", fake_post)
+        assert llm.chat("hi", system="sys", max_tokens=50) == "hello"
+        assert captured["url"] == "https://api.openai.com/v1/chat/completions"
+        assert captured["headers"] == {"Authorization": "Bearer sk-test"}
+        assert captured["body"]["model"] == "gpt-test"
+        assert captured["body"]["max_completion_tokens"] == 50
+        assert captured["body"]["messages"][0] == {"role": "system", "content": "sys"}
+
+    def test_retries_without_rejected_temperature(self, monkeypatch):
+        bodies = []
+
+        def fake_post(url, json=None, headers=None, timeout=None):
+            bodies.append(dict(json))
+            if "temperature" in json:
+                return OpenAIResp(400, {"error": {"param": "temperature",
+                                                  "code": "unsupported_value"}})
+            return openai_ok("ok")
+
+        monkeypatch.setattr(llm.httpx, "post", fake_post)
+        assert llm.chat("hi", temperature=0.7) == "ok"
+        assert len(bodies) == 2 and "temperature" not in bodies[1]
+
+    def test_other_400_is_none(self, monkeypatch):
+        monkeypatch.setattr(llm.httpx, "post", lambda *a, **k: OpenAIResp(
+            400, {"error": {"param": "model", "code": "model_not_found"}}))
+        assert llm.chat("hi") is None
+
+    def test_chat_json(self, monkeypatch):
+        monkeypatch.setattr(llm.httpx, "post", lambda *a, **k: openai_ok('{"a": 1}'))
+        assert llm.chat_json("x") == {"a": 1}

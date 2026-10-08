@@ -143,6 +143,22 @@ The resolver also accepts several qwen3 fallbacks already present in Ollama
 `qwen3:14b`). Override with `ATLAS_MODEL` / `OLLAMA_HOST`. No usable model
 → briefs use heuristics; the rest of the dashboard still works.
 
+### OpenAI instead of Ollama
+
+Opt-in, and not local: headlines and summaries are sent to the OpenAI API.
+
+```bash
+cp .env.example .env    # gitignored; real environment variables win
+# then set:
+#   ATLAS_LLM_PROVIDER=openai
+#   ATLAS_OPENAI_MODEL=gpt-6-luna
+#   OPENAI_API_KEY=sk-...
+```
+
+`OPENAI_BASE_URL` points it at another OpenAI-compatible endpoint. Without a
+key the OpenAI provider counts as unavailable and briefs fall back to
+heuristics, as with Ollama down.
+
 ## Ports and env
 
 | Port | Service |
@@ -153,5 +169,7 @@ The resolver also accepts several qwen3 fallbacks already present in Ollama
 | 11434 | Ollama (if used) |
 
 Overrides: `ATLAS_HOST`, `ATLAS_PORT`, `ATLAS_NEO4J_URI`,
-`ATLAS_NEO4J_PASSWORD`, `ATLAS_MODEL`, `OLLAMA_HOST`. Tunables (feeds,
+`ATLAS_NEO4J_PASSWORD`, `ATLAS_LLM_PROVIDER`, `ATLAS_MODEL`, `OLLAMA_HOST`,
+`ATLAS_OPENAI_MODEL`, `OPENAI_API_KEY`, `OPENAI_BASE_URL` (also read from
+`.env`). Tunables (feeds,
 weights, cadence) live in `singularity_atlas/config.py`.

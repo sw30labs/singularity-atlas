@@ -1,6 +1,10 @@
-"""Ollama wrapper with graceful degradation and model auto-resolution.
+"""LLM wrapper (Ollama or OpenAI) with graceful degradation and model auto-resolution.
 
-Preference order: the configured ATLAS_MODEL first, then known-good fallbacks
+ATLAS_LLM_PROVIDER picks the backend. "ollama" (default) stays on this machine.
+"openai" sends prompts — headlines, summaries — to the OpenAI Chat Completions
+API using OPENAI_API_KEY (environment or the gitignored .env) and ATLAS_OPENAI_MODEL.
+
+Ollama preference order: the configured ATLAS_MODEL first, then known-good fallbacks
 that are already pulled. The tag list is re-polled every 60s, so when a new
 model finishes `ollama pull`, the app picks it up without a restart.
 
@@ -29,8 +33,22 @@ _cache = {"ts": 0.0, "model": None}
 CACHE_TTL_S = 60
 
 
+def provider() -> str:
+    return "openai" if config.LLM_PROVIDER == "openai" else "ollama"
+
+
+def preferred_model() -> str:
+    """The configured model for the active provider (for labels)."""
+    return config.OPENAI_MODEL if provider() == "openai" else config.OLLAMA_MODEL
+
+
 def resolve_model() -> str | None:
     """Best available model name, or None. Re-polls /api/tags every CACHE_TTL_S."""
+    if provider() == "openai":
+        # no probe: a missing key is the only thing we can know without spending a call
+        model = config.OPENAI_MODEL if config.OPENAI_API_KEY else None
+        _cache.update(ts=time.time(), model=model)
+        return model
     now = time.time()
     if now - _cache["ts"] < CACHE_TTL_S:
         return _cache["model"]
@@ -66,13 +84,15 @@ def reset_cache() -> None:
 
 def chat(prompt: str, system: str = "", temperature: float = 0.7,
          max_tokens: int = 2048, think: bool = False) -> str | None:
-    """Single-turn chat via /api/chat. None on any failure."""
+    """Single-turn chat via the active provider. None on any failure."""
     model = resolve_model()
     if model is None:
         return None
     messages = ([{"role": "system", "content": system}] if system else []) + [
         {"role": "user", "content": prompt}
     ]
+    if provider() == "openai":
+        return _openai_chat(model, messages, temperature, max_tokens)
     try:
         r = httpx.post(
             f"{config.OLLAMA_HOST}/api/chat",
@@ -90,6 +110,31 @@ def chat(prompt: str, system: str = "", temperature: float = 0.7,
         return text or None
     except Exception:
         return None
+
+
+def _openai_chat(model: str, messages: list[dict], temperature: float,
+                 max_tokens: int) -> str | None:
+    """POST /chat/completions. Reasoning models reject a non-default temperature;
+    when the API names it as the bad parameter, retry once without it."""
+    body = {"model": model, "messages": messages,
+            "max_completion_tokens": max_tokens, "temperature": temperature}
+    headers = {"Authorization": f"Bearer {config.OPENAI_API_KEY}"}
+    try:
+        for _ in range(2):
+            r = httpx.post(f"{config.OPENAI_BASE_URL}/chat/completions", json=body,
+                           headers=headers, timeout=config.LLM_TIMEOUT_S)
+            if r.status_code == 400 and "temperature" in body:
+                err = (r.json().get("error") or {})
+                if err.get("param") == "temperature":
+                    body.pop("temperature")
+                    continue
+            r.raise_for_status()
+            choices = r.json().get("choices") or [{}]
+            text = ((choices[0].get("message") or {}).get("content") or "").strip()
+            return text or None
+    except Exception:
+        return None
+    return None
 
 
 def chat_json(prompt: str, system: str = "") -> dict | list | None:

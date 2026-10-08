@@ -45,6 +45,9 @@ def _isolate_files(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "FEED_HEALTH_FILE", tmp_path / "feed_health.json")
     monkeypatch.setattr(config, "LOOP_FETCH_DIR", tmp_path / "loop_issues")
     monkeypatch.setattr(config, "LOOP_SYNC_STATE_FILE", tmp_path / "loop_sync.json")
+    # a local .env may select OpenAI; tests default to Ollama and never send a key
+    monkeypatch.setattr(config, "LLM_PROVIDER", "ollama")
+    monkeypatch.setattr(config, "OPENAI_API_KEY", "")
     # the archive caches parsed editions in-process; keep tests independent
     loop_archive.invalidate()
     yield

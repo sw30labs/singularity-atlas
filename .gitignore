@@ -24,3 +24,6 @@ data/
 # Third-party published works: kept locally, never published.
 ref/innermost-loop/
 ref/accelerando/
+
+# Secrets (OPENAI_API_KEY etc.) — copy .env.example
+.env
