@@ -1,48 +1,48 @@
 {
-  "generated_utc": "2026-10-07T11:00:13.194492+00:00",
-  "generated_et": "2026-10-07 07:00 EDT",
-  "si": 54.6,
+  "generated_utc": "2026-10-09T11:00:11.921709+00:00",
+  "generated_et": "2026-10-09 07:00 EDT",
+  "si": 54.4,
   "epoch": "Point of Inflexion",
-  "n_stories_24h": 57,
+  "n_stories_24h": 71,
   "countdown": {
-    "days": 6661,
-    "years": 18.24,
+    "days": 6660,
+    "years": 18.23,
     "target": "2045-01-01"
   },
   "vectors": {
     "capability": {
       "label": "Capability",
-      "score": 67.8,
+      "score": 74.4,
       "blurb": "Frontier models, benchmarks, reasoning",
       "color": "#00e5ff"
     },
     "compute": {
       "label": "Compute",
-      "score": 37.7,
+      "score": 24.1,
       "blurb": "Chips, fabs, datacenters, energy",
       "color": "#ff6d00"
     },
     "capital": {
       "label": "Capital",
-      "score": 44.2,
+      "score": 38.4,
       "blurb": "Funding, valuations, revenue, M&A",
       "color": "#ffd600"
     },
     "embodiment": {
       "label": "Embodiment",
-      "score": 26.7,
+      "score": 50.1,
       "blurb": "Robots, humanoids, drones, autonomy",
       "color": "#00e676"
     },
     "agency": {
       "label": "Agency",
-      "score": 64.2,
+      "score": 68.5,
       "blurb": "Agents, tool use, open weights, self-improvement",
       "color": "#d500f9"
     },
     "security": {
       "label": "Security",
-      "score": 30.2,
+      "score": 15.3,
       "blurb": "Safety, alignment, cyber, regulation",
       "color": "#ff1744"
     },
@@ -54,16 +54,16 @@
     },
     "culture": {
       "label": "Culture",
-      "score": 52.6,
+      "score": 51.1,
       "blurb": "Society metabolizing the change",
       "color": "#ffab91"
     }
   },
   "graph": {
-    "stories": 2401,
+    "stories": 2442,
     "entities": 153,
-    "briefs": 42,
-    "edges": 7014
+    "briefs": 43,
+    "edges": 7104
   },
   "llm": {
     "available": false,
@@ -71,102 +71,102 @@
     "active": null
   },
   "brief": {
-    "date": "2026-10-06",
+    "date": "2026-10-07",
     "model": "heuristic",
     "n_items": 14,
-    "text": "# Welcome to October 6, 2026\n\nThe Singularity Index reads **61.4/100** \u2014 Point of Inflexion. 6661 days to 2045-01-01. 73 signals crossed the wire in the last cycle.\n\n[OpenAI is adding text watermarking in ChatGPT and Codex](https://www.theverge.com/ai-artificial-intelligence/1004880/openai-chatgpt-text-watermarks-eu-ai-act) \u2014 *The Verge AI* \u00b7 security, culture, capital\n\n[Atlas V N22 | Starliner-1 \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/07e945c1-2ec6-4d29-a500-1afbe920440f/) \u2014 *Launch Library* \u00b7 embodiment, space\n\n[Falcon 9 Block 5 | Cygnus CRS-2 NG-25 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d74afbc7-0de5-491c-be05-4e9c31f736ac/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon Heavy | Griffin Mission One \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d3bd7fb2-fac6-49fc-ae52-cee07d2fde67/) \u2014 *Launch Library* \u00b7 space\n\n[Import AI 475: Swarm scaling; Google DeepMind watermarks biology; and the AI science economy](https://importai.substack.com/p/import-ai-475-swarm-scaling-google) \u2014 *Import AI* \u00b7 agency, capability, security\n\n[Wikipedia operator says OpenAI\u2019s \u2018rogue\u2019 bots may be linked to a May outage](https://www.theverge.com/news/1004929/wikipedia-openai-rogue-bots-wikimedia-foundation-outage) \u2014 *The Verge AI* \u00b7 culture, capital, agency, security\n\n[Our minds aren\u2019t equipped to handle AI](https://www.theverge.com/ai-artificial-intelligence/1003794/ai-education-computational-model-thought) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[OpenAI PR tells journalist to \u2018move on\u2019 while asking Sam Altman about a ChatGPT user\u2019s suicide](https://www.theverge.com/ai-artificial-intelligence/1004827/openai-sam-altman-vanity-fair-interview-pr) \u2014 *The Verge AI* \u00b7 culture, capital\n\n[Our approach to EU text provenance rules](https://openai.com/index/eu-text-provenance) \u2014 *OpenAI* \u00b7 agency, capability, security\n\n\n*Heuristic edition \u2014 local LLM offline.*",
-    "created_at": "2026-10-06T11:00:54.461520+00:00"
+    "text": "# Welcome to October 7, 2026\n\nThe Singularity Index reads **53.2/100** \u2014 Point of Inflexion. 6660 days to 2045-01-01. 70 signals crossed the wire in the last cycle.\n\n[Falcon 9 Block 5 | Dragon CRS-2 SpX-35 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/bf2c3027-a314-403e-a416-2bfd5d165ad1/) \u2014 *Launch Library* \u00b7 space\n\n[Falcon 9 Block 5 | Cygnus CRS-2 NG-25 \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d74afbc7-0de5-491c-be05-4e9c31f736ac/) \u2014 *Launch Library* \u00b7 space\n\n[Atlas V N22 | Starliner-1 \u2014 United Launch Alliance](https://ll.thespacedevs.com/2.2.0/launch/07e945c1-2ec6-4d29-a500-1afbe920440f/) \u2014 *Launch Library* \u00b7 embodiment, space\n\n[Falcon Heavy | Griffin Mission One \u2014 SpaceX](https://ll.thespacedevs.com/2.2.0/launch/d3bd7fb2-fac6-49fc-ae52-cee07d2fde67/) \u2014 *Launch Library* \u00b7 space\n\n[DepthWorld: 3D World Model for Robot Manipulation](https://arxiv.org/abs/2610.08780v1) \u2014 *arXiv cs.AI* \u00b7 agency, embodiment, capability\n\n[ChatGPT for Teens is an \u2018unacceptable risk,\u2019 says Common Sense Media](https://www.theverge.com/ai-artificial-intelligence/1006355/openai-chatgpt-for-teens-common-sense-media) \u2014 *The Verge AI* \u00b7 capital, security, culture\n\n[VeriFine: Scaling Verification for Self-Improvement in Embodied Reasoning](https://arxiv.org/abs/2610.08761v1) \u2014 *arXiv cs.AI* \u00b7 capability, agency\n\n[AdvSim2Real : Training Web Agents Against Adaptive Prompt Injection in a Web World Model](https://arxiv.org/abs/2610.08773v1) \u2014 *arXiv cs.AI* \u00b7 agency, capability\n\n[Advancing computer use with Ironclad](https://openai.com/index/advancing-computer-use-with-ironclad) \u2014 *OpenAI* \u00b7 agency, capability\n\n[WorldSolver: Can LLM Agents Simulate the Physical Dynamics via Solver Generation?](https://arxiv.org/abs/2610.08720v1) \u2014 *arXiv cs.AI* \u00b7 culture, embodiment, agency, capability\n\n\n*Heuristic edition \u2014 local LLM offline.*",
+    "created_at": "2026-10-07T11:00:49.485950+00:00"
   },
   "feeds": {
     "verge-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-10-07T11:00:10.344304+00:00",
+      "last_fetch": "2026-10-09T11:00:09.473433+00:00",
       "error": null
     },
     "arxiv-cs-lg": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-07T11:00:10.503077+00:00",
+      "last_fetch": "2026-10-07T15:30:10.158964+00:00",
       "error": null
     },
     "arxiv-cs-ai": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-07T11:00:10.557232+00:00",
+      "last_fetch": "2026-10-09T11:00:09.388219+00:00",
       "error": null
     },
     "launches": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-07T11:00:10.541872+00:00",
+      "last_fetch": "2026-10-09T11:00:09.595180+00:00",
       "error": null
     },
     "ars": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-07T11:00:10.414548+00:00",
+      "last_fetch": "2026-10-09T11:00:11.116091+00:00",
       "error": null
     },
     "arxiv-cs-cl": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-07T11:00:10.515488+00:00",
+      "last_fetch": "2026-10-09T11:00:09.730396+00:00",
       "error": null
     },
     "mit-tr-ai": {
       "ok": true,
       "items": 10,
-      "last_fetch": "2026-10-07T11:00:10.599433+00:00",
+      "last_fetch": "2026-10-09T11:00:09.703524+00:00",
       "error": null
     },
     "interconnects": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-07T11:00:11.267949+00:00",
+      "last_fetch": "2026-10-09T11:00:10.121660+00:00",
       "error": null
     },
     "import-ai": {
       "ok": true,
       "items": 20,
-      "last_fetch": "2026-10-07T11:00:10.932403+00:00",
+      "last_fetch": "2026-10-09T11:00:10.395329+00:00",
       "error": null
     },
     "openai": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-10-07T11:00:11.907630+00:00",
+      "last_fetch": "2026-10-09T11:00:11.053042+00:00",
       "error": null
     },
     "deepmind": {
       "ok": true,
       "items": 25,
-      "last_fetch": "2026-10-07T11:00:10.646441+00:00",
+      "last_fetch": "2026-10-09T11:00:09.576661+00:00",
       "error": null
     },
     "venturebeat-ai": {
       "ok": false,
       "items": 0,
-      "last_fetch": "2026-10-07T11:00:10.483453+00:00",
+      "last_fetch": "2026-10-09T11:00:09.586585+00:00",
       "error": "venturebeat-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://venturebeat.com/category/ai/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     },
     "arxiv-cs-ro": {
       "ok": true,
       "items": 12,
-      "last_fetch": "2026-10-07T11:00:10.534871+00:00",
+      "last_fetch": "2026-10-09T11:00:09.755719+00:00",
       "error": null
     },
     "hn-ai": {
       "ok": true,
       "items": 71,
-      "last_fetch": "2026-10-06T22:45:12.177739+00:00",
+      "last_fetch": "2026-10-07T15:30:14.273515+00:00",
       "error": null
     },
     "gdelt-ai": {
-      "ok": true,
-      "items": 40,
-      "last_fetch": "2026-10-06T22:45:26.114858+00:00",
-      "error": null
+      "ok": false,
+      "items": 0,
+      "last_fetch": "2026-10-07T15:30:54.087361+00:00",
+      "error": "gdelt-ai: HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.gdeltproject.org/api/v2/doc/doc?query=%22artificial%20intelligence%22&mode=artlist&maxrecords=40&format=json&sort=hybridrel'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
     }
   },
   "convergence": [
@@ -174,80 +174,51 @@
       "name": "OpenAI",
       "type": "org",
       "vecs": [
-        "compute",
-        "agency",
-        "security",
-        "capital",
-        "capability",
-        "culture"
-      ],
-      "stories": 14,
-      "heat": 103.05299999999997
-    },
-    {
-      "name": "Google",
-      "type": "org",
-      "vecs": [
-        "compute",
         "culture",
-        "capability",
         "capital",
+        "capability",
         "security",
-        "agency"
+        "agency",
+        "compute"
       ],
       "stories": 7,
-      "heat": 49.039
-    },
-    {
-      "name": "Anthropic",
-      "type": "org",
-      "vecs": [
-        "compute",
-        "agency",
-        "security",
-        "capital",
-        "culture"
-      ],
-      "stories": 3,
-      "heat": 30.224000000000004
+      "heat": 44.48700000000001
     },
     {
       "name": "ChatGPT",
       "type": "model",
       "vecs": [
+        "capital",
         "security",
         "culture",
-        "capital",
-        "capability",
-        "agency"
-      ],
-      "stories": 4,
-      "heat": 25.34
-    },
-    {
-      "name": "Google DeepMind",
-      "type": "org",
-      "vecs": [
-        "security",
-        "culture",
-        "capital",
         "agency",
         "capability"
       ],
       "stories": 2,
-      "heat": 18.033
+      "heat": 13.629
     },
     {
-      "name": "Meta",
+      "name": "Google",
       "type": "org",
       "vecs": [
+        "capital",
+        "culture",
         "compute",
-        "agency",
-        "security",
-        "capital"
+        "capability"
       ],
-      "stories": 1,
-      "heat": 15.56
+      "stories": 3,
+      "heat": 19.168
+    },
+    {
+      "name": "World Models",
+      "type": "tech",
+      "vecs": [
+        "agency",
+        "embodiment",
+        "capability"
+      ],
+      "stories": 2,
+      "heat": 14.216
     },
     {
       "name": "Gemini",
@@ -257,52 +228,8 @@
         "culture",
         "capital"
       ],
-      "stories": 2,
-      "heat": 16.248
-    },
-    {
-      "name": "Claude",
-      "type": "model",
-      "vecs": [
-        "capability",
-        "culture",
-        "capital"
-      ],
-      "stories": 1,
-      "heat": 8.988
-    },
-    {
-      "name": "GPT-6",
-      "type": "model",
-      "vecs": [
-        "capability",
-        "culture",
-        "capital"
-      ],
-      "stories": 1,
-      "heat": 8.988
-    },
-    {
-      "name": "European Union",
-      "type": "org",
-      "vecs": [
-        "agency",
-        "capability",
-        "security"
-      ],
       "stories": 1,
       "heat": 8.124
-    },
-    {
-      "name": "MCP",
-      "type": "tech",
-      "vecs": [
-        "culture",
-        "compute",
-        "agency"
-      ],
-      "stories": 1,
-      "heat": 7.917
     },
     {
       "name": "Amazon",
@@ -314,6 +241,66 @@
       ],
       "stories": 2,
       "heat": 7.314
+    },
+    {
+      "name": "NASA",
+      "type": "org",
+      "vecs": [
+        "space",
+        "embodiment"
+      ],
+      "stories": 4,
+      "heat": 14.874
+    },
+    {
+      "name": "Google DeepMind",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 6.438
+    },
+    {
+      "name": "Meta",
+      "type": "org",
+      "vecs": [
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 6.438
+    },
+    {
+      "name": "Mark Zuckerberg",
+      "type": "person",
+      "vecs": [
+        "capital",
+        "culture"
+      ],
+      "stories": 1,
+      "heat": 6.438
+    },
+    {
+      "name": "Atlas",
+      "type": "model",
+      "vecs": [
+        "embodiment",
+        "space"
+      ],
+      "stories": 1,
+      "heat": 5.992
+    },
+    {
+      "name": "GPT-4",
+      "type": "model",
+      "vecs": [
+        "agency",
+        "capability"
+      ],
+      "stories": 1,
+      "heat": 4.606
     }
   ],
   "last_ingest": null
