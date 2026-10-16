@@ -43,6 +43,26 @@ and the *Accelerando* epoch dial with rotating Stross quotes.
 
 </details>
 
+## Run your own
+
+The public site at [singularityatlas.ai](https://singularityatlas.ai) is a static,
+read-only snapshot. To run or tweak the live atlas yourself, fork or clone this repo and run it locally.
+
+**You need**
+
+- Python 3.12+ with [uv](https://docs.astral.sh/uv/). It installs FastAPI/uvicorn and the rest from `uv.lock`.
+- Docker, for the bundled Neo4j 5 community container (`docker compose up -d`).
+- Network access to the public feeds in `singularity_atlas/config.py` (RSS, arXiv, launch schedules). No API keys.
+- Optional: [Ollama](https://ollama.com) with any qwen3-family model, for the LLM-written Daily Loop (`ATLAS_MODEL`). Without it the brief falls back to heuristics.
+
+**Then** `./setup_and_run.sh --sync` and open http://localhost:8055. See [QUICKSTART.md](QUICKSTART.md) for a fresh machine.
+
+**What is not included.** This repo ships code only. It does not contain the *Innermost Loop*
+newsletter archive or *Accelerando* (`ref/` is gitignored, and neither is in the history). A fresh copy starts with an empty Loop Archive. The daily sync then pulls the latest editions from the public Substack feed. If you want a deeper archive, you must bring your own copy that you have the right to use, under `ref/`. Do not commit it.
+
+Keep the dashboard on `127.0.0.1`. It has no auth and is not meant to be internet-facing.
+Publish a static export instead, as `scripts/publish_public_site.sh` does.
+
 ## Architecture
 
 ![Architecture of the Singularity Atlas — public feeds through LangGraph into Neo4j and a FastAPI dashboard](docs/architecture.png)

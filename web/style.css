@@ -109,6 +109,12 @@ body::after {
 .clock-block { display: flex; align-items: center; gap: 12px; text-align: right; }
 .clock { font-size: 20px; color: #eaf7ff; letter-spacing: 2px; }
 .clock-label { color: var(--text-dim); font-size: 9px; letter-spacing: 3px; }
+.gh-link { display: flex; align-items: center; gap: 6px; padding: 4px 8px; border: 1px solid var(--edge); border-radius: 3px;
+  color: var(--text-dim); text-decoration: none; font-size: 10px; letter-spacing: 1.5px; line-height: 1.15; opacity: .8; }
+.gh-link:hover, .gh-link:focus-visible { color: var(--cyan); border-color: var(--cyan); opacity: 1; outline: none; }
+.gh-link svg { width: 16px; height: 16px; flex: none; }
+.gh-text { display: flex; flex-direction: column; text-align: left; }
+.gh-text small { font-size: 8px; letter-spacing: 1px; opacity: .75; }
 
 .aineko {
   width: 36px; color: var(--text-dim); text-align: center;
@@ -339,4 +345,6 @@ body.demo #ticker { animation-duration: 48s; }
   .epoch-seg span { font-size: 7px; letter-spacing: 0; }
   #center { height: 52vh; min-height: 300px; }
   .layer-toggles { gap: 2px; }
+  .gh-text small { display: none; }
+  .gh-link { min-height: 32px; padding: 4px 6px; }
 }
