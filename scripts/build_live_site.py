@@ -124,6 +124,18 @@ def main() -> int:
         if "unpkg.com" in text or "/static/" in text:
             print(f"FAIL: {label} still references a CDN or /static/", file=sys.stderr)
             return 1
+    # Cache-bust app assets: the zone's browser TTL keeps /style.css etc. for 4h,
+    # while index.html revalidates every load, so a version query keeps them in step.
+    def ver(data: bytes) -> str:
+        return hashlib.sha256(data).hexdigest()[:10]
+    for ref, data in (("/style.css", (WEB / "style.css").read_bytes()),
+                      ("/app.js", js.encode()),
+                      ("/static-shim.js", (WEB / "static-shim.js").read_bytes())):
+        tag = f'"{ref}"'
+        if tag not in html:
+            print(f"FAIL: {ref} reference not found in index.html", file=sys.stderr)
+            return 1
+        html = html.replace(tag, f'"{ref}?v={ver(data)}"')
     (out / "index.html").write_text(html)
     (out / "app.js").write_text(js)
     for f in ("style.css", "favicon.svg", "static-shim.js"):
