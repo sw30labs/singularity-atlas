@@ -231,7 +231,9 @@ for d in days:
 a{{color:#7cc4ff}}li{{margin:.3rem 0}}.si{{color:#999;font-family:ui-monospace,monospace;margin-left:.6rem}}</style></head>
 <body><h1>Singularity Atlas — daily boards</h1><p><a href="../">Live atlas</a> · <a href="../board/">Today's board</a></p><ul>
 {chr(10).join(rows)}
-</ul></body></html>
+</ul>
+<footer style="margin-top:2rem;color:#999;font-size:.85rem"><a href="https://github.com/sw30labs/singularity-atlas" target="_blank" rel="noopener noreferrer">GitHub ↗</a> · <a href="https://github.com/sw30labs/singularity-atlas#run-your-own" target="_blank" rel="noopener noreferrer">Run your own copy</a> (code Apache-2.0; bring your own corpus)</footer>
+</body></html>
 """)
 print("archive days:", len(days))
 PY
