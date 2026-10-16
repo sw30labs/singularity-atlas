@@ -255,7 +255,7 @@ def page(snap: dict) -> str:
     </div>
   </main>
   <footer>
-    <p><a href="{REPO}" target="_blank" rel="noopener noreferrer">GitHub ↗</a> · <a href="{REPO}#run-your-own" target="_blank" rel="noopener noreferrer">Run your own copy</a> · <a href="{WIKI}" target="_blank" rel="noopener noreferrer">Wiki</a> · local live is <code>http://localhost:8055</code>. Code Apache-2.0. This snapshot is public feeds plus the on-machine brief. It does not ship the Innermost Loop corpus or <code>ref/</code>.</p>
+    <p><a href="{REPO}" target="_blank" rel="noopener noreferrer">GitHub ↗</a> · <a href="{REPO}#run-your-own" target="_blank" rel="noopener noreferrer">Run your own copy</a> · <a href="{WIKI}" target="_blank" rel="noopener noreferrer">Wiki</a> · Daily static snapshot; the live dashboard runs locally. Code Apache-2.0. This snapshot is public feeds plus the on-machine brief. It does not ship the Innermost Loop corpus or <code>ref/</code>.</p>
   </footer>
 </body>
 </html>

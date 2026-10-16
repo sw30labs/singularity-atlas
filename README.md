@@ -1,10 +1,12 @@
 <table>
   <tr>
     <td>
-      <strong><a href="https://sw30labs.github.io/singularity-atlas/">Daily board · last 24h</a></strong>
+      <strong><a href="https://singularityatlas.ai">singularityatlas.ai · live atlas</a></strong>
+      &nbsp;·&nbsp;
+      <strong><a href="https://singularityatlas.ai/board/">Daily board</a></strong>
       &nbsp;·&nbsp;
       <strong><a href="https://github.com/sw30labs/.github/wiki/singularity-atlas">Wiki</a></strong><br />
-      Public snapshot of the index, Daily Loop, and globe. Live dashboard stays at localhost:8055.
+      Static daily snapshot of the index, Daily Loop, and globe. <a href="#run-your-own">Run your own</a> for the full live dashboard.
     </td>
   </tr>
 </table>
