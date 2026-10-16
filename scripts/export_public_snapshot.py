@@ -117,7 +117,6 @@ def slim(state: dict) -> dict:
         "countdown": si.get("countdown"),
         "vectors": vectors,
         "graph": state.get("graph"),
-        "llm": {"available": bool((state.get("llm") or {}).get("available"))},  # no local model names
         "brief": {
             "date": brief.get("date"),
             "model": public_model(brief.get("model")),
@@ -190,13 +189,12 @@ def page(snap: dict) -> str:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Singularity Atlas · last 24h</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {{
       --paper: #f5f5f5; --ink: #2d3142; --muted: #4f5d75; --accent: #eb6c36;
-      --sans: 'Geist', system-ui, sans-serif; --serif: 'Instrument Serif', serif;
-      --mono: 'Geist Mono', ui-monospace, monospace;
+      --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
+      --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{ font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.5; }}

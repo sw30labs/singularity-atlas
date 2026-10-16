@@ -282,7 +282,7 @@ $("#archive-q").addEventListener("input", (e) => {
       `<div class="arch-hit">
          <a href="${esc(h.url)}" target="_blank" rel="noopener">#${h.edition} · ${esc(h.title)}</a>
          <div class="arch-meta">${esc(h.date)}</div>
-         <div class="arch-snippet">…${esc(h.snippet)}…</div>
+         ${h.snippet ? `<div class="arch-snippet">…${esc(h.snippet)}…</div>` : ""}
        </div>`).join("") || '<div class="loading">nothing in the loop</div>';
   }, 250);
 });

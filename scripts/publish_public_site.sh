@@ -122,7 +122,7 @@ for f in index.html snapshot.json; do
   sz=$(stat -f%z "$BUILD/$f"); [ "$sz" -lt 1000000 ] || { echo "$(stamp) FAIL: $f too large ($sz)" >&2; exit 1; }
 done
 # Leak scan over every text file we ship (vendor/ is checked by pinned sha256 in the builder instead).
-LEAK_RE="$HOME"'|/Users/[A-Za-z0-9._-]+/|spidersacstudio|loop_issues|innermost-loop-markdown|ALL_ISSUES\.md|Accelerando\.md|BEGIN [A-Z ]*PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|NEO4J_PASSWORD|neo4j://|bolt://|qwen[0-9.]*:[0-9a-z]'
+LEAK_RE="$HOME"'|/Users/[A-Za-z0-9._-]+/|spidersacstudio|loop_issues|innermost-loop-markdown|ALL_ISSUES\.md|Accelerando\.md|BEGIN [A-Z ]*PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|NEO4J_PASSWORD|neo4j://|bolt://|qwen[0-9.]*:[0-9a-z]|fonts\.googleapis\.com|fonts\.gstatic\.com'
 if find "$BUILD" -type f \( -name '*.html' -o -name '*.json' -o -name '*.js' -o -name '*.css' \) -not -path '*/vendor/*' -print0 | \
      xargs -0 grep -EIl "$LEAK_RE" >&2; then
   echo "$(stamp) FAIL: leak scan matched (files above) — refusing to publish" >&2; exit 1
@@ -243,7 +243,7 @@ cat > "$SITE/_headers" <<'H'
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; worker-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; worker-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
 /vendor/*
   Cache-Control: public, max-age=31536000, immutable
 /data/*
@@ -261,11 +261,11 @@ cat > "$SITE/404.html" <<'NF'
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Not found · The Singularity Atlas</title>
   <meta name="robots" content="noindex" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root { --paper:#f5f5f5; --ink:#2d3142; --muted:#4f5d75; --accent:#eb6c36;
-      --sans:'Geist',system-ui,sans-serif; --serif:'Instrument Serif',serif; --mono:'Geist Mono',ui-monospace,monospace; }
+      --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
+      --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; }
     * { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:var(--sans); background:var(--paper); color:var(--ink); line-height:1.5; }
     main { max-width:42rem; margin:0 auto; padding:5rem 1.5rem; }
@@ -291,21 +291,27 @@ cat > "$SITE/404.html" <<'NF'
 NF
 [ -f "$SITE/robots.txt" ] || printf 'User-agent: *\nAllow: /\n' > "$SITE/robots.txt"
 
-# Older dated snapshots (before 2026-10-16 09:xx) carried the local model name in "llm"/"brief.model";
+# Dated snapshots published before 2026-10-16 carried "llm" (with the local model name) and a raw brief.model;
 # scrub them in place (idempotent), then leak-scan the whole tree, not just today's build.
 python3 - "$SITE" <<'PY'
 import json, sys
 from pathlib import Path
 for f in sorted(Path(sys.argv[1]).glob("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/snapshot.json")):
     d = json.loads(f.read_text()); changed = False
-    llm = d.get("llm")
-    if isinstance(llm, dict) and (llm.get("preferred") or llm.get("active")):
-        d["llm"] = {"available": bool(llm.get("available"))}; changed = True
+    if "llm" in d:                       # no LLM/model info in public snapshots at all
+        del d["llm"]; changed = True
     br = d.get("brief")
     if isinstance(br, dict) and br.get("model") not in (None, "heuristic", "local LLM"):
         br["model"] = "local LLM"; changed = True
     if changed:
         f.write_text(json.dumps(d, indent=2) + "\n"); print("scrubbed", f.parent.name + "/snapshot.json")
+# Older dated board pages linked Google Fonts; drop those tags (the CSS falls back to system fonts).
+import re
+for f in sorted(Path(sys.argv[1]).glob("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/index.html")):
+    h = f.read_text()
+    h2 = re.sub(r'[ \t]*<link[^>]+fonts\.(googleapis|gstatic)\.com[^>]*>\n?', "", h)
+    if h2 != h:
+        f.write_text(h2); print("scrubbed fonts", f.parent.name + "/index.html")
 PY
 if find "$SITE" -path "$SITE/.git" -prune -o -type f \( -name '*.html' -o -name '*.json' -o -name '*.js' -o -name '*.css' \) -not -path '*/vendor/*' -print0 | \
      xargs -0 grep -EIl "$LEAK_RE" >&2; then

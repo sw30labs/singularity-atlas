@@ -290,3 +290,53 @@ body.demo #ticker { animation-duration: 48s; }
 ::-webkit-scrollbar-track { background: #05080d; }
 ::-webkit-scrollbar-thumb { background: #14212e; }
 ::-webkit-scrollbar-thumb:hover { background: #1d3448; }
+
+/* ---------------- responsive: tablet & phone ---------------- */
+/* Header + SI first, then the globe, then the Daily Loop / radar / archive, then the streams.
+   The page scrolls; the globe keeps its own touch-drag (OrbitControls sets touch-action:none). */
+@media (max-width: 1024px) {
+  html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
+  body { display: block; }
+
+  #topbar { height: auto; flex-wrap: wrap; gap: 10px 16px; padding: 10px 12px; }
+  .brand { flex: 1 1 auto; min-width: 0; }
+  .brand .logo { font-size: 17px; letter-spacing: 3px; }
+  .brand .tagline { padding-left: 34px; letter-spacing: 3px; font-size: 9px; }
+  .quote { order: 3; flex: 1 1 100%; border-left: 0; padding-left: 0; font-size: 11px; white-space: normal; }
+  .header-right { order: 2; flex: 1 1 100%; flex-wrap: wrap; justify-content: space-between; gap: 10px 14px; }
+  .si-block svg { width: 132px; height: 77px; }
+  .epoch-block { min-width: 0; flex: 1 1 220px; }
+  .clock-block { gap: 8px; }
+  .clock { font-size: 16px; }
+
+  #layout { display: flex; flex-direction: column; }
+  #center { order: 1; height: 58vh; min-height: 320px; max-height: 640px; border-bottom: 1px solid var(--edge); }
+  #right  { order: 2; border-left: 0; }
+  #left   { order: 3; border-right: 0; }
+  aside { overflow: visible; min-height: auto; }
+  #brief-panel { flex: none; overflow: visible; }
+  .panel-head { position: static; }
+
+  #globe-overlay { top: 8px; left: 8px; }
+  .layer-toggles label { font-size: 8px; }
+  .globe-stats { display: none; }
+
+  #ticker-wrap { position: sticky; bottom: 0; z-index: 40; height: 26px; }
+
+  .drawer { top: 0; bottom: 0; left: 0; width: 100%; border-left: 0; z-index: 95; }
+  .drawer.hidden { transform: translateY(105%); }
+  .drawer-head { position: sticky; top: 0; }
+  #drawer-close { font-size: 28px; min-width: 44px; min-height: 44px; }
+  .drawer-body canvas { height: auto; }
+
+  .conv-name { min-width: 90px; }
+}
+
+@media (max-width: 480px) {
+  .si-block { order: 1; }
+  .clock-block { order: 2; }
+  .epoch-block { order: 3; flex: 1 1 100%; }
+  .epoch-seg span { font-size: 7px; letter-spacing: 0; }
+  #center { height: 52vh; min-height: 300px; }
+  .layer-toggles { gap: 2px; }
+}
