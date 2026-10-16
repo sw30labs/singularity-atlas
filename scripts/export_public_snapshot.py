@@ -10,6 +10,7 @@ import argparse
 import html
 import json
 import re
+import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,6 +23,24 @@ ET = ZoneInfo("America/New_York")
 
 WIKI = "https://github.com/sw30labs/.github/wiki/singularity-atlas"
 REPO = "https://github.com/sw30labs/singularity-atlas"
+FEED_UNAVAILABLE = "temporarily unavailable"
+_WELCOME_H1 = re.compile(r"^#\s*Welcome to [^\n]*\n?", re.M)
+
+
+def _pretty_date(iso: str | None) -> str:
+    try:
+        d = datetime.strptime((iso or "")[:10], "%Y-%m-%d")
+    except ValueError:
+        return iso or ""
+    return f"{d:%b} {d.day}, {d.year}"
+
+
+def public_feed_error(name: str, err: object) -> str | None:
+    """Public pages get a neutral status; the raw exception goes to the local log only."""
+    if not err:
+        return None
+    print(f"feed {name} error (local log only): {err}", file=sys.stderr)
+    return FEED_UNAVAILABLE
 
 
 def md_lite(text: str) -> str:
@@ -39,6 +58,20 @@ def md_lite(text: str) -> str:
     return "\n".join(out)
 
 
+def public_ingest(li: dict | None) -> dict | None:
+    """Copy of last_ingest with raw fetch exceptions replaced by '<feed>: temporarily unavailable'."""
+    if not isinstance(li, dict):
+        return li
+    out = dict(li)
+    if out.get("errors"):
+        out["errors"] = [
+            f"{str(e).split(':', 1)[0]}: {FEED_UNAVAILABLE}" for e in out["errors"]
+        ]
+        for e in li["errors"]:
+            print(f"ingest error (local log only): {e}", file=sys.stderr)
+    return out
+
+
 def slim(state: dict) -> dict:
     si = state.get("si") or {}
     brief = state.get("brief") or {}
@@ -48,7 +81,7 @@ def slim(state: dict) -> dict:
             "ok": bool(v.get("ok")),
             "items": v.get("items"),
             "last_fetch": v.get("last_fetch"),
-            "error": v.get("error"),
+            "error": public_feed_error(k, v.get("error")),
         }
     vectors = {}
     for k, v in (si.get("vectors") or {}).items():
@@ -87,7 +120,7 @@ def slim(state: dict) -> dict:
         },
         "feeds": feeds,
         "convergence": conv,
-        "last_ingest": state.get("last_ingest"),
+        "last_ingest": public_ingest(state.get("last_ingest")),
     }
 
 
@@ -125,6 +158,18 @@ def page(snap: dict) -> str:
     si_s = f"{si:.1f}" if isinstance(si, (int, float)) else "—"
     brief = snap.get("brief") or {}
     model = html.escape(str(brief.get("model") or "heuristic"))
+    brief_text = brief.get("text") or ""
+    brief_date = (brief.get("date") or "")[:10]
+    snap_date = (snap.get("generated_et") or "")[:10]
+    if brief_date and brief_date != snap_date:
+        # Stale brief: drop its own "Welcome to <date>" greeting so it doesn't read as today's.
+        brief_text = _WELCOME_H1.sub("", brief_text, count=1).lstrip()
+        brief_head = (
+            f'<h2>The Daily Loop</h2><p class="muted">Latest brief, from {html.escape(_pretty_date(brief_date))}. '
+            f'No new brief has been generated since.</p>'
+        )
+    else:
+        brief_head = "<h2>The Daily Loop</h2>"
     graph = snap.get("graph") or {}
     if (DOCS / "board.png").exists():
         board_img = '<img class="board" src="board.png" alt="The Singularity Atlas dashboard, last capture" />'
@@ -193,8 +238,8 @@ def page(snap: dict) -> str:
     {board_img}
     <div class="grid">
       <section class="brief">
-        <h2>The Daily Loop</h2>
-        {md_lite(brief.get("text") or "")}
+        {brief_head}
+        {md_lite(brief_text)}
       </section>
       <aside>
         <h2>Crossing streams</h2>
@@ -215,14 +260,16 @@ def page(snap: dict) -> str:
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--url", default=STATE_URL)
+    p.add_argument("--out", type=Path, default=DOCS, help="output dir (default docs/)")
     args = p.parse_args()
     with urllib.request.urlopen(args.url, timeout=20) as r:
         state = json.load(r)
     snap = slim(state)
-    DOCS.mkdir(parents=True, exist_ok=True)
-    (DOCS / "snapshot.json").write_text(json.dumps(snap, indent=2) + "\n")
-    (DOCS / "index.html").write_text(page(snap))
-    print(f"wrote {DOCS / 'index.html'}  SI={snap.get('si')}  {snap.get('generated_et')}")
+    out = args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "snapshot.json").write_text(json.dumps(snap, indent=2) + "\n")
+    (out / "index.html").write_text(page(snap))
+    print(f"wrote {out / 'index.html'}  SI={snap.get('si')}  {snap.get('generated_et')}")
     return 0
 
 
