@@ -58,6 +58,13 @@ def md_lite(text: str) -> str:
     return "\n".join(out)
 
 
+def public_model(model: object) -> str | None:
+    """'heuristic' stays; any real local model name becomes a generic label."""
+    if not model:
+        return None
+    return "heuristic" if model == "heuristic" else "local LLM"
+
+
 def public_ingest(li: dict | None) -> dict | None:
     """Copy of last_ingest with raw fetch exceptions replaced by '<feed>: temporarily unavailable'."""
     if not isinstance(li, dict):
@@ -110,10 +117,10 @@ def slim(state: dict) -> dict:
         "countdown": si.get("countdown"),
         "vectors": vectors,
         "graph": state.get("graph"),
-        "llm": state.get("llm"),
+        "llm": {"available": bool((state.get("llm") or {}).get("available"))},  # no local model names
         "brief": {
             "date": brief.get("date"),
-            "model": brief.get("model"),
+            "model": public_model(brief.get("model")),
             "n_items": brief.get("n_items"),
             "text": brief.get("text"),
             "created_at": brief.get("created_at"),

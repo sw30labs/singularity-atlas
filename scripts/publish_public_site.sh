@@ -1,21 +1,29 @@
 #!/bin/bash
-# DRAFT — not installed. Publish Singularity Atlas public snapshot to the
-# publish-only site repo (sw30labs/singularity-atlas-site), served by Cloudflare Pages.
+# Publish the Singularity Atlas public site to the publish-only repo
+# (sw30labs/singularity-atlas-site), served by Cloudflare Pages.
 #
 # One-way push of static files only. Nothing on the internet connects back to this Mac.
-# Never ships ref/, loop_issues, data/, *.zip, or anything from export_graph.sh.
+# Never ships ref/, loop_issues, the private data/ dir, *.zip, or anything from export_graph.sh.
 #
-# Layout of the site repo after each run:
-#   /index.html  /snapshot.json  /board.png      <- latest
-#   /YYYY-MM-DD/{index.html,snapshot.json,board.png}  <- dated archive (immutable once written)
-#   /archive/index.html                           <- list of all dated boards
-#   /_headers  /robots.txt  /404.html             <- static site chrome (Cloudflare Pages)
+# Layout of the site repo after each run (live mode = scripts/build_live_site.py present):
+#   /index.html /app.js /style.css /favicon.svg /static-shim.js   <- interactive Atlas (static)
+#   /data/{state,globe,entities}.json /data/{graph,archive-entity}/<slug>.json   <- baked API data
+#   /vendor/{globe.gl.min.js,earth-night.jpg}                      <- pinned, vendored
+#   /snapshot.json                                                 <- latest slim snapshot (monitoring)
+#   /board/{index.html,board.png}                                  <- today's screenshot board
+#   /YYYY-MM-DD/{index.html,snapshot.json,board.png}               <- dated board archive
+#   /archive/index.html  /_headers  /robots.txt  /404.html
+# Without build_live_site.py it falls back to the board-only layout (board at /).
+#
+# Env: ATLAS_SITE_BRANCH (default main; e.g. "preview" for a Pages preview deploy),
+#      ATLAS_NO_PUSH=1 (commit locally only), ATLAS_FROM_COMMIT=<sha> (backfill one day).
 set -euo pipefail
 
 SRC="${ATLAS_SRC_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"   # private working repo (source of truth)
 SITE="${ATLAS_SITE_DIR:-$HOME/REPOS/singularity-atlas-site}"  # clone of the publish-only repo
 SITE_REMOTE="git@github-atlas-site:sw30labs/singularity-atlas-site.git"  # ssh alias -> deploy key
-BRANCH="main"
+BRANCH="${ATLAS_SITE_BRANCH:-main}"
+case "$BRANCH" in *[!A-Za-z0-9._/-]*|"") echo "bad ATLAS_SITE_BRANCH" >&2; exit 1;; esac
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # Never prompt under launchd: the deploy key has no passphrase and needs no agent.
 export GIT_SSH_COMMAND="ssh -o BatchMode=yes -o IdentitiesOnly=yes"
@@ -25,7 +33,7 @@ mkdir -p "$LOGDIR"
 stamp() { date '+%Y-%m-%d %H:%M:%S %Z'; }
 DAY=$(TZ=America/New_York date '+%Y-%m-%d')
 
-echo "$(stamp) start publish_public_site ($DAY)"
+echo "$(stamp) start publish_public_site ($DAY, branch $BRANCH)"
 
 BUILD=$(mktemp -d "${TMPDIR:-/tmp}/atlas-build.XXXXXX")
 trap 'rm -rf "$BUILD"' EXIT
@@ -94,23 +102,79 @@ PY
 
 fi
 
+# ---------------------------------------------------------------- 2b. live app (static, backend-free)
+LIVE=0
+if [ -z "${ATLAS_FROM_COMMIT:-}" ] && [ -f "$SRC/scripts/build_live_site.py" ]; then
+  python3 "$SRC/scripts/build_live_site.py" "$BUILD/live"
+  LIVE=1
+fi
+
 # ---------------------------------------------------------------- 3. guardrails on the build
-# Allowlist: exactly these files, nothing else, ever.
-ALLOWED="board.png index.html snapshot.json"
+# Allowlist (top level of the build): the board files, plus live/ when built.
+ALLOWED="board.png index.html snapshot.json live"
 for f in "$BUILD"/*; do
   b=$(basename "$f")
   case " $ALLOWED " in *" $b "*) ;; *) echo "$(stamp) FAIL: unexpected file in build: $b" >&2; exit 1;; esac
 done
 python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$BUILD/snapshot.json" || {
   echo "$(stamp) FAIL: snapshot.json is not valid JSON" >&2; exit 1; }
-# Size sanity: refuse anything that looks like a corpus slipped in.
 for f in index.html snapshot.json; do
   sz=$(stat -f%z "$BUILD/$f"); [ "$sz" -lt 1000000 ] || { echo "$(stamp) FAIL: $f too large ($sz)" >&2; exit 1; }
 done
-# Leak scan: local paths, secrets, private data dirs. (Footer text mentioning localhost:8055 is fine.)
-if grep -EIl "$HOME"'|/Users/[A-Za-z0-9._-]+/|loop_issues|innermost-loop-markdown|ALL_ISSUES\.md|Accelerando\.md|BEGIN [A-Z ]*PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|NEO4J_PASSWORD|bolt://' \
-     "$BUILD/index.html" "$BUILD/snapshot.json" >/dev/null; then
-  echo "$(stamp) FAIL: leak scan matched — refusing to publish" >&2; exit 1
+# Leak scan over every text file we ship (vendor/ is checked by pinned sha256 in the builder instead).
+LEAK_RE="$HOME"'|/Users/[A-Za-z0-9._-]+/|spidersacstudio|loop_issues|innermost-loop-markdown|ALL_ISSUES\.md|Accelerando\.md|BEGIN [A-Z ]*PRIVATE KEY|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|NEO4J_PASSWORD|neo4j://|bolt://|qwen[0-9.]*:[0-9a-z]'
+if find "$BUILD" -type f \( -name '*.html' -o -name '*.json' -o -name '*.js' -o -name '*.css' \) -not -path '*/vendor/*' -print0 | \
+     xargs -0 grep -EIl "$LEAK_RE" >&2; then
+  echo "$(stamp) FAIL: leak scan matched (files above) — refusing to publish" >&2; exit 1
+fi
+# Warn-only: news headlines may legitimately mention UBS; this project must never be presented as UBS work.
+grep -rIl 'UBS' "$BUILD" --include='*.json' --include='*.html' >/dev/null 2>&1 && echo "$(stamp) WARN: 'UBS' appears in public data (news mention?) — review" >&2 || true
+# Structural scan of the baked data: size caps, and no corpus-bearing fields.
+# Allowed: story "summary" (RSS/arXiv excerpts) and the brief's own "text". Never: snippet, description,
+# any other "text"/"body"/"content" field.
+if [ "$LIVE" = 1 ]; then
+python3 - "$BUILD/live" <<'PY' || { echo "$(stamp) FAIL: live data scan" >&2; exit 1; }
+import json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+CAPS = {"data/state.json": 400_000, "data/globe.json": 200_000, "data/entities.json": 20_000,
+        "index.html": 50_000, "app.js": 100_000, "style.css": 60_000, "static-shim.js": 10_000, "favicon.svg": 10_000}
+DIR_CAPS = {"data/graph": 60_000, "data/archive-entity": 20_000}
+FORBIDDEN = {"snippet", "description", "body", "content", "markdown", "html"}
+ALLOWED_FILES = set(CAPS) | {"vendor/globe.gl.min.js", "vendor/earth-night.jpg"}
+bad = []
+for f in sorted(p for p in root.rglob("*") if p.is_file()):
+    rel = f.relative_to(root).as_posix(); size = f.stat().st_size
+    parent = rel.rsplit("/", 1)[0] if "/" in rel else ""
+    if rel in CAPS:
+        cap = CAPS[rel]
+    elif parent in DIR_CAPS and rel.endswith(".json"):
+        cap = DIR_CAPS[parent]
+    elif rel in ALLOWED_FILES:
+        cap = 3_000_000
+    else:
+        bad.append(f"not allowlisted: {rel}"); continue
+    if size > cap: bad.append(f"too large: {rel} {size} > {cap}")
+    if not rel.endswith(".json"): continue
+    def walk(o, path):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                kp = f"{path}.{k}"
+                if k in FORBIDDEN and v not in (None, "", []):
+                    bad.append(f"forbidden field {rel}:{kp}")
+                if k == "text" and kp not in (".brief.text",) and v not in (None, ""):
+                    bad.append(f"unexpected text field {rel}:{kp}")
+                walk(v, kp)
+        elif isinstance(o, list):
+            for v in o: walk(v, path + "[]")
+    walk(json.loads(f.read_text()), "")
+st = json.loads((root / "data/state.json").read_text())
+if (st.get("llm") or {}).get("preferred") or (st.get("llm") or {}).get("active"):
+    bad.append("state.llm exposes a model name")
+if bad:
+    print("\n".join(bad), file=sys.stderr); sys.exit(1)
+print("live data scan ok:", sum(1 for _ in root.rglob("*.json")), "json files")
+PY
 fi
 
 # ---------------------------------------------------------------- 4. assemble site tree
@@ -119,16 +183,30 @@ if [ ! -d "$SITE/.git" ]; then
 fi
 cd "$SITE"
 git remote set-url origin "$SITE_REMOTE"
-# Sync to the remote if it has the branch (the site repo is publish-only, so local edits are discarded).
+# Sync to the remote (the site repo is publish-only, so local edits are discarded).
+# A branch that doesn't exist yet on the remote (e.g. a first "preview") starts from origin/main.
 if git ls-remote --exit-code origin "$BRANCH" >/dev/null 2>&1; then
   git fetch -q origin "$BRANCH" && git checkout -q -B "$BRANCH" "origin/$BRANCH" && git reset -q --hard "origin/$BRANCH"
+elif git ls-remote --exit-code origin main >/dev/null 2>&1; then
+  git fetch -q origin main && git checkout -q -B "$BRANCH" origin/main && git reset -q --hard origin/main
 fi
 
-# latest at root
-rsync -a --checksum --include='index.html' --include='snapshot.json' --include='board.png' --exclude='*' "$BUILD/" "$SITE/"
+BOARD_INC=(--include='index.html' --include='snapshot.json' --include='board.png' --exclude='*')
 # dated archive (overwrite only today's folder; older days are never touched)
 mkdir -p "$SITE/$DAY"
-rsync -a --checksum --include='index.html' --include='snapshot.json' --include='board.png' --exclude='*' "$BUILD/" "$SITE/$DAY/"
+rsync -a --checksum "${BOARD_INC[@]}" "$BUILD/" "$SITE/$DAY/"
+# latest slim snapshot at the root in both modes (monitoring reads /snapshot.json)
+cp "$BUILD/snapshot.json" "$SITE/snapshot.json"
+if [ "$LIVE" = 1 ]; then
+  mkdir -p "$SITE/board"
+  cp "$BUILD/index.html" "$SITE/board/index.html"
+  [ -s "$BUILD/board.png" ] && cp "$BUILD/board.png" "$SITE/board/board.png"
+  rm -f "$SITE/board.png"
+  rm -rf "$SITE/data" "$SITE/vendor"            # replaced wholesale each run (entities change daily)
+  rsync -a --checksum "$BUILD/live/" "$SITE/"
+else
+  rsync -a --checksum "${BOARD_INC[@]}" "$BUILD/" "$SITE/"
+fi
 
 # archive index (regenerated from the folders present)
 mkdir -p "$SITE/archive"
@@ -151,7 +229,7 @@ for d in days:
 <title>Singularity Atlas — archive</title>
 <style>body{{font:16px/1.5 system-ui,sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem;background:#0b0d10;color:#e6e6e6}}
 a{{color:#7cc4ff}}li{{margin:.3rem 0}}.si{{color:#999;font-family:ui-monospace,monospace;margin-left:.6rem}}</style></head>
-<body><h1>Singularity Atlas — daily boards</h1><p><a href="../">Latest</a></p><ul>
+<body><h1>Singularity Atlas — daily boards</h1><p><a href="../">Live atlas</a> · <a href="../board/">Today's board</a></p><ul>
 {chr(10).join(rows)}
 </ul></body></html>
 """)
@@ -165,10 +243,14 @@ cat > "$SITE/_headers" <<'H'
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; worker-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+/data/*
+  Cache-Control: public, max-age=300
 /snapshot.json
   Cache-Control: public, max-age=300
-/*/snapshot.json
+/:day/snapshot.json
   Cache-Control: public, max-age=86400
 H
 cat > "$SITE/404.html" <<'NF'
@@ -201,17 +283,38 @@ cat > "$SITE/404.html" <<'NF'
     <div class="eyebrow">The Singularity Atlas</div>
     <div class="code">404</div>
     <h1>Nothing at this coordinate.</h1>
-    <p>This page doesn't exist. The site only holds the daily public board and its dated archive.</p>
-    <nav><a href="/">Today's board</a><a href="/archive/">Archive</a></nav>
+    <p>This page doesn't exist. The site holds the live atlas, today's board and the dated archive.</p>
+    <nav><a href="/">Live atlas</a><a href="/board/">Today's board</a><a href="/archive/">Archive</a></nav>
   </main>
 </body>
 </html>
 NF
 [ -f "$SITE/robots.txt" ] || printf 'User-agent: *\nAllow: /\n' > "$SITE/robots.txt"
 
+# Older dated snapshots (before 2026-10-16 09:xx) carried the local model name in "llm"/"brief.model";
+# scrub them in place (idempotent), then leak-scan the whole tree, not just today's build.
+python3 - "$SITE" <<'PY'
+import json, sys
+from pathlib import Path
+for f in sorted(Path(sys.argv[1]).glob("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/snapshot.json")):
+    d = json.loads(f.read_text()); changed = False
+    llm = d.get("llm")
+    if isinstance(llm, dict) and (llm.get("preferred") or llm.get("active")):
+        d["llm"] = {"available": bool(llm.get("available"))}; changed = True
+    br = d.get("brief")
+    if isinstance(br, dict) and br.get("model") not in (None, "heuristic", "local LLM"):
+        br["model"] = "local LLM"; changed = True
+    if changed:
+        f.write_text(json.dumps(d, indent=2) + "\n"); print("scrubbed", f.parent.name + "/snapshot.json")
+PY
+if find "$SITE" -path "$SITE/.git" -prune -o -type f \( -name '*.html' -o -name '*.json' -o -name '*.js' -o -name '*.css' \) -not -path '*/vendor/*' -print0 | \
+     xargs -0 grep -EIl "$LEAK_RE" >&2; then
+  echo "$(stamp) FAIL: leak scan matched in site tree (files above) — refusing to publish" >&2; exit 1
+fi
+
 # Final allowlist check over the whole site tree (excluding .git).
 BAD=$(find "$SITE" -path "$SITE/.git" -prune -o -type f -print | sed "s|^$SITE/||" | \
-      grep -Ev '^(index\.html|snapshot\.json|board\.png|_headers|robots\.txt|404\.html|README\.md|archive/index\.html|[0-9]{4}-[0-9]{2}-[0-9]{2}/(index\.html|snapshot\.json|board\.png))$' || true)
+      grep -Ev '^(index\.html|snapshot\.json|board\.png|app\.js|style\.css|favicon\.svg|static-shim\.js|_headers|robots\.txt|404\.html|README\.md|archive/index\.html|board/(index\.html|board\.png)|vendor/(globe\.gl\.min\.js|earth-night\.jpg)|data/(state|globe|entities)\.json|data/(graph|archive-entity)/[a-z0-9-]+\.json|[0-9]{4}-[0-9]{2}-[0-9]{2}/(index\.html|snapshot\.json|board\.png))$' || true)
 [ -z "$BAD" ] || { echo "$(stamp) FAIL: non-allowlisted files in site repo:"$'\n'"$BAD" >&2; exit 1; }
 
 # ---------------------------------------------------------------- 5. commit + push (site repo only)
@@ -220,7 +323,7 @@ if git rev-parse -q --verify HEAD >/dev/null && git diff --cached --quiet; then
   echo "$(stamp) no site changes — nothing to push"; exit 0
 fi
 git -c user.name="Atlas publisher" -c user.email="atlas-publisher@users.noreply.github.com" \
-    commit -q -m "Publish 24h public snapshot ${DAY}"
+    commit -q -m "Publish 24h public snapshot ${DAY}$([ "$LIVE" = 1 ] && echo " (live atlas)")"
 if [ "${ATLAS_NO_PUSH:-0}" = "1" ]; then
   echo "$(stamp) ATLAS_NO_PUSH=1 — committed locally $(git rev-parse --short HEAD), not pushed"; exit 0
 fi
