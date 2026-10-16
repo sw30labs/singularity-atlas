@@ -22,5 +22,8 @@ htmlcov/
 data/
 
 # Third-party published works: kept locally, never published.
-ref/innermost-loop/
-ref/accelerando/
+ref/
+
+# Local archives and machine-local settings: never commit.
+*.zip
+.env

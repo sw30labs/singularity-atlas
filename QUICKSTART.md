@@ -131,16 +131,18 @@ want the seen-set and SI history; otherwise ingest rebuilds them.
 
 ## Optional LLM
 
-Default model in `singularity_atlas/config.py` is `qwen3.8:27b-mtp-bf16`.
-That is a large local model. On a smaller machine pull something that fits:
+Default model in `singularity_atlas/config.py` is `qwen3:8b`. Pull it, or any
+model your machine can fit, and set `ATLAS_LLM_MODEL` (env var, or a line in a
+gitignored `.env` in the repo root):
 
 ```bash
-ollama pull qwen3:14b
+ollama pull qwen3:8b
+echo "ATLAS_LLM_MODEL=qwen3:14b" >> .env   # optional: prefer a bigger one
 ```
 
 The resolver also accepts several qwen3 fallbacks already present in Ollama
 (`qwen3:30b-a3b-instruct-2507-q4_K_M`, `qwen3:30b-a3b`, `qwen3:32b`,
-`qwen3:14b`). Override with `ATLAS_MODEL` / `OLLAMA_HOST`. No usable model
+`qwen3:14b`). Override with `ATLAS_LLM_MODEL` (or `ATLAS_MODEL`) / `OLLAMA_HOST`. No usable model
 → briefs use heuristics; the rest of the dashboard still works.
 
 ## Ports and env
@@ -153,5 +155,5 @@ The resolver also accepts several qwen3 fallbacks already present in Ollama
 | 11434 | Ollama (if used) |
 
 Overrides: `ATLAS_HOST`, `ATLAS_PORT`, `ATLAS_NEO4J_URI`,
-`ATLAS_NEO4J_PASSWORD`, `ATLAS_MODEL`, `OLLAMA_HOST`. Tunables (feeds,
+`ATLAS_NEO4J_PASSWORD`, `ATLAS_LLM_MODEL`, `OLLAMA_HOST` (also read from `.env`). Tunables (feeds,
 weights, cadence) live in `singularity_atlas/config.py`.

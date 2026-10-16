@@ -64,7 +64,7 @@ Clone-from-scratch, prerequisites, and what a fresh clone does *not* include:
 ```bash
 uv sync
 docker compose up -d          # singularity-atlas-neo4j: http :7476 · bolt :7689 (neo4j/singularity-atlas)
-ollama pull qwen3.8:27b-mtp-bf16                    # optional, for the LLM brief (any qwen3 works — auto-detected)
+ollama pull qwen3:8b                              # optional, for the LLM brief (any qwen3 works — auto-detected)
 uv run python -m singularity_atlas.seed           # local archive → graph (once)
 ./setup_and_run.sh --sync                         # or all of the above in one step, plus Loop feed + first ingest
 ```
@@ -83,7 +83,8 @@ starting, since a forgotten instance keeps ingesting in the background.
 
 Everything lives in `singularity_atlas/config.py`: feeds, vector weights, epoch years,
 globe site catalog, ports, model name. Env overrides: `ATLAS_PORT`, `ATLAS_NEO4J_URI`,
-`ATLAS_NEO4J_PASSWORD`, `ATLAS_MODEL`, `OLLAMA_HOST`.
+`ATLAS_NEO4J_PASSWORD`, `ATLAS_LLM_MODEL` (or `ATLAS_MODEL`), `OLLAMA_HOST`. A gitignored
+`.env` in the repo root is read too, for machine-local values.
 
 ## Notes
 

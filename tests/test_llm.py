@@ -36,9 +36,9 @@ class ChatResp:
 class TestResolveModel:
     def test_preferred_wins(self, monkeypatch):
         monkeypatch.setattr(llm.httpx, "get",
-                            lambda *a, **k: fake_tags("qwen3.8:27b-mtp-bf16", "qwen3:14b"))
-        monkeypatch.setattr(llm.config, "OLLAMA_MODEL", "qwen3.8:27b-mtp-bf16")
-        assert llm.resolve_model() == "qwen3.8:27b-mtp-bf16"
+                            lambda *a, **k: fake_tags("qwen3:8b", "qwen3:14b"))
+        monkeypatch.setattr(llm.config, "OLLAMA_MODEL", "qwen3:8b")
+        assert llm.resolve_model() == "qwen3:8b"
 
     def test_fallback_chain(self, monkeypatch):
         monkeypatch.setattr(llm.httpx, "get",

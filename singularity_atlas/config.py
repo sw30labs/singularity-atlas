@@ -13,6 +13,28 @@ from pathlib import Path
 # Paths
 # ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def _load_dotenv(path: Path) -> None:
+    """Optional, untracked ROOT/.env (KEY=VALUE lines) for machine-local settings.
+
+    Real environment variables always win; .env is gitignored.
+    """
+    try:
+        lines = path.read_text().splitlines()
+    except OSError:
+        return
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, val = line.partition("=")
+        key = key.strip().removeprefix("export ").strip()
+        if key:
+            os.environ.setdefault(key, val.strip().strip("\"'"))
+
+
+_load_dotenv(ROOT / ".env")
 DATA_DIR = ROOT / "data"
 DATA_DIR.mkdir(exist_ok=True)
 SEEN_FILE = DATA_DIR / "seen.json"          # dedupe fingerprints
@@ -34,7 +56,10 @@ NEO4J_PASSWORD = os.environ.get("ATLAS_NEO4J_PASSWORD", "singularity-atlas")
 # Ollama
 # ---------------------------------------------------------------------------
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = os.environ.get("ATLAS_MODEL", "qwen3.8:27b-mtp-bf16")
+# Preferred local model. ATLAS_LLM_MODEL (or the older ATLAS_MODEL) overrides the
+# neutral default; llm.resolve_model() still falls back to whatever qwen3 is pulled.
+OLLAMA_MODEL = (os.environ.get("ATLAS_LLM_MODEL") or os.environ.get("ATLAS_MODEL")
+                or "qwen3:8b")
 LLM_TIMEOUT_S = 180
 
 # ---------------------------------------------------------------------------
