@@ -22,10 +22,41 @@ function relTime(iso) {
   if (!iso) return "";
   const t = new Date(iso).getTime();
   if (isNaN(t)) return "";
-  const s = Math.max(0, (Date.now() - t) / 1000);
-  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
-  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
-  return `${Math.floor(s / 86400)}d ago`;
+  const ahead = t - Date.now();
+  const future = ahead > 0;
+  const s = Math.abs(ahead) / 1000;
+  if (s < 60) return future ? "soon" : "just now";
+  let label;
+  if (s < 3600) label = `${Math.floor(s / 60)}m`;
+  else if (s < 86400) label = `${Math.floor(s / 3600)}h`;
+  else label = `${Math.floor(s / 86400)}d`;
+  return future ? `in ${label}` : `${label} ago`;
+}
+
+/* Launch Library uses midnight UTC as a placeholder when the NET is not set. */
+function storyWhen(s) {
+  const status = (s && s.extra && s.extra.status) || "";
+  const iso = (s && s.published_at) || "";
+  if (/determin/i.test(status) && /T00:00:00(?:\.000)?Z$/.test(iso)) return "TBD";
+  return relTime(iso);
+}
+
+function syncBriefIndex(text) {
+  const si = STATE && STATE.si;
+  if (!si || typeof si.si !== "number" || !text) return text;
+  const epoch = (si.epoch && si.epoch.name) || "";
+  const head = `The Singularity Index reads **${Number(si.si).toFixed(1)}/100** — ${epoch}.`;
+  const days = si.countdown && si.countdown.days;
+  const target = si.countdown && si.countdown.target;
+  const full = (days != null && target && si.n_stories_24h != null)
+    ? `${head} ${days} days to ${target}. ${si.n_stories_24h} signals crossed the wire in the last cycle.`
+    : head;
+  const stats = /The Singularity Index reads \*\*[\d.]+\/100\*\* — [^.]+?\. \d+ days to [\d-]+\. \d+ signals crossed the wire in the last cycle\./;
+  if (stats.test(text)) return text.replace(stats, full);
+  return text.replace(
+    /The Singularity Index reads \*\*[\d.]+\/100\*\* — [^.]+?\./,
+    head
+  );
 }
 
 /* minimal markdown: h1, bold, italic, links, paragraphs */
@@ -223,7 +254,7 @@ function renderVectors() {
          stories.slice(0, 4).map((s) =>
            `<div class="story" data-sid="${esc(s.id)}">
               <div class="story-title"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></div>
-              <div class="story-meta">${esc(s.source_label || s.source)} · ${relTime(s.published_at)}</div>
+              <div class="story-meta">${esc(s.source_label || s.source)} · ${storyWhen(s)}</div>
             </div>`).join("") || '<div class="loading">quiet…</div>'
        }</div>`;
     wrap.appendChild(div);
@@ -235,8 +266,15 @@ function renderVectors() {
 function renderBrief() {
   const b = STATE?.brief;
   if (!b) { $("#brief-body").innerHTML = '<div class="loading">no edition yet — ingest pending</div>'; return; }
-  $("#brief-body").innerHTML = md(b.text);
+  $("#brief-body").innerHTML = md(syncBriefIndex(b.text));
   $("#brief-meta").textContent = `${b.date} · ${b.model === "heuristic" ? "heuristic" : "qwen3 local"}`;
+}
+
+function renderArchiveCount() {
+  const el = $("#archive-count");
+  if (!el) return;
+  const n = STATE?.archive_editions;
+  el.textContent = typeof n === "number" ? `${n} edition${n === 1 ? "" : "s"}` : "";
 }
 
 /* ---------------- convergence ---------------- */
@@ -350,7 +388,7 @@ function openStoryDrawer(s) {
     `<span class="ent-chip" data-ent="${esc(e)}">${esc(e)}</span>`).join("");
   openDrawer("SIGNAL", `
     <div><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></div>
-    <div class="dim">${esc(s.source_label || "")} · ${relTime(s.published_at)}</div>
+    <div class="dim">${esc(s.source_label || "")} · ${storyWhen(s)}</div>
     <p style="margin-top:8px">${esc(s.summary || "")}</p>
     ${ents ? `<h2>ENTITIES</h2><div>${ents}</div>` : ""}
   `);
@@ -431,6 +469,7 @@ async function pollState() {
     renderSpark(STATE.si_history || []);
     renderVectors();
     renderBrief();
+    renderArchiveCount();
     renderConvergence();
     renderOnThisDate();
     renderTicker();

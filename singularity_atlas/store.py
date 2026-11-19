@@ -169,24 +169,83 @@ def _decode_story(st: dict) -> dict:
     return st
 
 
+def _parse_ts(value: str | None) -> datetime | None:
+    if not value or not isinstance(value, str):
+        return None
+    text = value.strip().replace("Z", "+00:00")
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def order_launches(stories: list[dict], now: datetime | None = None) -> list[dict]:
+    """Soonest upcoming launch first, then recent liftoffs, newest first."""
+    now = now or datetime.now(timezone.utc)
+    upcoming: list[tuple[datetime, dict]] = []
+    recent: list[tuple[datetime, dict]] = []
+    for story in stories:
+        when = _parse_ts(story.get("published_at"))
+        if when is None:
+            continue
+        (upcoming if when >= now else recent).append((when, story))
+    upcoming.sort(key=lambda pair: pair[0])
+    recent.sort(key=lambda pair: pair[0], reverse=True)
+    return [story for _, story in upcoming] + [story for _, story in recent]
+
+
+def retire_stale_launches(current_ids: list[str]) -> int:
+    """Delete future-dated launches that fell off the latest upcoming list.
+
+    Past launches stay, so a liftoff in the last few days remains a story.
+    ``current_ids`` must come from a successful, non-empty Launch Library fetch.
+    """
+    if not current_ids:
+        return 0
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    with driver().session() as s:
+        rec = s.run(
+            """
+            MATCH (s:Story {source: 'launches'})
+            WHERE s.published_at > $now AND NOT s.id IN $ids
+            WITH collect(s) AS doomed
+            FOREACH (x IN doomed | DETACH DELETE x)
+            RETURN size(doomed) AS n
+            """,
+            now=now, ids=list(current_ids),
+        ).single()
+    n = int(rec["n"]) if rec else 0
+    if n:
+        _refresh_cooccurrence()
+    return n
+
+
 # ---------------------------------------------------------------------------
 # Reads
 # ---------------------------------------------------------------------------
 
 def recent_stories(hours: int = 48, limit: int = 400) -> list[dict]:
-    since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+    now = datetime.now(timezone.utc)
+    since = (now - timedelta(hours=hours)).isoformat()
+    # A launch two months out is not a story from this window. Placeholder
+    # NETs used to sail through `published_at > since` and crowd the brief.
+    launch_until = (now + timedelta(days=config.LAUNCH_HORIZON_DAYS)).isoformat()
     with driver().session() as s:
         res = s.run(
             """
             MATCH (s:Story)
             WHERE coalesce(s.published_at, s.ingested_at) > $since
+              AND (coalesce(s.source, '') <> 'launches' OR s.published_at <= $launch_until)
             OPTIONAL MATCH (s)-[a:ABOUT]->(v:Vector)
             WITH s, collect({vector: v.name, score: a.score}) AS vecs
             OPTIONAL MATCH (s)-[:MENTIONS]->(e:Entity)
             RETURN s, vecs, collect(e.name) AS entities
             ORDER BY s.salience DESC LIMIT $limit
             """,
-            since=since, limit=limit,
+            since=since, launch_until=launch_until, limit=limit,
         )
         out = []
         for r in res:
@@ -198,7 +257,9 @@ def recent_stories(hours: int = 48, limit: int = 400) -> list[dict]:
 
 
 def vector_signals(hours: int = 72, per_vector: int = 12) -> dict[str, list[dict]]:
-    since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+    now = datetime.now(timezone.utc)
+    since = (now - timedelta(hours=hours)).isoformat()
+    until = (now + timedelta(days=config.LAUNCH_HORIZON_DAYS)).isoformat()
     out: dict[str, list[dict]] = {v: [] for v in config.VECTOR_NAMES}
     with driver().session() as s:
         for v in config.VECTOR_NAMES:
@@ -206,6 +267,7 @@ def vector_signals(hours: int = 72, per_vector: int = 12) -> dict[str, list[dict
                 """
                 MATCH (s:Story)-[a:ABOUT]->(v:Vector {name: $v})
                 WHERE coalesce(s.published_at, s.ingested_at) > $since
+                  AND coalesce(s.source, '') <> 'launches'
                 OPTIONAL MATCH (s)-[:MENTIONS]->(e:Entity)
                 WITH s, a, collect(DISTINCT e.name) AS ents
                 RETURN s, a.score AS score, ents
@@ -215,6 +277,26 @@ def vector_signals(hours: int = 72, per_vector: int = 12) -> dict[str, list[dict
             )
             out[v] = [{**_decode_story(dict(r["s"])), "score": r["score"],
                        "entities": r["ents"]} for r in res]
+        # Launches carry a future NET, so the 72h filter above would either
+        # hide them or, if included, rank a December placeholder over a
+        # launch tomorrow. Pull the near window and order by liftoff time.
+        launch_res = s.run(
+            """
+            MATCH (s:Story {source: 'launches'})
+            WHERE s.published_at >= $since AND s.published_at <= $until
+            OPTIONAL MATCH (s)-[a:ABOUT]->(:Vector {name: 'space'})
+            OPTIONAL MATCH (s)-[:MENTIONS]->(e:Entity)
+            WITH s, a.score AS score, collect(DISTINCT e.name) AS ents
+            RETURN s, score, ents
+            ORDER BY s.published_at ASC
+            LIMIT $k
+            """,
+            since=since, until=until, k=max(per_vector * 3, 30),
+        )
+        launches = [{**_decode_story(dict(r["s"])), "score": r["score"],
+                     "entities": [e for e in r["ents"] if e]} for r in launch_res]
+    others = [st for st in out.get("space") or [] if st.get("source") != "launches"]
+    out["space"] = (order_launches(launches, now) + others)[:per_vector]
     return out
 
 

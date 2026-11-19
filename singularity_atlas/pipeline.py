@@ -12,6 +12,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from typing import Any, TypedDict
 
@@ -28,6 +29,9 @@ class PipelineState(TypedDict, total=False):
     brief_model: str | None
     errors: list[str]
     stats: dict
+    # Ids from a successful Launch Library fetch. None means the fetch failed
+    # and stale upcoming launches must be left alone.
+    launch_ids: list[str] | None
 
 
 # ---------------------------------------------------------------------------
@@ -52,6 +56,10 @@ def _save_seen(seen: set[str]) -> None:
 
 def _fingerprint(item: dict) -> str:
     base = (item.get("url") or "") + "|" + (item.get("title") or "").lower().strip()
+    # Launch Library keeps the same URL when the NET slips. Include the time
+    # so a date change is ingested again and the stored story is updated.
+    if item.get("source") == "launches":
+        base += "|" + (item.get("published_at") or "")
     return hashlib.sha1(base.encode()).hexdigest()
 
 
@@ -61,7 +69,10 @@ def _fingerprint(item: dict) -> str:
 
 def node_fetch(state: PipelineState) -> dict:
     items, errors = asyncio.run(feeds.fetch_all())
-    return {"raw_items": items, "errors": errors}
+    failed = any(str(e).startswith("launches:") for e in errors)
+    launch_ids = None if failed else [
+        it["id"] for it in items if it.get("source") == "launches" and it.get("id")]
+    return {"raw_items": items, "errors": errors, "launch_ids": launch_ids}
 
 
 def node_dedupe(state: PipelineState) -> dict:
@@ -178,6 +189,11 @@ def node_persist(state: PipelineState) -> dict:
     n = store.persist_items(state.get("items", []))
     stats = dict(state.get("stats") or {})
     stats["persisted"] = n
+    # Only after a non-empty successful fetch. An empty or failed response
+    # must not wipe the upcoming launches already in the graph.
+    launch_ids = state.get("launch_ids")
+    if launch_ids:
+        stats["launches_retired"] = store.retire_stale_launches(launch_ids)
     return {"stats": stats}
 
 
@@ -185,6 +201,20 @@ def node_score(state: PipelineState) -> dict:
     si = scoring.compute_si()
     store.append_si(si)
     return {"si": si}
+
+
+_SI_IN_BRIEF = re.compile(r"The Singularity Index reads \*\*([\d.]+)/100\*\*")
+
+
+def _embedded_si(text: str) -> float | None:
+    """The index baked into a heuristic brief, if the sentence is there."""
+    match = _SI_IN_BRIEF.search(text or "")
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return None
 
 
 BRIEF_SYSTEM = """You are the voice of a daily Singularity digest. Style rules, learned from
@@ -233,11 +263,21 @@ def node_brief(state: PipelineState) -> dict:
 
     latest = store.latest_brief()
     today = datetime.now(timezone.utc).date().isoformat()
+    baked = _embedded_si((latest or {}).get("text") or "")
+    # A heuristic brief freezes the index in its lede. Rewrite it once the
+    # gauge has moved, so the column does not keep quoting the morning number.
+    index_drifted = (
+        latest is not None
+        and latest.get("model") == "heuristic"
+        and baked is not None
+        and abs(baked - float(si["si"])) >= 1.0
+    )
     should_refresh = (
         stats.get("new", 0) >= config.BRIEF_MIN_NEW_ITEMS
         or latest is None
         or (latest.get("model") == "heuristic" and llm.available())
         or latest.get("date") != today
+        or index_drifted
     )
     if not should_refresh:
         return {"brief": None, "brief_model": None}

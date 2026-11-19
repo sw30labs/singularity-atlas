@@ -20,6 +20,16 @@ class TestFingerprint:
         b = pipeline._fingerprint({"url": "https://x.com/b", "title": "A"})
         assert a != b
 
+    def test_launch_net_is_part_of_the_fingerprint(self):
+        early = {"source": "launches", "url": "https://ll.example/1",
+                 "title": "Falcon 9", "published_at": "2026-12-31T00:00:00Z"}
+        slipped = dict(early, published_at="2026-11-29T15:47:00Z")
+        news = {"source": "verge-ai", "url": "https://x.com/a", "title": "Hello",
+                "published_at": "2026-11-19T00:00:00Z"}
+        assert pipeline._fingerprint(early) != pipeline._fingerprint(slipped)
+        assert pipeline._fingerprint(news) == pipeline._fingerprint(
+            dict(news, published_at="2026-11-18T00:00:00Z"))
+
 
 class TestDedupeNode:
     def test_filters_seen(self):
@@ -31,6 +41,29 @@ class TestDedupeNode:
         out2 = pipeline.node_dedupe({"raw_items": items})
         assert out2["stats"]["new"] == 0
         assert out2["items"] == []
+
+    def test_launch_is_readmitted_when_its_net_changes(self):
+        launch = {"id": "L1", "source": "launches", "url": "https://ll.example/1",
+                  "title": "Falcon 9", "published_at": "2026-12-31T00:00:00Z"}
+        out1 = pipeline.node_dedupe({"raw_items": [launch]})
+        assert out1["stats"]["new"] == 1
+        slipped = dict(launch, published_at="2026-11-29T15:47:00Z")
+        out2 = pipeline.node_dedupe({"raw_items": [slipped]})
+        assert [it["published_at"] for it in out2["items"]] == ["2026-11-29T15:47:00Z"]
+
+
+class TestLaunchRetirement:
+    def test_retire_runs_only_after_a_real_launch_fetch(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(pipeline.store, "persist_items", lambda items: 0)
+        monkeypatch.setattr(pipeline.store, "retire_stale_launches",
+                            lambda ids: calls.append(list(ids)) or 2)
+        skipped = pipeline.node_persist({"items": [], "launch_ids": None})
+        assert "launches_retired" not in skipped["stats"]
+        assert calls == []
+        out = pipeline.node_persist({"items": [], "launch_ids": ["a", "b"]})
+        assert calls == [["a", "b"]]
+        assert out["stats"]["launches_retired"] == 2
 
 
 class TestClassifyItem:
@@ -129,6 +162,38 @@ class TestBriefRefreshLogic:
         out = pipeline.node_brief({"stats": {"new": 0}, "si": self._si()})
         assert out["brief_model"] == "m:latest"
         assert out["brief"] == "# Welcome\ntext"
+
+    def test_refresh_heuristic_when_the_baked_index_drifted(self, monkeypatch):
+        monkeypatch.setattr(pipeline.store, "latest_brief", lambda: {
+            "model": "heuristic", "date": _today(),
+            "text": "The Singularity Index reads **70.7/100** — Singularity.",
+        })
+        monkeypatch.setattr(pipeline.store, "recent_stories", lambda **k: [
+            {"title": "T", "url": "https://x.com", "source_label": "S",
+             "vectors": {}, "summary": "s", "salience": 1.0}])
+        saved = {}
+
+        def save(text, model, n_items):
+            saved["text"] = text
+            saved["model"] = model
+            return _today()
+
+        monkeypatch.setattr(pipeline.store, "save_brief", save)
+        monkeypatch.setattr(llm, "available", lambda: False)
+        monkeypatch.setattr(llm, "chat", lambda *a, **k: None)
+        monkeypatch.setattr(llm, "current_model", lambda: None)
+        out = pipeline.node_brief({"stats": {"new": 0}, "si": self._si()})
+        assert out["brief_model"] == "heuristic"
+        assert "50.0/100" in saved["text"]
+
+    def test_skip_heuristic_when_the_baked_index_still_matches(self, monkeypatch):
+        monkeypatch.setattr(pipeline.store, "latest_brief", lambda: {
+            "model": "heuristic", "date": _today(),
+            "text": "The Singularity Index reads **50.0/100** — Point of Inflexion.",
+        })
+        monkeypatch.setattr(llm, "available", lambda: False)
+        out = pipeline.node_brief({"stats": {"new": 0}, "si": self._si()})
+        assert out["brief"] is None
 
 
 def _today() -> str:

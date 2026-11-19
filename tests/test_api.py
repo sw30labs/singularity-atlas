@@ -44,8 +44,9 @@ class TestEndpoints:
         d = client.get("/api/state").json()
         for key in ("si", "si_history", "vectors", "signals", "convergence",
                     "brief", "feeds", "graph", "llm", "quotes",
-                    "si_baseline_days", "ingest_running"):
+                    "si_baseline_days", "archive_editions", "ingest_running"):
             assert key in d, key
+        assert isinstance(d["archive_editions"], int) and d["archive_editions"] >= 0
         assert 0 <= d["si"]["si"] <= 100
         # the frontend renders the delta label from this, so it must be a
         # positive number of days, not a hardcoded literal

@@ -49,6 +49,7 @@ def api_state() -> dict:
         "quotes": config.ACCELERANDO_QUOTES,
         "si_baseline_days": config.SI_BASELINE_DAYS,
         "on_this_date": loop_archive.on_this_date(),
+        "archive_editions": len(loop_archive.load_issues()),
         "loop_sync": loop_sync.last_sync(),
         "last_ingest": scheduler.last_run(),
         "ingest_running": scheduler.ingest_running(),

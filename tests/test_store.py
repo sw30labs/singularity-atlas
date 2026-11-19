@@ -2,10 +2,34 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 
 import pytest
 
 from singularity_atlas import store
+
+
+class TestLaunchOrder:
+    def test_soonest_upcoming_before_recent_liftoffs(self):
+        now = datetime(2026, 11, 19, 16, 0, tzinfo=timezone.utc)
+        stories = [
+            {"title": "old", "published_at": "2026-11-16T17:07:00Z"},
+            {"title": "far", "published_at": "2026-11-28T04:53:00Z"},
+            {"title": "next", "published_at": "2026-11-20T04:32:55Z"},
+            {"title": "yesterday", "published_at": "2026-11-18T22:51:00Z"},
+            {"title": "undated"},
+        ]
+        assert [s["title"] for s in store.order_launches(stories, now)] == [
+            "next", "far", "yesterday", "old"]
+
+    def test_z_and_offset_are_the_same_instant(self):
+        now = datetime(2026, 11, 19, 12, 0, tzinfo=timezone.utc)
+        stories = [
+            {"title": "z", "published_at": "2026-11-20T00:00:00Z"},
+            {"title": "offset", "published_at": "2026-11-20T00:00:00+00:00"},
+        ]
+        # Equal instants keep their input order.
+        assert [s["title"] for s in store.order_launches(stories, now)] == ["z", "offset"]
 
 
 class TestDecodeStory:

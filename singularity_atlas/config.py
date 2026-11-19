@@ -78,6 +78,7 @@ LOOP_SYNC_INTERVAL_H = 24        # Alex posts ~daily; the feed holds 20 issues
 BRIEF_MIN_NEW_ITEMS = 6          # skip brief if fewer new stories
 BRIEF_TOP_N = 14                 # stories fed to the LLM for the daily loop
 SIGNAL_WINDOW_H = 72             # convergence window
+LAUNCH_HORIZON_DAYS = 14         # how far ahead a launch still counts as current
 SI_BASELINE_DAYS = 7             # window for the SI delta baseline mean
 
 # ---------------------------------------------------------------------------
