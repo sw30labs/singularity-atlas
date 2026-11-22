@@ -368,6 +368,141 @@ function setAineko(watching) {
   if (lab) lab.textContent = watching ? "WATCH" : "IDLE";
 }
 
+/* Hover dwell. A passing pointer gets the eyes; the line waits. */
+const AINEKO_DWELL_MS = 500;
+let lastAinekoLine = "";
+
+function ainekoMotionOk() {
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function hottestRadarName() {
+  const rows = STATE?.convergence || [];
+  let best = null;
+  for (const row of rows) {
+    if (!row?.name) continue;
+    if (!best || (row.heat || 0) > (best.heat || 0)) best = row;
+  }
+  if (!best) return "";
+  const name = String(best.name).trim();
+  return name.length > 28 ? `${name.slice(0, 27)}…` : name;
+}
+
+function ainekoPool() {
+  const lines = [];
+  if ($("#aineko")?.classList.contains("watching")) {
+    lines.push("Don't talk. I'm eating.");
+    lines.push("Chewing. Come back when I'm done.");
+  }
+  if ((STATE?.si?.epoch?.name || "") === "Singularity") {
+    lines.push("You're late. I noticed yesterday.");
+    lines.push("The dial's already red. Do keep up.");
+  }
+  const name = hottestRadarName();
+  if (name) {
+    lines.push(`${name} again. You people have no range.`);
+    lines.push(`${name}. I was bored of them last week.`);
+  }
+  if (!lines.length) {
+    lines.push("I can see you seeing me. That's the boring part.");
+    lines.push("Nothing worth waking up for.");
+  }
+  return lines;
+}
+
+function pickAinekoLine() {
+  const all = ainekoPool();
+  const fresh = all.filter((line) => line !== lastAinekoLine);
+  const choices = fresh.length ? fresh : all;
+  const line = choices[Math.floor(Math.random() * choices.length)];
+  lastAinekoLine = line;
+  return line;
+}
+
+function bindAineko() {
+  const el = $("#aineko");
+  const line = $("#aineko-line");
+  const eyes = el?.querySelector(".track-eyes");
+  if (!el || !line || !eyes) return;
+  let dwell = null;
+  let hide = null;
+
+  function look(ev) {
+    if (!el.classList.contains("tracking")) return;
+    const svg = el.querySelector("svg");
+    const rect = svg.getBoundingClientRect();
+    const cx = rect.left + (17.4 / 24) * rect.width;
+    const cy = rect.top + (10 / 24) * rect.height;
+    const dx = ev.clientX - cx;
+    const dy = ev.clientY - cy;
+    const dist = Math.hypot(dx, dy) || 1;
+    const reach = Math.min(1, dist / 90);
+    const max = 0.65;
+    eyes.setAttribute("transform",
+      `translate(${((dx / dist) * max * reach).toFixed(2)} ${((dy / dist) * max * reach).toFixed(2)})`);
+  }
+
+  function resetEyes() {
+    el.classList.remove("tracking");
+    eyes.setAttribute("transform", "translate(0 0)");
+  }
+
+  function clearLinePush() {
+    for (const sel of [".epoch-block", "#quote"]) {
+      const node = document.querySelector(sel);
+      if (node) node.style.marginTop = "";
+    }
+  }
+
+  /* The line hangs out of the clock. On a narrow wrap it can land on
+     the dial or the quote; push that one down. Never resize the clock,
+     or the centered cat slides off the pointer. */
+  function nudgeLineClearance() {
+    clearLinePush();
+    if (!window.matchMedia("(max-width: 1024px)").matches) return;
+    const lb = line.getBoundingClientRect();
+    for (const sel of [".epoch-block", "#quote"]) {
+      const node = document.querySelector(sel);
+      if (!node) continue;
+      const r = node.getBoundingClientRect();
+      const overlapY = Math.min(lb.bottom, r.bottom) - Math.max(lb.top, r.top);
+      const overlapX = Math.min(lb.right, r.right) - Math.max(lb.left, r.left);
+      if (overlapY > 0.5 && overlapX > 0.5) {
+        node.style.marginTop = `${Math.ceil(lb.bottom - r.top + 4)}px`;
+      }
+    }
+  }
+
+  el.addEventListener("pointerenter", (ev) => {
+    clearTimeout(hide);
+    if (ainekoMotionOk()) {
+      el.classList.add("tracking");
+      look(ev);
+    }
+    clearTimeout(dwell);
+    dwell = setTimeout(() => {
+      line.textContent = pickAinekoLine();
+      line.classList.add("shown");
+      nudgeLineClearance();
+    }, AINEKO_DWELL_MS);
+  });
+  el.addEventListener("pointermove", look);
+  el.addEventListener("pointerleave", () => {
+    clearTimeout(dwell);
+    dwell = null;
+    hide = setTimeout(() => {
+      line.classList.remove("shown");
+      line.textContent = "";
+      clearLinePush();
+      resetEyes();
+    }, 160);
+  });
+  window.addEventListener("resize", () => {
+    if (line.classList.contains("shown")) nudgeLineClearance();
+  });
+}
+bindAineko();
+
 async function pollIngest() {
   try {
     const r = await fetch("/api/ingest").then((x) => x.json());

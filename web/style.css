@@ -106,7 +106,7 @@ body::after {
 .epoch-sub { margin-top: 5px; color: var(--text-dim); font-size: 10px; text-align: center; }
 .epoch-sub #epoch-name { color: var(--cyan); }
 
-.clock-block { display: flex; align-items: center; gap: 12px; text-align: right; }
+.clock-block { position: relative; display: flex; align-items: center; gap: 12px; text-align: right; }
 .clock { font-size: 20px; color: #eaf7ff; letter-spacing: 2px; }
 .clock-label { color: var(--text-dim); font-size: 9px; letter-spacing: 3px; }
 .gh-link { display: flex; align-items: center; gap: 6px; padding: 4px 8px; border: 1px solid var(--edge); border-radius: 3px;
@@ -131,12 +131,49 @@ body::after {
   transform-origin: 6px 16px;
   animation: aineko-tail 1.4s ease-in-out infinite;
 }
+.aineko .track-eyes { display: none; }
+.aineko.tracking .idle-eyes,
+.aineko.tracking .watch-eyes { display: none; }
+.aineko.tracking .track-eyes { display: block; }
+.aineko-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(calc(100% + 2px));
+  max-width: 280px;
+  text-align: right;
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--text-dim);
+  pointer-events: none;
+  visibility: hidden;
+  overflow-wrap: anywhere;
+  z-index: 3;
+}
+.aineko-line.shown { visibility: visible; }
 @keyframes aineko-tail {
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(14deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .aineko.watching .tail { animation: none; }
+  .aineko.tracking .track-eyes { display: none; }
+  .aineko.tracking.watching .watch-eyes { display: block; }
+  .aineko.tracking:not(.watching) .idle-eyes { display: block; }
+}
+@media (max-width: 1024px) {
+  /* Hang under the clock. Do not grow the clock: on a shared row it
+     is vertically centered, and a taller box would slide the cat. */
+  .aineko-line {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    top: calc(100% + 2px);
+    transform: none;
+    max-width: none;
+    max-height: calc(2 * 1.35em);
+    overflow: hidden;
+  }
 }
 
 /* ---------------- layout ---------------- */
